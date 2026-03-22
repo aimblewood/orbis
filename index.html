@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ORBIS — Fleet Intelligence Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,300,0,0" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--sidebar-w:240px;--bg:#f4f5fa;--card:#fff;--indigo:#242254;--mid-indigo:#301d7e;--light-indigo:#4b2ebc;--blue-black:#020029;--lilac-blue:#c2e9ff;--covase:#03d3c6;--covase-l:#d6fbf8;--pastel-blue:#726cff;--green-dk:#064e3b;--green-lt:#065f46;--deep-dk:#1e1b4b;--tl-green:#A7EB52;--tl-green-l:#edfcd4;--tl-yellow:#ffd72e;--tl-yellow-l:#fff9dd;--tl-orange:#ff7650;--tl-orange-l:#fff0ec;--tl-red:#e6333a;--tl-red-l:#fdeaeb;--n50:#f8f8fc;--n100:#eeeff5;--n200:#dfe0ea;--n300:#c5c6d4;--n400:#9294a8;--n500:#6b6d82;--n600:#4e5068;--n700:#363850;--n800:#242540;--bar-text:#ffffff;--radius:12px}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--n800);line-height:1.5;-webkit-font-smoothing:antialiased;display:flex;min-height:100vh}
+.content-tools{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-bottom:20px;position:relative}
+.tb-badge{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;padding:6px 12px;border-radius:20px;color:#0a8f86;background:var(--covase-l);transition:all .3s}
+.tb-dot{width:6px;height:6px;border-radius:50%;background:var(--covase);animation:pulse 2s infinite;transition:background .3s}
+.tb-client{font-family:'Outfit',sans-serif;font-weight:600;font-size:13px;color:var(--indigo);background:var(--n100);padding:7px 14px;border-radius:8px;transition:all .3s}
+.theme-btn{background:var(--indigo);color:#fff;border:none;padding:7px 14px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s;letter-spacing:.3px}
+.theme-btn:hover{opacity:.85}
+.theme-btn .dots{display:flex;gap:2px}.theme-btn .dots span{width:8px;height:8px;border-radius:50%;border:1px solid rgba(255,255,255,.3)}
+.theme-panel{display:none;position:absolute;top:100%;right:0;margin-top:6px;background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 8px 30px rgba(0,0,0,.15);border:1px solid var(--n200);min-width:200px;z-index:100}
+.theme-panel.open{display:block}
+.theme-panel .tp-label{font-family:'Outfit',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--n400);margin-bottom:8px}
+.theme-panel .tp-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;cursor:pointer;transition:all .12s;margin-bottom:2px;font-size:12px;font-weight:600;color:var(--n700)}
+.theme-panel .tp-item:hover{background:var(--n100)}
+.theme-panel .tp-item.on{background:var(--n100);color:var(--blue-black);font-weight:700}
+.theme-panel .tp-dots{display:flex;gap:3px}.theme-panel .tp-dots span{width:12px;height:12px;border-radius:50%;border:1.5px solid rgba(0,0,0,.08)}
+.theme-panel .tp-note{font-size:9px;color:var(--n400);font-style:italic;margin-top:8px;padding-top:8px;border-top:1px solid var(--n200)}
+.sidebar{width:var(--sidebar-w);height:100vh;background:var(--indigo);display:flex;flex-direction:column;position:fixed;top:0;left:0;z-index:50;border-right:1px solid rgba(255,255,255,.06);overflow-y:auto;transition:background .3s}.sidebar::-webkit-scrollbar{width:0}
+.sb-logo{padding:24px 20px 28px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,.08)}
+.sb-logo-mark{width:36px;height:36px;border-radius:10px;background:var(--covase);display:flex;align-items:center;justify-content:center;color:var(--indigo);font-family:'Outfit',sans-serif;font-weight:800;font-size:15px;box-shadow:0 2px 12px rgba(3,211,198,.3);transition:background .3s,color .3s}
+.sb-logo-text{display:flex;flex-direction:column}.sb-logo-text .name{font-family:'Outfit',sans-serif;font-size:16px;font-weight:700;color:#fff;letter-spacing:-.3px}.sb-logo-text .tag{font-size:10px;color:rgba(255,255,255,.35);font-weight:500;letter-spacing:.5px}
+.sb-nav{flex:1;padding:16px 0}.sb-group{margin-bottom:6px}.sb-group-label{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.4px;color:rgba(255,255,255,.22);padding:8px 20px 6px}
+.sb-item{display:flex;align-items:center;gap:10px;padding:9px 20px;margin:1px 8px;border-radius:8px;font-size:13px;font-weight:500;color:rgba(255,255,255,.5);cursor:pointer;transition:all .15s;text-decoration:none;position:relative;user-select:none}
+.sb-item:hover{color:rgba(255,255,255,.8);background:rgba(255,255,255,.06)}
+.sb-item.active{color:#fff;background:rgba(3,211,198,.12);font-weight:600}
+.sb-item.active::before{content:'';position:absolute;left:0;width:3px;height:28px;background:var(--covase);border-radius:0 3px 3px 0;transition:background .3s}
+.sb-icon{font-family:'Material Symbols Outlined';font-size:18px;font-weight:normal;font-style:normal;width:18px;text-align:center;opacity:.7;flex-shrink:0;line-height:1;-webkit-font-feature-settings:'liga';font-feature-settings:'liga'}.sb-item.active .sb-icon{opacity:1}
+.mi{font-family:'Material Symbols Outlined';font-size:18px;font-weight:normal;font-style:normal;vertical-align:middle;line-height:1;-webkit-font-feature-settings:'liga';font-feature-settings:'liga'}
+.sb-badge{margin-left:auto;font-size:10px;font-weight:700;background:rgba(230,51,58,.2);color:#f87171;padding:2px 7px;border-radius:10px}
+.sb-divider{height:1px;background:rgba(255,255,255,.06);margin:10px 16px}
+.sb-footer{padding:16px 20px;border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:10px}
+.sb-avatar{width:32px;height:32px;border-radius:8px;background:var(--light-indigo);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;transition:background .3s}
+.sb-user{display:flex;flex-direction:column}.sb-user .email{font-size:11px;color:rgba(255,255,255,.6)}.sb-user .role{font-size:10px;color:rgba(255,255,255,.3)}
+.main{margin-left:var(--sidebar-w);flex:1;min-height:100vh}
+.content{padding:28px 36px 60px}
+.page-view{display:none;animation:pageIn .35s ease}.page-view.active{display:block}
+.page-header{margin-bottom:28px}.page-header h1{font-family:'Outfit',sans-serif;font-size:24px;font-weight:800;color:var(--blue-black);letter-spacing:-.5px;transition:color .3s}.page-header p{font-size:13px;color:var(--n500);margin-top:3px}
+.sl{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px;margin-top:28px;color:var(--covase);transition:color .3s}.sl:first-of-type{margin-top:0}
+.hero-row{display:grid;gap:16px;margin-bottom:24px}.h4{grid-template-columns:repeat(4,1fr)}.h3{grid-template-columns:repeat(3,1fr)}.h5{grid-template-columns:repeat(5,1fr)}
+.hc{background:var(--card);border-radius:var(--radius);padding:22px 24px;border:1px solid var(--n200);transition:border-color .3s}
+.hc .hl{font-size:11px;font-weight:600;color:var(--n500);text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px}
+.hc .hv{font-family:'Outfit',sans-serif;font-size:34px;font-weight:800;letter-spacing:-1px;line-height:1.1}
+.hc .hs{font-size:12px;color:var(--n400);margin-top:5px}
+.ab{border-radius:var(--radius);padding:16px 22px;margin-bottom:24px;display:flex;align-items:center;gap:14px}
+.ab.red{background:linear-gradient(135deg,var(--tl-red-l),var(--tl-orange-l));border:1px solid rgba(230,51,58,.2)}
+.ab.orange{background:linear-gradient(135deg,var(--tl-orange-l),var(--tl-red-l));border:1px solid rgba(255,118,80,.2)}
+.ab-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;flex-shrink:0}
+.ab-text{font-size:13px;color:var(--n700);flex:1;line-height:1.7}.ab-amt{font-family:'Outfit',sans-serif;font-size:26px;font-weight:800;flex-shrink:0}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+.cd{background:var(--card);border-radius:var(--radius);border:1px solid var(--n200);padding:22px;transition:border-color .3s}
+.cd-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.cd-t{font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;color:var(--blue-black);transition:color .3s}
+.bdg{font-size:10px;font-weight:600;padding:4px 9px;border-radius:6px}
+.fs{display:flex;align-items:center;gap:28px;justify-content:center}
+.ring{position:relative;width:160px;height:160px}.ring svg{transform:rotate(-90deg)}
+.rc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.rc .rn{font-family:'Outfit',sans-serif;font-size:30px;font-weight:800;color:var(--blue-black);transition:color .3s}.rc .rt{font-size:10px;color:var(--n500)}
+.lg{display:flex;flex-direction:column;gap:9px}.lg-i{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--n700)}.lg-d{width:9px;height:9px;border-radius:3px;flex-shrink:0}
+.cmp{display:flex;flex-direction:column;gap:14px}.cmp-r{display:flex;align-items:center;gap:10px}
+.cmp-l{width:85px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;color:var(--n700);text-align:right;flex-shrink:0}
+.cmp-t{flex:1;height:26px;background:var(--n100);border-radius:6px;overflow:hidden;transition:background .3s}
+.cmp-f{height:100%;border-radius:6px;display:flex;align-items:center;padding:0 10px;font-size:11px;font-weight:600;color:var(--bar-text)}
+.cmp-v{font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;width:70px;text-align:right;flex-shrink:0}
+.mpg-list{display:flex;flex-direction:column;gap:14px}.mpg-item{display:flex;align-items:center;gap:12px}
+.mpg-v{width:115px;flex-shrink:0}.mpg-v .reg{font-family:'Outfit',sans-serif;font-weight:700;font-size:12px;color:var(--blue-black)}.mpg-v .mod{font-size:10px;color:var(--n500)}
+.mpg-bars{flex:1;display:flex;flex-direction:column;gap:3px}.mpg-row{display:flex;align-items:center;gap:6px}
+.mpg-lbl{font-size:9px;color:var(--n500);width:42px;text-align:right;flex-shrink:0}
+.mpg-tk{flex:1;height:12px;background:var(--n100);border-radius:4px;overflow:hidden}.mpg-fl{height:100%;border-radius:4px}
+.mpg-val{font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;width:50px;text-align:right;flex-shrink:0}
+.gauge-list{display:flex;flex-direction:column;gap:12px}.gauge-r{display:flex;align-items:center;gap:12px}
+.gauge-v{width:115px;flex-shrink:0}.gauge-v .reg{font-family:'Outfit',sans-serif;font-weight:700;font-size:12px;color:var(--blue-black)}.gauge-v .mod{font-size:10px;color:var(--n500)}
+.gauge-tk{flex:1;height:22px;background:var(--n100);border-radius:6px;overflow:hidden}
+.gauge-fl{height:100%;border-radius:6px;display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:600;color:var(--bar-text);min-width:24px}
+.gauge-lbl{font-size:11px;font-weight:600;width:70px;text-align:right;flex-shrink:0}
+.range-list{display:flex;flex-direction:column;gap:14px}.range-item{display:flex;align-items:center;gap:10px}
+.range-v{width:110px;flex-shrink:0}.range-v .reg{font-family:'Outfit',sans-serif;font-weight:700;font-size:12px;color:var(--blue-black)}.range-v .mod{font-size:10px;color:var(--n500)}
+.range-bars{flex:1;display:flex;flex-direction:column;gap:3px}.range-row{display:flex;align-items:center;gap:6px}
+.range-lbl{font-size:9px;color:var(--n500);width:40px;text-align:right;flex-shrink:0}
+.range-tk{flex:1;height:11px;background:var(--n100);border-radius:4px;overflow:hidden}.range-fl{height:100%;border-radius:4px}
+.range-val{font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;width:48px;text-align:right;flex-shrink:0}
+.lb{display:flex;flex-direction:column;gap:8px}.lb-r{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;background:var(--n100);transition:background .15s}
+.lb-r:hover{background:var(--n200)}.lb-r.top{background:var(--tl-green-l);border:1px solid rgba(167,235,82,.4)}.lb-r.bad{background:var(--tl-red-l);border:1px solid rgba(230,51,58,.2)}
+.lb-rk{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;background:var(--n300);color:var(--n700);flex-shrink:0}
+.lb-r.top .lb-rk{background:var(--tl-green);color:#fff}.lb-r.bad .lb-rk{background:var(--tl-red);color:#fff}
+.lb-d{flex:1}.lb-d .nm{font-weight:600;font-size:12px;color:var(--blue-black)}.lb-d .vh{font-size:10px;color:var(--n500)}
+.lb-k{font-size:11px;font-weight:600;color:var(--n500);width:60px;text-align:right}.lb-s{font-family:'Outfit',sans-serif;font-size:16px;font-weight:800;width:40px;text-align:right}
+.tar-list{display:flex;flex-direction:column;gap:12px}.tar-r{display:flex;align-items:center;gap:10px}
+.tar-l{width:90px;flex-shrink:0}.tar-l .tn{font-weight:600;font-size:12px;color:var(--blue-black)}.tar-l .ts{font-size:10px;color:var(--n500)}
+.tar-tk{flex:1;height:28px;background:var(--n100);border-radius:7px;overflow:hidden}
+.tar-fl{height:100%;border-radius:7px;display:flex;align-items:center;padding:0 10px;font-size:11px;font-weight:600;color:var(--bar-text)}
+.tar-val{font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;width:55px;text-align:right;flex-shrink:0}
+.aer-list{display:flex;flex-direction:column;gap:10px}.aer-r{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px}
+.aer-r.over{background:var(--tl-red-l);border:1px solid rgba(230,51,58,.15)}.aer-r.fair{background:var(--tl-green-l);border:1px solid rgba(167,235,82,.3)}
+.ar-d{width:110px;flex-shrink:0}.ar-d .nm{font-weight:600;font-size:12px;color:var(--blue-black)}.ar-d .vh{font-size:10px;color:var(--n500)}
+.ar-dt{flex:1}.ar-dt .loc{font-size:10px;color:var(--n500);margin-bottom:2px}.ar-dt .rates{display:flex;gap:12px;font-size:11px}
+.ar-op{font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;text-align:right;width:80px;flex-shrink:0}
+.al-list{display:flex;flex-direction:column;gap:8px}.al-i{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;border:1px solid var(--n200)}
+.al-i.crit{border-left:3px solid var(--tl-red);background:#fffbfb}.al-i.warn{border-left:3px solid var(--tl-orange);background:#fffefb}.al-i.info{border-left:3px solid var(--pastel-blue);background:#fbfbff}
+.al-ic{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.al-i.crit .al-ic{background:var(--tl-red-l)}.al-i.warn .al-ic{background:var(--tl-orange-l)}.al-i.info .al-ic{background:#eef0ff}
+.al-dt{flex:1}.al-dt .at{font-weight:600;font-size:12px;color:var(--blue-black)}.al-dt .as{font-size:10px;color:var(--n500);margin-top:1px}
+.al-sv{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:3px 7px;border-radius:4px;flex-shrink:0}
+.al-sv.c{background:var(--tl-red-l);color:var(--tl-red)}.al-sv.w{background:var(--tl-orange-l);color:var(--tl-orange)}.al-sv.m{background:#eef0ff;color:var(--pastel-blue)}
+.al-tm{font-size:10px;color:var(--n400);white-space:nowrap}
+.svc{display:flex;flex-direction:column;gap:8px}.svc-i{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px}
+.svc-i.od{background:var(--tl-red-l);border:1px solid rgba(230,51,58,.15)}.svc-i.sn{background:var(--tl-yellow-l);border:1px solid rgba(255,215,46,.3)}.svc-i.up{background:rgba(114,108,255,.08);border:1px solid rgba(114,108,255,.15)}
+.svc-dt{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.svc-i.od .svc-dt{background:var(--tl-red)}.svc-i.sn .svc-dt{background:var(--tl-orange)}.svc-i.up .svc-dt{background:var(--pastel-blue)}
+.svc-inf{flex:1}.svc-inf .sr{font-family:'Outfit',sans-serif;font-weight:700;font-size:11px;color:var(--blue-black)}.svc-inf .sd{font-size:10px;color:var(--n500)}
+.svc-date{font-size:10px;font-weight:600;flex-shrink:0}
+.hg{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
+.hg-c{background:var(--card);border-radius:var(--radius);border:1px solid var(--n200);padding:18px}
+.hg-t{font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;color:var(--blue-black);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.bl{display:flex;flex-direction:column;gap:7px}.bl-r{display:flex;align-items:center;gap:6px}
+.bl-rg{font-family:'Outfit',sans-serif;font-size:10px;font-weight:600;width:62px;color:var(--n700);flex-shrink:0}
+.bl-tk{flex:1;height:8px;background:var(--n100);border-radius:4px;overflow:hidden}.bl-fl{height:100%;border-radius:4px}
+.bl-v{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;width:32px;text-align:right;flex-shrink:0}
+.tyre-r{display:flex;align-items:center;gap:6px;font-size:11px;margin-bottom:7px}
+.tyre-rg{font-family:'Outfit',sans-serif;font-weight:600;width:62px;font-size:10px;color:var(--n700);flex-shrink:0}
+.tw-g{display:flex;gap:3px}.tw{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff}
+.tw.ok{background:var(--tl-green)}.tw.lo{background:var(--tl-yellow)}.tw.cr{background:var(--tl-red)}
+.tyre-al{font-size:10px;font-weight:600;flex-shrink:0;margin-left:auto}
+.ul{display:flex;flex-direction:column;gap:7px}.ul-r{display:flex;align-items:center;gap:6px}
+.ul-rg{font-family:'Outfit',sans-serif;font-size:10px;font-weight:600;width:62px;color:var(--n700);flex-shrink:0}
+.ul-tk{flex:1;height:8px;background:var(--n100);border-radius:4px;overflow:hidden}.ul-fl{height:100%;border-radius:4px}
+.ul-v{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;width:32px;text-align:right;flex-shrink:0}
+.ul-d{font-size:9px;color:var(--n400);width:50px;flex-shrink:0}
+.db{background:linear-gradient(135deg,var(--indigo),var(--mid-indigo));border-radius:var(--radius);padding:24px 28px;margin-bottom:24px;display:flex;align-items:center;gap:24px;color:#fff;transition:background .3s}
+.db.green{background:linear-gradient(135deg,var(--green-dk),var(--green-lt))}.db.deep{background:linear-gradient(135deg,var(--deep-dk),var(--mid-indigo))}
+.db-big{font-family:'Outfit',sans-serif;font-size:48px;font-weight:800;line-height:1;flex-shrink:0}
+.db-div{width:1px;height:60px;background:rgba(255,255,255,.12);flex-shrink:0}
+.db-ct{flex:1}.db-ct h3{font-family:'Outfit',sans-serif;font-size:16px;font-weight:700;margin-bottom:5px;display:flex;align-items:center;gap:8px}
+.db-ct p{font-size:12px;color:rgba(255,255,255,.65);line-height:1.6}.db-ct strong{color:#fff}
+.db-tag{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:1px;background:rgba(3,211,198,.2);color:var(--covase);padding:2px 7px;border-radius:4px}
+.db-mt{margin-left:auto;display:flex;gap:18px;flex-shrink:0}
+.db-m{text-align:center}.db-m .v{font-family:'Outfit',sans-serif;font-size:18px;font-weight:700}.db-m .l{font-size:9px;color:rgba(255,255,255,.4);margin-top:2px}
+.db-rates{margin-left:auto;display:flex;flex-direction:column;gap:8px;flex-shrink:0}
+.db-rate{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.08);padding:6px 12px;border-radius:7px}
+.db-rate .rl{font-size:10px;color:rgba(255,255,255,.5);width:80px}.db-rate .rv{font-family:'Outfit',sans-serif;font-size:14px;font-weight:700}
+.oes-ring{width:90px;height:90px;position:relative;flex-shrink:0}.oes-ring svg{transform:rotate(-90deg)}
+.oes-c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.oes-c .num{font-family:'Outfit',sans-serif;font-size:26px;font-weight:800;color:var(--covase);transition:color .3s}.oes-c .lbl{font-size:8px;color:rgba(255,255,255,.4);font-weight:600;text-transform:uppercase;letter-spacing:1px}
+.s3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
+.sc{background:var(--card);border-radius:var(--radius);border:1px solid var(--n200);padding:18px;display:flex;flex-direction:column;gap:6px}
+.sc .si{font-size:22px;margin-bottom:4px}.sc .sp{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px}
+.sc .st{font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;color:var(--blue-black)}
+.sc .sd{font-size:11px;color:var(--n500);line-height:1.5}.sc .ss{font-family:'Outfit',sans-serif;font-size:20px;font-weight:800;margin-top:auto;padding-top:4px}
+.cp{background:linear-gradient(135deg,var(--tl-red-l),var(--tl-orange-l));border:1px solid rgba(230,51,58,.15);border-radius:var(--radius);padding:18px 22px;margin-bottom:24px}
+.cp-h{display:flex;align-items:center;gap:8px;margin-bottom:12px}.cp-h h3{font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;color:var(--tl-red)}
+.cp-g{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.cp-i{background:#fff;border-radius:8px;padding:12px;border:1px solid rgba(230,51,58,.12)}
+.cp-i .cr{font-family:'Outfit',sans-serif;font-weight:700;font-size:12px;color:var(--blue-black)}
+.cp-i .ci{font-size:11px;color:var(--tl-red);font-weight:600;margin:3px 0}.cp-i .cd{font-size:10px;color:var(--n500);line-height:1.5}
+.fun{background:linear-gradient(135deg,var(--covase-l),var(--tl-green-l));border:1px solid rgba(3,211,198,.25);border-radius:var(--radius);padding:16px 22px;margin-bottom:24px;display:flex;align-items:center;gap:14px;transition:all .3s}
+.fun-i{font-size:28px;flex-shrink:0}.fun-t{font-size:13px;color:var(--n700)}.fun-t strong{color:var(--indigo);font-family:'Outfit',sans-serif;transition:color .3s}
+.tw-h{margin-top:4px}.tw-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.tw-tt{font-family:'Outfit',sans-serif;font-size:17px;font-weight:700;color:var(--blue-black);transition:color .3s}
+.flt{display:flex;gap:6px}
+.fb{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;padding:5px 12px;border-radius:6px;border:1px solid var(--n200);background:var(--card);color:var(--n600);cursor:pointer;transition:all .15s}
+.fb:hover,.fb.on{background:var(--indigo);color:#fff;border-color:var(--indigo)}
+.tbl{width:100%;background:var(--card);border-radius:var(--radius);border:1px solid var(--n200);overflow-x:auto;transition:border-color .3s}
+table{width:100%;border-collapse:collapse}
+thead th{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--n500);padding:12px 14px;text-align:left;border-bottom:2px solid var(--n200);background:var(--n50);white-space:nowrap;transition:all .3s}
+tbody tr{border-bottom:1px solid var(--n100);transition:background .12s}tbody tr:hover{background:var(--n50)}tbody tr:last-child{border-bottom:none}
+td{padding:12px 14px;font-size:12px;color:var(--n700);white-space:nowrap}td:first-child{font-family:'Outfit',sans-serif;font-weight:700;color:var(--blue-black)}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;padding:3px 9px;border-radius:16px}
+.pill.over,.pill.never,.pill.critical{background:var(--tl-red-l);color:var(--tl-red)}
+.pill.under,.pill.regular,.pill.healthy{background:var(--tl-green-l);color:#4a8c1a}
+.pill.on-track{background:rgba(194,233,255,.5);color:var(--light-indigo)}
+.pill.rare,.pill.attention{background:var(--tl-orange-l);color:var(--tl-orange)}
+.loc-p{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:600;padding:3px 8px;border-radius:4px}
+.loc-p.home{background:var(--tl-green-l);color:#4a8c1a}.loc-p.pub{background:var(--tl-red-l);color:var(--tl-red)}
+.oes-p{display:inline-flex;align-items:center;justify-content:center;width:34px;height:22px;font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;border-radius:5px}
+.oes-p.exc{background:var(--tl-green-l);color:#4a8c1a}.oes-p.gd{background:rgba(194,233,255,.5);color:var(--light-indigo)}.oes-p.poor{background:var(--tl-red-l);color:var(--tl-red)}
+.mb{width:70px;height:5px;background:var(--n100);border-radius:3px;overflow:hidden;display:inline-block;vertical-align:middle;margin-right:6px}.mb span{display:block;height:100%;border-radius:3px}
+.ex{font-family:'Outfit',sans-serif;font-weight:700}
+.trend{font-size:11px;font-weight:600}.trend.up{color:#4a8c1a}.trend.dn{color:var(--tl-red)}.trend.flat{color:var(--n400)}
+.pag{display:flex;align-items:center;justify-content:space-between;padding:14px 0;font-size:12px;color:var(--n500)}
+.pag-b{display:flex;gap:3px}.pg{width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:6px;border:1px solid var(--n200);background:var(--card);font-size:11px;font-weight:600;color:var(--n600);cursor:pointer;transition:all .15s}
+.pg:hover,.pg.on{background:var(--indigo);color:#fff;border-color:var(--indigo)}
+@keyframes slideUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes pageIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+/* Theme Editor Overlay */
+.te-toggle{padding:7px 14px;border-radius:8px;background:var(--indigo);color:#fff;border:1px solid rgba(255,255,255,.15);font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s;letter-spacing:.3px}
+.te-toggle:hover{opacity:.85}
+.te-toggle .dots{display:flex;gap:2px}.te-toggle .dots span{width:8px;height:8px;border-radius:50%;border:1px solid rgba(255,255,255,.3)}
+.te-panel{position:fixed;top:0;right:-360px;width:360px;height:100vh;background:#12122a;z-index:9998;display:flex;flex-direction:column;box-shadow:-4px 0 30px rgba(0,0,0,.3);transition:right .3s;border-left:1px solid rgba(255,255,255,.06)}
+.te-panel.open{right:0}
+.te-head{padding:18px 20px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between}
+.te-head h2{font-family:'Outfit',sans-serif;font-size:16px;font-weight:800;color:#fff;display:flex;align-items:center;gap:8px}
+.te-head .mark{width:24px;height:24px;border-radius:6px;background:var(--covase);display:flex;align-items:center;justify-content:center;color:var(--indigo);font-family:'Outfit',sans-serif;font-weight:800;font-size:10px}
+.te-close{background:none;border:none;color:rgba(255,255,255,.4);cursor:pointer;padding:4px}.te-close:hover{color:#fff}
+.te-presets{padding:12px 20px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;flex-wrap:wrap;gap:6px}
+.te-preset{display:flex;align-items:center;gap:6px;padding:4px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:transparent;color:rgba(255,255,255,.6);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s}
+.te-preset:hover{border-color:rgba(255,255,255,.25);color:#fff}
+.te-preset.on{border-color:var(--covase);color:#fff;background:rgba(3,211,198,.1)}
+.te-preset .td{display:flex;gap:2px}.te-preset .td span{width:8px;height:8px;border-radius:50%;border:1px solid rgba(255,255,255,.15)}
+.te-scroll{flex:1;overflow-y:auto;padding:14px 20px 30px}
+.te-scroll::-webkit-scrollbar{width:4px}.te-scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:4px}
+.te-cg{margin-bottom:18px}
+.te-cg-label{font-family:'Outfit',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.3px;color:rgba(255,255,255,.25);margin-bottom:8px}
+.te-ci{display:flex;align-items:center;gap:10px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.te-ci:last-child{border-bottom:none}
+.te-sw{position:relative;width:26px;height:26px;border-radius:5px;border:2px solid rgba(255,255,255,.1);cursor:pointer;flex-shrink:0;overflow:hidden;transition:border-color .15s}
+.te-sw:hover{border-color:rgba(255,255,255,.3)}
+.te-sw input{position:absolute;inset:-4px;width:calc(100% + 8px);height:calc(100% + 8px);opacity:0;cursor:pointer}
+.te-nm{font-size:11px;font-weight:600;color:rgba(255,255,255,.8)}.te-vr{font-size:9px;color:rgba(255,255,255,.25);font-family:monospace}
+.te-hx{font-family:'Outfit',sans-serif;font-size:11px;font-weight:600;color:rgba(255,255,255,.5);width:60px;text-align:right;flex-shrink:0}
+.te-foot{padding:12px 20px;border-top:1px solid rgba(255,255,255,.06);display:flex;gap:8px}
+.te-btn{flex:1;padding:8px;border-radius:8px;border:none;font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;transition:all .15s}
+.te-btn.pri{background:var(--covase);color:var(--indigo)}.te-btn.pri:hover{opacity:.85}
+.te-btn.sec{background:rgba(255,255,255,.06);color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.1)}.te-btn.sec:hover{color:#fff}
+.te-toast{position:fixed;bottom:24px;right:24px;background:var(--indigo);color:#fff;padding:10px 18px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;box-shadow:0 4px 20px rgba(0,0,0,.3);transform:translateY(80px);transition:transform .3s;z-index:99999;display:flex;align-items:center;gap:6px}
+.te-toast.show{transform:translateY(0)}
+</style>
+</head>
+<body>
+<!-- THEME EDITOR PANEL -->
+<div class="te-panel" id="tePanel">
+<div class="te-head"><h2><span class="mark">O</span> Theme Editor</h2><button class="te-close" onclick="document.getElementById('tePanel').classList.remove('open')"><span class="mi" style="font-size:20px">close</span></button></div>
+<div class="te-presets">
+<button class="te-preset on" onclick="tePreset('orbis',this)"><div class="td"><span style="background:#242254"></span><span style="background:#03d3c6"></span></div>Orbis</button>
+<button class="te-preset" onclick="tePreset('midnight',this)"><div class="td"><span style="background:#023E8A"></span><span style="background:#0096C7"></span></div>Midnight</button>
+<button class="te-preset" onclick="tePreset('forest',this)"><div class="td"><span style="background:#283618"></span><span style="background:#55A630"></span></div>Forest</button>
+<button class="te-preset" onclick="tePreset('coastal',this)"><div class="td"><span style="background:#19747E"></span><span style="background:#2AB0A8"></span></div>Coastal</button>
+<button class="te-preset" onclick="tePreset('refined',this)"><div class="td"><span style="background:#1B1B1B"></span><span style="background:#6b7340"></span></div>Refined</button>
+<button class="te-preset" onclick="tePreset('navy',this)"><div class="td"><span style="background:#0F2143"></span><span style="background:#C49A1A"></span></div>Navy</button>
+</div>
+<div class="te-scroll">
+<div class="te-cg"><div class="te-cg-label">Brand Primary</div>
+<div class="te-ci"><div class="te-sw" id="sw-indigo" style="background:var(--indigo)"><input type="color" value="#242254" onchange="teSet('--indigo',this.value)"></div><div style="flex:1"><div class="te-nm">Sidebar / Primary</div><div class="te-vr">--indigo</div></div><div class="te-hx" id="hx-indigo">#242254</div></div>
+<div class="te-ci"><div class="te-sw" id="sw-blue-black" style="background:var(--blue-black)"><input type="color" value="#020029" onchange="teSet('--blue-black',this.value)"></div><div style="flex:1"><div class="te-nm">Headings / Dark Text</div><div class="te-vr">--blue-black</div></div><div class="te-hx" id="hx-blue-black">#020029</div></div>
+<div class="te-ci"><div class="te-sw" id="sw-covase" style="background:var(--covase)"><input type="color" value="#03d3c6" onchange="teSet('--covase',this.value)"></div><div style="flex:1"><div class="te-nm">Primary Accent</div><div class="te-vr">--covase</div></div><div class="te-hx" id="hx-covase">#03d3c6</div></div>
+<div class="te-ci"><div class="te-sw" id="sw-covase-l" style="background:var(--covase-l)"><input type="color" value="#d6fbf8" onchange="teSet('--covase-l',this.value)"></div><div style="flex:1"><div class="te-nm">Accent Light</div><div class="te-vr">--covase-l</div></div><div class="te-hx" id="hx-covase-l">#d6fbf8</div></div>
+<div class="te-ci"><div class="te-sw" id="sw-mid-indigo" style="background:var(--mid-indigo)"><input type="color" value="#301d7e" onchange="teSet('--mid-indigo',this.value)"></div><div style="flex:1"><div class="te-nm">Dark Banner Gradient</div><div class="te-vr">--mid-indigo</div></div><div class="te-hx" id="hx-mid-indigo">#301d7e</div></div>
+<div class="te-ci"><div class="te-sw" id="sw-light-indigo" style="background:var(--light-indigo)"><input type="color" value="#4b2ebc" onchange="teSet('--light-indigo',this.value)"></div><div style="flex:1"><div class="te-nm">Secondary Accent</div><div class="te-vr">--light-indigo</div></div><div class="te-hx" id="hx-light-indigo">#4b2ebc</div></div>
+<div class="te-ci"><div class="te-sw" id="sw-pastel-blue" style="background:var(--pastel-blue)"><input type="color" value="#726cff" onchange="teSet('--pastel-blue',this.value)"></div><div style="flex:1"><div class="te-nm">Tertiary / EV</div><div class="te-vr">--pastel-blue</div></div><div class="te-hx" id="hx-pastel-blue">#726cff</div></div>
+<div class="te-ci"><div class="te-sw" id="sw-lilac-blue" style="background:var(--lilac-blue)"><input type="color" value="#c2e9ff" onchange="teSet('--lilac-blue',this.value)"></div><div style="flex:1"><div class="te-nm">Soft Tint</div><div class="te-vr">--lilac-blue</div></div><div class="te-hx" id="hx-lilac-blue">#c2e9ff</div></div>
+</div>
+<div class="te-cg"><div class="te-cg-label">Dark Banner Gradients</div>
+<div class="te-ci"><div class="te-sw" id="sw-green-dk" style="background:#064e3b"><input type="color" value="#064e3b" onchange="teSet('--green-dk',this.value)"></div><div style="flex:1"><div class="te-nm">AER Banner (Dark)</div><div class="te-vr">--green-dk</div></div><div class="te-hx" id="hx-green-dk">#064e3b</div></div>
+<div class="te-ci"><div class="te-sw" id="sw-green-lt" style="background:#065f46"><input type="color" value="#065f46" onchange="teSet('--green-lt',this.value)"></div><div style="flex:1"><div class="te-nm">AER Banner (Light)</div><div class="te-vr">--green-lt</div></div><div class="te-hx" id="hx-green-lt">#065f46</div></div>
+<div class="te-ci"><div class="te-sw" id="sw-deep-dk" style="background:#1e1b4b"><input type="color" value="#1e1b4b" onchange="teSet('--deep-dk',this.value)"></div><div style="flex:1"><div class="te-nm">Predictive Banner</div><div class="te-vr">--deep-dk</div></div><div class="te-hx" id="hx-deep-dk">#1e1b4b</div></div>
+</div>
+<div class="te-cg"><div class="te-cg-label">Typography</div>
+<div class="te-ci"><div class="te-sw" id="sw-n800" style="background:var(--n800)"><input type="color" value="#242540" onchange="teSet('--n800',this.value)"></div><div style="flex:1"><div class="te-nm">Darkest Text</div><div class="te-vr">--n800</div></div><div class="te-hx" id="hx-n800">#242540</div></div>
+<div class="te-ci"><div class="te-sw" id="sw-n600" style="background:var(--n600)"><input type="color" value="#4e5068" onchange="teSet('--n600',this.value)"></div><div style="flex:1"><div class="te-nm">Button / Filter Text</div><div class="te-vr">--n600</div></div><div class="te-hx" id="hx-n600">#4e5068</div></div>
+<div class="te-ci"><div class="te-sw" id="sw-n400" style="background:var(--n400)"><input type="color" value="#9294a8" onchange="teSet('--n400',this.value)"></div><div style="flex:1"><div class="te-nm">Timestamps / Sub-values</div><div class="te-vr">--n400</div></div><div class="te-hx" id="hx-n400">#9294a8</div></div>
+<div class="te-ci"><div class="te-sw" id="sw-bar-text" style="background:#ffffff"><input type="color" value="#ffffff" onchange="teSet('--bar-text',this.value)"></div><div style="flex:1"><div class="te-nm">Bar Label (on fill)</div><div class="te-vr">--bar-text</div></div><div class="te-hx" id="hx-bar-text">#ffffff</div></div>
+</div>
+<div class="te-cg"><div class="te-cg-label">Neutrals</div>
+<div class="te-ci"><div class="te-sw" id="sw-bg" style="background:var(--bg)"><input type="color" value="#f4f5fa" onchange="teSet('--bg',this.value)"></div><div style="flex:1"><div class="te-nm">Page Background</div><div class="te-vr">--bg</div></div><div class="te-hx" id="hx-bg">#f4f5fa</div></div>
+<div class="te-ci"><div class="te-sw" id="sw-n100" style="background:var(--n100)"><input type="color" value="#eeeff5" onchange="teSet('--n100',this.value)"></div><div style="flex:1"><div class="te-nm">Track / Row BG</div><div class="te-vr">--n100</div></div><div class="te-hx" id="hx-n100">#eeeff5</div></div>
+<div class="te-ci"><div class="te-sw" id="sw-n200" style="background:var(--n200)"><input type="color" value="#dfe0ea" onchange="teSet('--n200',this.value)"></div><div style="flex:1"><div class="te-nm">Borders</div><div class="te-vr">--n200</div></div><div class="te-hx" id="hx-n200">#dfe0ea</div></div>
+<div class="te-ci"><div class="te-sw" id="sw-n300" style="background:var(--n300)"><input type="color" value="#c5c6d4" onchange="teSet('--n300',this.value)"></div><div style="flex:1"><div class="te-nm">Reference Bars</div><div class="te-vr">--n300</div></div><div class="te-hx" id="hx-n300">#c5c6d4</div></div>
+<div class="te-ci"><div class="te-sw" id="sw-n500" style="background:var(--n500)"><input type="color" value="#6b6d82" onchange="teSet('--n500',this.value)"></div><div style="flex:1"><div class="te-nm">Labels / Secondary</div><div class="te-vr">--n500</div></div><div class="te-hx" id="hx-n500">#6b6d82</div></div>
+<div class="te-ci"><div class="te-sw" id="sw-n700" style="background:var(--n700)"><input type="color" value="#363850" onchange="teSet('--n700',this.value)"></div><div style="flex:1"><div class="te-nm">Body Text</div><div class="te-vr">--n700</div></div><div class="te-hx" id="hx-n700">#363850</div></div>
+</div>
+<div class="te-cg"><div class="te-cg-label">Traffic Light (Status)</div>
+<div class="te-ci"><div class="te-sw" id="sw-tl-red" style="background:var(--tl-red)"><input type="color" value="#e6333a" onchange="teSet('--tl-red',this.value)"></div><div style="flex:1"><div class="te-nm">Critical / Over</div><div class="te-vr">--tl-red</div></div><div class="te-hx" id="hx-tl-red">#e6333a</div></div>
+<div class="te-ci"><div class="te-sw" id="sw-tl-orange" style="background:var(--tl-orange)"><input type="color" value="#ff7650" onchange="teSet('--tl-orange',this.value)"></div><div style="flex:1"><div class="te-nm">Warning / Review</div><div class="te-vr">--tl-orange</div></div><div class="te-hx" id="hx-tl-orange">#ff7650</div></div>
+<div class="te-ci"><div class="te-sw" id="sw-tl-yellow" style="background:var(--tl-yellow)"><input type="color" value="#ffd72e" onchange="teSet('--tl-yellow',this.value)"></div><div style="flex:1"><div class="te-nm">Caution / Monitor</div><div class="te-vr">--tl-yellow</div></div><div class="te-hx" id="hx-tl-yellow">#ffd72e</div></div>
+<div class="te-ci"><div class="te-sw" id="sw-tl-green" style="background:var(--tl-green)"><input type="color" value="#A7EB52" onchange="teSet('--tl-green',this.value)"></div><div style="flex:1"><div class="te-nm">Healthy / Good</div><div class="te-vr">--tl-green</div></div><div class="te-hx" id="hx-tl-green">#A7EB52</div></div>
+</div>
+</div>
+<div class="te-foot">
+<button class="te-btn pri" onclick="teExport()"><span class="mi" style="font-size:14px">content_copy</span> Copy CSS</button>
+<button class="te-btn sec" onclick="tePreset('orbis',document.querySelector('.te-preset'))"><span class="mi" style="font-size:14px">restart_alt</span> Reset</button>
+</div>
+</div>
+<div class="te-toast" id="teToast"><span class="mi" style="font-size:14px">check_circle</span> <span id="teToastMsg">Copied!</span></div>
+<nav class="sidebar">
+<div class="sb-logo"><div class="sb-logo-mark">O</div><div class="sb-logo-text"><span class="name">Orbis Fleet</span><span class="tag">Intelligence Platform</span></div></div>
+<div class="sb-nav">
+<div class="sb-group"><div class="sb-group-label">Intelligence</div>
+<a class="sb-item" data-view="mileage" onclick="switchView('mileage')"><span class="sb-icon">speed</span> Mileage Management</a>
+<a class="sb-item" data-view="phev" onclick="switchView('phev')"><span class="sb-icon">power</span> PHEV Audit</a>
+<a class="sb-item" data-view="ev" onclick="switchView('ev')"><span class="sb-icon">bolt</span> EV Performance</a>
+<a class="sb-item" data-view="charging" onclick="switchView('charging')"><span class="sb-icon">payments</span> Charging Costs</a>
+<a class="sb-item" data-view="maintenance" onclick="switchView('maintenance')"><span class="sb-icon">build</span> Maintenance <span class="sb-badge">2</span></a>
+</div><div class="sb-divider"></div>
+<div class="sb-group"><div class="sb-group-label">Fleet</div>
+<a class="sb-item"><span class="sb-icon">directions_car</span> Fleet Management</a>
+<a class="sb-item"><span class="sb-icon">person</span> Driver Records</a>
+<a class="sb-item"><span class="sb-icon">description</span> Contracts</a>
+</div><div class="sb-divider"></div>
+<div class="sb-group"><div class="sb-group-label">Salary Sacrifice</div>
+<a class="sb-item"><span class="sb-icon">calculate</span> Perx Calculator</a>
+<a class="sb-item"><span class="sb-icon">trending_up</span> Sales Funnel</a>
+</div><div class="sb-divider"></div>
+<div class="sb-group"><div class="sb-group-label">Operations</div>
+<a class="sb-item"><span class="sb-icon">apartment</span> HR Dashboard</a>
+<a class="sb-item"><span class="sb-icon">eco</span> ESG Report</a>
+</div>
+</div>
+<div class="sb-footer"><div class="sb-avatar">SC</div><div class="sb-user"><span class="email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4f3c262220210f2c20392e3c2a612c20613a24">[email&#160;protected]</a></span><span class="role">Administrator</span></div></div>
+</nav>
+<div class="main">
+<div class="content">
+<div class="content-tools">
+<div class="tb-badge"><span class="tb-dot"></span> <span id="tb-bdg">Connected Vehicle Data</span></div>
+<div class="tb-client" id="tb-cl">Woodland Trust — 42 Vehicles</div>
+<button class="te-toggle" onclick="document.getElementById('tePanel').classList.toggle('open')"><div class="dots"><span style="background:#242254"></span><span style="background:#03d3c6"></span><span style="background:#e6333a"></span></div>Theme Editor</button>
+</div>
+
+<!-- 1. MILEAGE -->
+<div class="page-view active" id="view-mileage">
+<div class="page-header"><h1>Mileage Management</h1><p>Contract mileage analysis, variance tracking &amp; amendment recommendations</p></div>
+<div class="sl">Fleet Mileage Overview</div>
+<div class="hero-row h4">
+<div class="hc" style="border-top:3px solid var(--tl-red)"><div class="hl">Excess Mileage Exposure</div><div class="hv" style="color:var(--tl-red)">£47,280</div><div class="hs">If no amendments are made</div></div>
+<div class="hc" style="border-top:3px solid var(--tl-green)"><div class="hl">Amendments Saved to Date</div><div class="hv" style="color:#4a8c1a">£18,640</div><div class="hs">12 amendments this year</div></div>
+<div class="hc" style="border-top:3px solid var(--covase)"><div class="hl">Under-Mileage Opportunity</div><div class="hv" style="color:var(--covase)">£9,120</div><div class="hs">8 vehicles eligible</div></div>
+<div class="hc" style="border-top:3px solid var(--n400)"><div class="hl">Contract vs Actual Avg</div><div class="hv" style="color:var(--blue-black);font-size:26px">12,000 <span style="font-size:16px;color:var(--n400);font-weight:400">vs</span> 13,840</div><div class="hs">Annual mi (contract vs projected)</div></div>
+</div>
+<div class="ab red"><div class="ab-icon" style="background:var(--tl-red)"><span class="mi" style="color:#fff">warning</span></div><div class="ab-text"><strong style="color:var(--tl-red)">7 vehicles</strong> projected to exceed contractual mileage. Orbis recommends <strong style="color:var(--tl-red)">immediate amendments</strong> on 4 high-priority vehicles.</div><div class="ab-amt" style="color:var(--tl-red)">£47,280</div></div>
+<div class="g2">
+<div class="cd"><div class="cd-h"><div class="cd-t">Fleet Mileage Status</div><span class="bdg" style="background:var(--covase-l);color:#0a8f86">Live Telemetry</span></div>
+<div class="fs"><div class="ring"><svg width="160" height="160" viewBox="0 0 160 160"><circle cx="80" cy="80" r="64" fill="none" stroke="#eeeff5" stroke-width="16"/><circle cx="80" cy="80" r="64" fill="none" stroke="#e6333a" stroke-width="16" stroke-dasharray="67 335" stroke-linecap="round"/><circle cx="80" cy="80" r="64" fill="none" stroke="var(--covase)" stroke-width="16" stroke-dasharray="258 335" stroke-dashoffset="-67" stroke-linecap="round"/><circle cx="80" cy="80" r="64" fill="none" stroke="#A7EB52" stroke-width="16" stroke-dasharray="76 335" stroke-dashoffset="-325" stroke-linecap="round"/></svg><div class="rc"><div class="rn">42</div><div class="rt">Vehicles</div></div></div>
+<div class="lg"><div class="lg-i"><div class="lg-d" style="background:var(--tl-red)"></div><strong>7</strong> Over</div><div class="lg-i"><div class="lg-d" style="background:var(--covase)"></div><strong>27</strong> On Track</div><div class="lg-i"><div class="lg-d" style="background:var(--tl-green)"></div><strong>8</strong> Under</div></div></div></div>
+<div class="cd"><div class="cd-h"><div class="cd-t">Top 5 Variance — Excess Risk</div></div>
+<div class="cmp">
+<div class="cmp-r"><div class="cmp-l">BD21 VWX</div><div class="cmp-t"><div class="cmp-f" style="width:92%;background:var(--tl-red)">+6,240 mi</div></div><div class="cmp-v" style="color:var(--tl-red)">£4,368</div></div>
+<div class="cmp-r"><div class="cmp-l">EF19 JKL</div><div class="cmp-t"><div class="cmp-f" style="width:78%;background:var(--tl-red)">+4,810 mi</div></div><div class="cmp-v" style="color:var(--tl-red)">£3,367</div></div>
+<div class="cmp-r"><div class="cmp-l">GH22 MNP</div><div class="cmp-t"><div class="cmp-f" style="width:64%;background:var(--tl-red)">+3,920 mi</div></div><div class="cmp-v" style="color:var(--tl-red)">£2,744</div></div>
+<div class="cmp-r"><div class="cmp-l">KL20 RST</div><div class="cmp-t"><div class="cmp-f" style="width:52%;background:var(--tl-orange)">+3,150 mi</div></div><div class="cmp-v" style="color:var(--tl-red)">£2,205</div></div>
+<div class="cmp-r"><div class="cmp-l">AB23 CDE</div><div class="cmp-t"><div class="cmp-f" style="width:40%;background:var(--tl-orange)">+2,400 mi</div></div><div class="cmp-v" style="color:var(--tl-red)">£1,680</div></div>
+</div></div></div>
+<div class="fun"><div class="fun-i"><span class="mi" style="font-size:28px;color:var(--covase)">public</span></div><div class="fun-t">Fleet under-mileage surplus: <strong>38,400 miles</strong> — <strong>1.5 trips around Earth</strong>. Candidates for rental reductions saving <strong>£9,120/yr</strong>.</div></div>
+<div class="sl">Recommended Actions</div>
+<div class="s3">
+<div class="sc"><div class="sp" style="color:var(--tl-red)">Urgent — 4 Vehicles</div><div class="st">Request Mileage Amendments</div><div class="sd">4 vehicles 3,000+ mi over. Amend now to avoid defleet charges.</div><div class="ss" style="color:var(--tl-red)">Avoids £12,540</div></div>
+<div class="sc"><div class="sp" style="color:var(--tl-orange)">Review — 3 Vehicles</div><div class="st">Monitor &amp; Confirm Trend</div><div class="sd">3 vehicles 1–2k over. Orbis flags when threshold exceeded.</div><div class="ss" style="color:var(--tl-orange)">Potential £4,890</div></div>
+<div class="sc"><div class="sp" style="color:var(--covase)">Opportunity — 8 Vehicles</div><div class="st">Reduce Under-Mileage Contracts</div><div class="sd">8 vehicles significantly under. Reduce to lower monthly rentals.</div><div class="ss" style="color:var(--covase)">Saves £9,120/yr</div></div>
+</div>
+<div class="tw-h"><div class="tw-hd"><div class="tw-tt">Vehicle Mileage Detail</div><div class="flt"><button class="fb on">All</button><button class="fb">Over</button><button class="fb">Under</button></div></div>
+<div class="tbl"><table><thead><tr><th>Reg</th><th>Vehicle</th><th>Driver</th><th>Contract</th><th>Projected</th><th>Variance</th><th>Status</th><th>Charge</th><th>Reading</th></tr></thead><tbody>
+<tr><td>BD21 VWX</td><td>BMW 320d</td><td>James Harper</td><td>10,000</td><td>16,240</td><td><span class="mb"><span style="width:92%;background:var(--tl-red)"></span></span>+6,240</td><td><span class="pill over">● Over</span></td><td><span class="ex" style="color:var(--tl-red)">£4,368</span></td><td style="color:var(--n400)">2h ago</td></tr>
+<tr><td>EF19 JKL</td><td>Audi A4 Avant</td><td>Sarah Mitchell</td><td>12,000</td><td>16,810</td><td><span class="mb"><span style="width:78%;background:var(--tl-red)"></span></span>+4,810</td><td><span class="pill over">● Over</span></td><td><span class="ex" style="color:var(--tl-red)">£3,367</span></td><td style="color:var(--n400)">45m</td></tr>
+<tr><td>GH22 MNP</td><td>Volvo XC40</td><td>David Clarke</td><td>15,000</td><td>18,920</td><td><span class="mb"><span style="width:64%;background:var(--tl-red)"></span></span>+3,920</td><td><span class="pill over">● Over</span></td><td><span class="ex" style="color:var(--tl-red)">£2,744</span></td><td style="color:var(--n400)">1h</td></tr>
+<tr><td>MN22 FGH</td><td>VW ID.4</td><td>Rachel Adams</td><td>10,000</td><td>10,340</td><td><span class="mb"><span style="width:15%;background:var(--covase)"></span></span>+340</td><td><span class="pill on-track">● On Track</span></td><td><span class="ex" style="color:var(--n400)">—</span></td><td style="color:var(--n400)">1h</td></tr>
+<tr><td>ST23 MNP</td><td>Kia EV6</td><td>Claire Dawson</td><td>12,000</td><td>8,400</td><td><span class="mb"><span style="width:60%;background:var(--tl-green)"></span></span>-3,600</td><td><span class="pill under">● Under</span></td><td><span class="ex" style="color:#4a8c1a">-£432/mo</span></td><td style="color:var(--n400)">20m</td></tr>
+<tr><td>UV22 QRS</td><td>BMW iX1</td><td>Andrew Foster</td><td>15,000</td><td>9,200</td><td><span class="mb"><span style="width:77%;background:var(--tl-green)"></span></span>-5,800</td><td><span class="pill under">● Under</span></td><td><span class="ex" style="color:#4a8c1a">-£580/mo</span></td><td style="color:var(--n400)">4h</td></tr>
+</tbody></table></div><div class="pag"><span>Showing 1–6 of 42</span><div class="pag-b"><div class="pg on">1</div><div class="pg">2</div><div class="pg">3</div><div class="pg">4</div><div class="pg">5</div></div></div></div>
+</div>
+
+<!-- 2. PHEV -->
+<div class="page-view" id="view-phev">
+<div class="page-header"><h1>PHEV Plug-in Audit</h1><p>Charging behaviour analysis &amp; fuel efficiency intelligence</p></div>
+<div class="sl" style="color:var(--tl-orange)">The Hidden Cost of Unplugged PHEVs</div>
+<div class="hero-row h3">
+<div class="hc" style="border-top:3px solid var(--tl-orange)"><div class="hl">PHEVs Never Plugged In</div><div class="hv" style="color:var(--tl-orange)">7 <span style="font-size:16px;color:var(--n400);font-weight:400">of 11</span></div><div class="hs">64% on petrol only</div></div>
+<div class="hc" style="border-top:3px solid var(--tl-red)"><div class="hl">Annual Fuel Waste</div><div class="hv" style="color:var(--tl-red)">£14,320</div><div class="hs">Extra vs plug-in charging</div></div>
+<div class="hc" style="border-top:3px solid var(--tl-yellow)"><div class="hl">Fleet Avg Real MPG</div><div class="hv" style="color:#9a7b00">28.4 <span style="font-size:14px;color:var(--n400);font-weight:400">mpg</span></div><div class="hs">WLTP 188 mpg — 85% shortfall</div></div>
+</div>
+<div class="ab orange"><div class="ab-icon" style="background:var(--tl-orange)"><span class="mi" style="color:#fff">local_gas_station</span></div><div class="ab-text">PHEV fleet published avg: <strong style="color:var(--tl-orange)">188 mpg</strong>. Orbis actual: <strong style="color:var(--tl-red)">28.4 mpg</strong> — worse than petrol. 7 of 11 <strong style="color:var(--tl-red)">never plugged in</strong>. Annual waste: <strong style="color:var(--tl-red)">£14,320</strong>.</div><div class="ab-amt" style="color:var(--tl-red)">£14,320</div></div>
+<div class="g2">
+<div class="cd"><div class="cd-h"><div class="cd-t">Published vs Actual MPG</div><span class="bdg" style="background:var(--tl-red-l);color:var(--tl-red)">Massive Variance</span></div>
+<div class="mpg-list">
+<div class="mpg-item"><div class="mpg-v"><div class="reg">GH22 MNP</div><div class="mod">Volvo XC40</div></div><div class="mpg-bars"><div class="mpg-row"><div class="mpg-lbl">WLTP</div><div class="mpg-tk"><div class="mpg-fl" style="width:100%;background:var(--n300)"></div></div><div class="mpg-val" style="color:var(--n400)">141</div></div><div class="mpg-row"><div class="mpg-lbl">Actual</div><div class="mpg-tk"><div class="mpg-fl" style="width:18%;background:var(--tl-orange)"></div></div><div class="mpg-val" style="color:var(--tl-orange)">25.3</div></div></div></div>
+<div class="mpg-item"><div class="mpg-v"><div class="reg">HY02 STU</div><div class="mod">BMW 330e</div></div><div class="mpg-bars"><div class="mpg-row"><div class="mpg-lbl">WLTP</div><div class="mpg-tk"><div class="mpg-fl" style="width:100%;background:var(--n300)"></div></div><div class="mpg-val" style="color:var(--n400)">188</div></div><div class="mpg-row"><div class="mpg-lbl">Actual</div><div class="mpg-tk"><div class="mpg-fl" style="width:15%;background:var(--tl-orange)"></div></div><div class="mpg-val" style="color:var(--tl-orange)">27.5</div></div></div></div>
+<div class="mpg-item"><div class="mpg-v"><div class="reg">JP21 ABC</div><div class="mod">BMW 530e</div></div><div class="mpg-bars"><div class="mpg-row"><div class="mpg-lbl">WLTP</div><div class="mpg-tk"><div class="mpg-fl" style="width:100%;background:var(--n300)"></div></div><div class="mpg-val" style="color:var(--n400)">99.9</div></div><div class="mpg-row"><div class="mpg-lbl">Actual</div><div class="mpg-tk"><div class="mpg-fl" style="width:28%;background:var(--tl-orange)"></div></div><div class="mpg-val" style="color:var(--tl-orange)">28.6</div></div></div></div>
+</div></div>
+<div class="cd"><div class="cd-h"><div class="cd-t">Plug-in Frequency (90d)</div><span class="bdg" style="background:var(--covase-l);color:#0a8f86">OBD Telemetry</span></div>
+<div class="gauge-list">
+<div class="gauge-r"><div class="gauge-v"><div class="reg">GH22 MNP</div><div class="mod">Volvo XC40</div></div><div class="gauge-tk"><div class="gauge-fl" style="width:4%;background:var(--tl-red)">0</div></div><div class="gauge-lbl" style="color:var(--tl-red)">Never</div></div>
+<div class="gauge-r"><div class="gauge-v"><div class="reg">HY02 STU</div><div class="mod">BMW 330e</div></div><div class="gauge-tk"><div class="gauge-fl" style="width:8%;background:var(--tl-orange)">3</div></div><div class="gauge-lbl" style="color:var(--tl-orange)">3 times</div></div>
+<div class="gauge-r"><div class="gauge-v"><div class="reg">JP21 ABC</div><div class="mod">BMW 530e</div></div><div class="gauge-tk"><div class="gauge-fl" style="width:4%;background:var(--tl-red)">0</div></div><div class="gauge-lbl" style="color:var(--tl-red)">Never</div></div>
+<div class="gauge-r"><div class="gauge-v"><div class="reg">KM23 DEF</div><div class="mod">Volvo XC60</div></div><div class="gauge-tk"><div class="gauge-fl" style="width:35%;background:var(--tl-yellow)">24</div></div><div class="gauge-lbl" style="color:#9a7b00">24 times</div></div>
+<div class="gauge-r"><div class="gauge-v"><div class="reg">LN22 GHJ</div><div class="mod">Merc C 300 e</div></div><div class="gauge-tk"><div class="gauge-fl" style="width:80%;background:var(--tl-green)">68</div></div><div class="gauge-lbl" style="color:#4a8c1a">68 times</div></div>
+</div></div></div>
+<div class="db"><div class="db-big" style="color:#f87171;text-shadow:0 0 30px rgba(230,51,58,.3)">£14,320</div><div class="db-div"></div><div class="db-ct"><p><strong>Wasted annually</strong> because PHEV drivers don't plug in. Regular charging = <strong>68% less fuel</strong>, saving <strong>£1,193/month</strong>. Drivers on fuel benefit have zero incentive — <strong>employer bears the cost</strong>.</p></div></div>
+<div class="sl" style="color:var(--tl-orange)">Key Insights</div>
+<div class="s3">
+<div class="sc"><div class="si"><span class="mi" style="font-size:22px">power</span></div><div class="st">Home Charger Availability</div><div class="sd">Only 3 of 11 have home chargepoints. 8+ hours on 3-pin plug deters charging.</div><div class="ss" style="color:var(--tl-orange)">27% have chargers</div></div>
+<div class="sc"><div class="si"><span class="mi" style="font-size:22px">payments</span></div><div class="st">Fuel Benefit Effect</div><div class="sd">9 of 11 receive fuel benefit — zero incentive to charge. Employer pays either way.</div><div class="ss" style="color:var(--tl-red)">82% on fuel benefit</div></div>
+<div class="sc"><div class="si"><span class="mi" style="font-size:22px">trending_down</span></div><div class="st">CO₂ Impact</div><div class="sd">Unplugged PHEVs emit 3–4× more CO₂ than declared. Undermines ESG targets.</div><div class="ss" style="color:#9a7b00">3.2× over declared</div></div>
+</div>
+<div class="tw-h"><div class="tw-hd"><div class="tw-tt">PHEV Fleet Detail</div></div>
+<div class="tbl"><table><thead><tr><th>Reg</th><th>Vehicle</th><th>Driver</th><th>WLTP</th><th>Actual</th><th>Gap</th><th>Plug-in</th><th>Fuel Ben.</th><th>Waste/yr</th></tr></thead><tbody>
+<tr><td>GH22 MNP</td><td>Volvo XC40</td><td>David Clarke</td><td style="color:var(--n400)">141</td><td><span class="ex" style="color:var(--tl-red)">25.3</span></td><td style="color:var(--tl-red);font-weight:600">-82%</td><td><span class="pill never">● Never</span></td><td>Yes</td><td><span class="ex" style="color:var(--tl-red)">£2,180</span></td></tr>
+<tr><td>HY02 STU</td><td>BMW 330e</td><td>Rachel Green</td><td style="color:var(--n400)">188</td><td><span class="ex" style="color:var(--tl-red)">27.5</span></td><td style="color:var(--tl-red);font-weight:600">-85%</td><td><span class="pill rare">● Rare</span></td><td>Yes</td><td><span class="ex" style="color:var(--tl-red)">£1,920</span></td></tr>
+<tr><td>JP21 ABC</td><td>BMW 530e</td><td>Jon Plank</td><td style="color:var(--n400)">99.9</td><td><span class="ex" style="color:var(--tl-red)">28.6</span></td><td style="color:var(--tl-red);font-weight:600">-71%</td><td><span class="pill never">● Never</span></td><td>Yes</td><td><span class="ex" style="color:var(--tl-red)">£1,840</span></td></tr>
+<tr><td>LN22 GHJ</td><td>Merc C 300 e</td><td>Paul Foster</td><td style="color:var(--n400)">176</td><td><span class="ex" style="color:#4a8c1a">89.2</span></td><td style="color:#9a7b00;font-weight:600">-49%</td><td><span class="pill regular">● Regular</span></td><td>No</td><td style="color:#4a8c1a;font-weight:600">£0</td></tr>
+</tbody></table></div><div class="pag"><span>1–4 of 11</span><div class="pag-b"><div class="pg on">1</div><div class="pg">2</div></div></div></div>
+</div>
+
+<!-- 3. EV -->
+<div class="page-view" id="view-ev">
+<div class="page-header"><h1>EV Intelligence</h1><p>Real-world range, efficiency scoring &amp; driver benchmarking</p></div>
+<div class="sl" style="color:var(--light-indigo)">Fleet EV Performance</div>
+<div class="hero-row h4">
+<div class="hc" style="border-top:3px solid var(--pastel-blue)"><div class="hl">Avg Real-World Range</div><div class="hv" style="color:var(--light-indigo)">214 mi</div><div class="hs">WLTP 298 mi (72%)</div></div>
+<div class="hc" style="border-top:3px solid var(--covase)"><div class="hl">Avg Efficiency</div><div class="hv" style="color:var(--covase)">3.4 <span style="font-size:14px;font-weight:400;color:var(--n400)">mi/kWh</span></div><div class="hs">Benchmark: 3.0</div></div>
+<div class="hc" style="border-top:3px solid var(--tl-red)"><div class="hl">Below Threshold</div><div class="hv" style="color:var(--tl-red)">3</div><div class="hs">40%+ below expected</div></div>
+<div class="hc" style="border-top:3px solid var(--tl-green)"><div class="hl">Battery Health</div><div class="hv" style="color:#4a8c1a">94%</div><div class="hs">Avg SoH</div></div>
+</div>
+<div class="db"><div class="oes-ring"><svg width="90" height="90" viewBox="0 0 90 90"><circle cx="45" cy="45" r="36" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="7"/><circle cx="45" cy="45" r="36" fill="none" stroke="var(--covase)" stroke-width="7" stroke-dasharray="172 226" stroke-linecap="round"/></svg><div class="oes-c"><div class="num">76</div><div class="lbl">OES</div></div></div><div class="db-ct"><div class="db-tag"><span class="mi" style="font-size:14px;vertical-align:middle">bolt</span> Orbis Efficiency Score&#8482;</div><h3>Fleet Driving Efficiency</h3><p>Aggregates range, consumption, charging &amp; regen braking into 0&#8211;100 score. Fleet: 76 &#8220;Good&#8221; &#8212; 3 flagged.</p></div><div class="db-mt"><div class="db-m"><div class="v" style="color:var(--covase)">82%</div><div class="l">Range</div></div><div class="db-m"><div class="v" style="color:var(--lilac-blue)">3.4</div><div class="l">mi/kWh</div></div><div class="db-m"><div class="v" style="color:var(--tl-yellow)">68%</div><div class="l">Charging</div></div><div class="db-m"><div class="v" style="color:var(--pastel-blue)">71%</div><div class="l">Regen</div></div></div></div>
+
+<!-- Range Comparison with ev-database.org + Filters -->
+<div class="sl" style="color:var(--light-indigo)">Range Comparison &#8212; WLTP vs ev-database.org vs Orbis Actual</div>
+<div class="cd" style="margin-bottom:24px">
+<div class="cd-h">
+<div class="cd-t">Three-Source Range Analysis</div>
+<span class="bdg" style="background:rgba(114,108,255,.1);color:var(--pastel-blue)">ev-database.org data</span>
+</div>
+<div style="display:flex;gap:20px;margin-bottom:20px;flex-wrap:wrap;align-items:center">
+<div style="display:flex;align-items:center;gap:8px">
+<span style="font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--n500)">Driving</span>
+<div style="display:flex;gap:4px" id="driveFilters">
+<button class="fb on" onclick="setEVFilter('drive','city',this)">City</button>
+<button class="fb" onclick="setEVFilter('drive','highway',this)">Highway</button>
+<button class="fb" onclick="setEVFilter('drive','combined',this)">Combined</button>
+</div>
+</div>
+<div style="display:flex;align-items:center;gap:8px">
+<span style="font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--n500)">Weather</span>
+<div style="display:flex;gap:4px" id="weatherFilters">
+<button class="fb" onclick="setEVFilter('weather','cold',this)">Cold (-10&#176;C)</button>
+<button class="fb on" onclick="setEVFilter('weather','mild',this)">Mild (23&#176;C)</button>
+</div>
+</div>
+<div style="margin-left:auto;display:flex;gap:12px;font-size:11px;align-items:center">
+<span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:2px;background:var(--n300)"></span> WLTP</span>
+<span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:2px;background:var(--pastel-blue)"></span> ev-database.org</span>
+<span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:2px;background:var(--covase)"></span> Orbis Actual</span>
+</div>
+</div>
+<div id="evRangeBars"></div>
+<div style="font-size:10px;color:var(--n400);margin-top:14px;font-style:italic">ev-database.org ranges: Cold = -10&#176;C with heating. Mild = 23&#176;C, no A/C. Highway = constant 70mph. Orbis Actual = measured from connected vehicle telemetry.</div>
+</div>
+
+<div class="g2">
+<div class="cd"><div class="cd-h"><div class="cd-t">Efficiency Leaderboard</div><span class="bdg" style="background:var(--tl-green-l);color:#4a8c1a">OES</span></div>
+<div class="lb">
+<div class="lb-r top"><div class="lb-rk">1</div><div class="lb-d"><div class="nm">Tom Brown</div><div class="vh">Tesla Model 3</div></div><div class="lb-k">4.2 mi/kWh</div><div class="lb-s" style="color:#4a8c1a">92</div></div>
+<div class="lb-r top"><div class="lb-rk">2</div><div class="lb-d"><div class="nm">Sarah Johnson</div><div class="vh">VW ID.4</div></div><div class="lb-k">3.8 mi/kWh</div><div class="lb-s" style="color:#4a8c1a">87</div></div>
+<div class="lb-r"><div class="lb-rk">3</div><div class="lb-d"><div class="nm">Emma Davis</div><div class="vh">BMW iX1</div></div><div class="lb-k">3.6 mi/kWh</div><div class="lb-s" style="color:var(--light-indigo)">78</div></div>
+<div class="lb-r bad"><div class="lb-rk">5</div><div class="lb-d"><div class="nm">Lisa Taylor</div><div class="vh">Mercedes EQC</div></div><div class="lb-k">2.4 mi/kWh</div><div class="lb-s" style="color:var(--tl-red)">41</div></div>
+<div class="lb-r bad"><div class="lb-rk">6</div><div class="lb-d"><div class="nm">Mike Cooper</div><div class="vh">Kia EV6</div></div><div class="lb-k">2.1 mi/kWh</div><div class="lb-s" style="color:var(--tl-red)">35</div></div>
+</div></div>
+
+<div class="cd"><div class="cd-h"><div class="cd-t">Orbis vs ev-database.org Insight</div></div>
+<div style="font-size:13px;color:var(--n700);line-height:1.7;margin-bottom:14px">Orbis telemetry shows <strong style="color:var(--blue-black)">3 vehicles performing below ev-database.org cold-weather estimates</strong> &#8212; indicating driving style or vehicle issues beyond normal seasonal degradation.</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;background:var(--tl-red-l);border:1px solid rgba(230,51,58,.12)">
+<span class="mi" style="color:var(--tl-red)">warning</span>
+<div style="flex:1;font-size:12px"><strong style="color:var(--blue-black)">EV04 JKL</strong> &#8212; Mercedes EQC: Orbis reads <strong style="color:var(--tl-red)">134 mi</strong>, ev-db cold highway estimates 135 mi. Driver is underperforming even worst-case.</div>
+</div>
+<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;background:var(--tl-red-l);border:1px solid rgba(230,51,58,.12)">
+<span class="mi" style="color:var(--tl-red)">warning</span>
+<div style="flex:1;font-size:12px"><strong style="color:var(--blue-black)">EV07 MNP</strong> &#8212; Kia EV6: Orbis reads <strong style="color:var(--tl-red)">168 mi</strong>, ev-db cold highway estimates 195 mi. Rapid acceleration pattern detected.</div>
+</div>
+<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;background:var(--tl-red-l);border:1px solid rgba(230,51,58,.12)">
+<span class="mi" style="color:var(--tl-red)">warning</span>
+<div style="flex:1;font-size:12px"><strong style="color:var(--blue-black)">EV09 RST</strong> &#8212; Nissan Ariya: Orbis reads <strong style="color:var(--tl-red)">152 mi</strong>, ev-db cold highway estimates 155 mi. Low tyre pressures + SoH 89%.</div>
+</div>
+</div>
+</div></div>
+
+<div class="tw-h"><div class="tw-hd"><div class="tw-tt">EV Fleet Detail</div><div class="flt"><button class="fb on">All</button><button class="fb">Flagged</button></div></div>
+<div class="tbl"><table><thead><tr><th>Reg</th><th>Vehicle</th><th>Driver</th><th>WLTP</th><th>ev-db</th><th>Orbis</th><th>vs ev-db</th><th>mi/kWh</th><th>OES</th><th>SoH</th></tr></thead><tbody id="evTableBody">
+</tbody></table></div><div class="pag"><span>1&#8211;6 of 18</span><div class="pag-b"><div class="pg on">1</div><div class="pg">2</div><div class="pg">3</div></div></div></div>
+</div>
+<!-- 4. CHARGING -->
+<div class="page-view" id="view-charging">
+<div class="page-header"><h1>Charging Cost Intelligence</h1><p>Tariff analysis, AER optimisation &amp; employer savings</p></div>
+<div class="sl" style="color:#0a8f86">Fleet Charging Overview</div>
+<div class="hero-row h4">
+<div class="hc" style="border-top:3px solid var(--covase)"><div class="hl">Charging Cost (30d)</div><div class="hv" style="color:var(--covase)">£2,840</div><div class="hs">186 sessions</div></div>
+<div class="hc" style="border-top:3px solid var(--tl-green)"><div class="hl">AER Paid</div><div class="hv" style="color:#4a8c1a">£4,620</div><div class="hs">HMRC advisory rates</div></div>
+<div class="hc" style="border-top:3px solid var(--tl-orange)"><div class="hl">Employer Overpayment</div><div class="hv" style="color:var(--tl-orange)">£1,780</div><div class="hs">AER exceeds actual 63%</div></div>
+<div class="hc" style="border-top:3px solid var(--pastel-blue)"><div class="hl">Cost per Mile</div><div class="hv" style="color:var(--light-indigo)">4.2p</div><div class="hs">vs 7p home / 9p public</div></div>
+</div>
+<div class="db green"><div class="db-big" style="color:var(--covase);text-shadow:0 0 40px rgba(3,211,198,.3)">£21,360</div><div class="db-div"></div><div class="db-ct"><h3>AER Overpayment Insight <span class="db-tag">Orbis Exclusive</span></h3><p>Employers pay <strong>7p/mi home</strong> / <strong>9p/mi public</strong>. 12 of 18 charge overnight at <strong>7.8p/kWh</strong> = <strong>2.3p/mile</strong> actual. <strong>67% overpayment</strong>. Annual: <strong>£21,360</strong>.</p></div><div class="db-rates"><div class="db-rate"><div class="rl">AER (Home)</div><div class="rv" style="color:var(--tl-yellow)">7p/mi</div></div><div class="db-rate"><div class="rl">Actual (Off-pk)</div><div class="rv" style="color:var(--covase)">2.3p/mi</div></div><div class="db-rate"><div class="rl">AER (Public)</div><div class="rv" style="color:var(--tl-orange)">9p/mi</div></div></div></div>
+<div class="g2">
+<div class="cd"><div class="cd-h"><div class="cd-t">Cost by Location</div></div>
+<div class="tar-list">
+<div class="tar-r"><div class="tar-l"><div class="tn">Home Off-Peak</div><div class="ts">12am–5am</div></div><div class="tar-tk"><div class="tar-fl" style="width:22%;background:var(--tl-green)">7.8p</div></div><div class="tar-val" style="color:#4a8c1a">7.8p</div></div>
+<div class="tar-r"><div class="tar-l"><div class="tn">Home Std</div><div class="ts">Peak</div></div><div class="tar-tk"><div class="tar-fl" style="width:60%;background:var(--covase)">24.5p</div></div><div class="tar-val" style="color:var(--covase)">24.5p</div></div>
+<div class="tar-r"><div class="tar-l"><div class="tn">Workplace</div><div class="ts">Free</div></div><div class="tar-tk"><div class="tar-fl" style="width:5%;background:var(--pastel-blue)">0p</div></div><div class="tar-val" style="color:var(--pastel-blue)">0p</div></div>
+<div class="tar-r"><div class="tar-l"><div class="tn">Public Slow</div><div class="ts">7–22kW</div></div><div class="tar-tk"><div class="tar-fl" style="width:75%;background:var(--tl-orange)">45p</div></div><div class="tar-val" style="color:var(--tl-orange)">45p</div></div>
+<div class="tar-r"><div class="tar-l"><div class="tn">Public Rapid</div><div class="ts">50–350kW</div></div><div class="tar-tk"><div class="tar-fl" style="width:100%;background:var(--tl-red)">79p</div></div><div class="tar-val" style="color:var(--tl-red)">79p</div></div>
+</div></div>
+<div class="cd"><div class="cd-h"><div class="cd-t">AER Overpayment by Driver</div></div>
+<div class="aer-list">
+<div class="aer-r over"><div class="ar-d"><div class="nm">Tom Brown</div><div class="vh">Tesla Model 3</div></div><div class="ar-dt"><div class="loc">92% home off-peak</div><div class="rates"><span>AER: <strong>7p</strong></span> <span>Actual: <strong style="color:#4a8c1a">2.1p</strong></span></div></div><div class="ar-op" style="color:var(--tl-red)">+£490/yr</div></div>
+<div class="aer-r over"><div class="ar-d"><div class="nm">Emma Davis</div><div class="vh">BMW iX1</div></div><div class="ar-dt"><div class="loc">85% home off-peak</div><div class="rates"><span>AER: <strong>7p</strong></span> <span>Actual: <strong style="color:#4a8c1a">2.6p</strong></span></div></div><div class="ar-op" style="color:var(--tl-red)">+£440/yr</div></div>
+<div class="aer-r fair"><div class="ar-d"><div class="nm">Mike Cooper</div><div class="vh">Kia EV6</div></div><div class="ar-dt"><div class="loc">65% public rapid</div><div class="rates"><span>AER: <strong>9p</strong></span> <span>Actual: <strong style="color:var(--tl-red)">8.8p</strong></span></div></div><div class="ar-op" style="color:#4a8c1a">+£24/yr</div></div>
+</div></div></div>
+<div class="sl" style="color:#0a8f86">Savings Opportunities</div>
+<div class="s3">
+<div class="sc"><div class="st">Actual-Cost Reimbursement</div><div class="sd">Replace AER with Orbis-verified costs via app + telemetry.</div><div class="ss" style="color:#4a8c1a">Saves £21,360/yr</div></div>
+<div class="sc"><div class="st">Shift Public → Home</div><div class="sd">3 drivers using public unnecessarily. App nudges shift 80% home.</div><div class="ss" style="color:#4a8c1a">Saves £2,940/yr</div></div>
+<div class="sc"><div class="st">Off-Peak Tariffs</div><div class="sd">6 drivers lack EV tariff. Octopus Go halves home cost.</div><div class="ss" style="color:#4a8c1a">Saves £1,440/yr</div></div>
+</div>
+<div class="tw-h"><div class="tw-hd"><div class="tw-tt">Charging Cost Detail</div></div>
+<div class="tbl"><table><thead><tr><th>Reg</th><th>Vehicle</th><th>Driver</th><th>Sessions</th><th>kWh</th><th>Actual</th><th>AER</th><th>Location</th><th>Overpay</th></tr></thead><tbody>
+<tr><td>EV01 ABC</td><td>Tesla Model 3</td><td>Tom Brown</td><td>18</td><td>312</td><td>£24</td><td>£70</td><td><span class="loc-p home"><span class="mi" style="font-size:14px">home</span> Home</span></td><td><span class="ex" style="color:var(--tl-red)">+£46</span></td></tr>
+<tr><td>EV03 GHI</td><td>BMW iX1</td><td>Emma Davis</td><td>12</td><td>198</td><td>£15</td><td>£56</td><td><span class="loc-p home"><span class="mi" style="font-size:14px">home</span> Home</span></td><td><span class="ex" style="color:var(--tl-red)">+£41</span></td></tr>
+<tr><td>EV07 MNP</td><td>Kia EV6</td><td>Mike Cooper</td><td>22</td><td>510</td><td>£332</td><td>£342</td><td><span class="loc-p pub"><span class="mi" style="font-size:14px">ev_station</span> Rapid</span></td><td><span class="ex" style="color:#4a8c1a">+£10</span></td></tr>
+</tbody></table></div><div class="pag"><span>1–3 of 18</span><div class="pag-b"><div class="pg on">1</div><div class="pg">2</div><div class="pg">3</div></div></div></div>
+</div>
+
+<!-- 5. MAINTENANCE -->
+<div class="page-view" id="view-maintenance">
+<div class="page-header"><h1>Maintenance Intelligence</h1><p>Vehicle health, service scheduling &amp; predictive maintenance</p></div>
+<div class="sl" style="color:var(--mid-indigo)">Fleet Health Summary</div>
+<div class="hero-row h5">
+<div class="hc" style="border-top:3px solid var(--tl-red)"><div class="hl">Critical</div><div class="hv" style="color:var(--tl-red);font-size:30px">2</div><div class="hs">Immediate</div></div>
+<div class="hc" style="border-top:3px solid var(--tl-orange)"><div class="hl">Warnings</div><div class="hv" style="color:var(--tl-orange);font-size:30px">5</div><div class="hs">Within 7 days</div></div>
+<div class="hc" style="border-top:3px solid var(--tl-green)"><div class="hl">Healthy</div><div class="hv" style="color:#4a8c1a;font-size:30px">35</div><div class="hs">No issues</div></div>
+<div class="hc" style="border-top:3px solid var(--pastel-blue)"><div class="hl">Services Due</div><div class="hv" style="color:var(--pastel-blue);font-size:30px">6</div><div class="hs">Next 30 days</div></div>
+<div class="hc" style="border-top:3px solid var(--mid-indigo)"><div class="hl">Predicted Cost</div><div class="hv" style="color:var(--mid-indigo);font-size:30px">£8,420</div><div class="hs">Q2 estimate</div></div>
+</div>
+<div class="g2" style="grid-template-columns:1.2fr .8fr">
+<div class="cd"><div class="cd-h"><div class="cd-t">Active Alerts</div><span style="font-size:10px;font-weight:600;color:var(--tl-red)">7 active</span></div>
+<div class="al-list">
+<div class="al-i crit"><div class="al-ic"><span class="mi">warning</span></div><div class="al-dt"><div class="at">AB12 CDE — Brake Pads</div><div class="as">Ford Transit · Front below 2mm</div></div><div class="al-sv c">Critical</div><div class="al-tm">2h</div></div>
+<div class="al-i crit"><div class="al-ic"><span class="mi">battery_alert</span></div><div class="al-dt"><div class="at">EV09 RST — Battery Degradation</div><div class="as">Nissan Ariya · SoH 84%</div></div><div class="al-sv c">Critical</div><div class="al-tm">6h</div></div>
+<div class="al-i warn"><div class="al-ic"><span class="mi">tire_repair</span></div><div class="al-dt"><div class="at">HY01 PQR — Tyre Pressure</div><div class="as">Outlander · RL 24 PSI</div></div><div class="al-sv w">Warning</div><div class="al-tm">1d</div></div>
+<div class="al-i warn"><div class="al-ic"><span class="mi">build</span></div><div class="al-dt"><div class="at">EF56 GHI — Service Overdue</div><div class="as">VW Transporter · 1,200 mi past</div></div><div class="al-sv w">Warning</div><div class="al-tm">3d</div></div>
+<div class="al-i info"><div class="al-ic"><span class="mi">local_gas_station</span></div><div class="al-dt"><div class="at">GH22 MNP — Efficiency Drop</div><div class="as">Volvo XC40 · MPG -18%</div></div><div class="al-sv m">Monitor</div><div class="al-tm">5d</div></div>
+</div></div>
+<div class="cd"><div class="cd-h"><div class="cd-t">Service Schedule</div><span style="font-size:10px;font-weight:600;color:var(--n500)">60 days</span></div>
+<div class="svc">
+<div class="svc-i od"><div class="svc-dt"></div><div class="svc-inf"><div class="sr">EF56 GHI — VW Transporter</div><div class="sd">45k service</div></div><div class="svc-date" style="color:var(--tl-red)">Overdue</div></div>
+<div class="svc-i sn"><div class="svc-dt"></div><div class="svc-inf"><div class="sr">AB12 CDE — Ford Transit</div><div class="sd">MOT due</div></div><div class="svc-date" style="color:var(--tl-orange)">25 Mar</div></div>
+<div class="svc-i sn"><div class="svc-dt"></div><div class="svc-inf"><div class="sr">HY01 PQR — Outlander</div><div class="sd">Battery check</div></div><div class="svc-date" style="color:var(--tl-orange)">28 Mar</div></div>
+<div class="svc-i up"><div class="svc-dt"></div><div class="svc-inf"><div class="sr">EV01 ABC — Tesla Model 3</div><div class="sd">Insurance</div></div><div class="svc-date" style="color:var(--pastel-blue)">3 Apr</div></div>
+<div class="svc-i up"><div class="svc-dt"></div><div class="svc-inf"><div class="sr">KL20 RST — Merc E 300 de</div><div class="sd">30k service</div></div><div class="svc-date" style="color:var(--pastel-blue)">12 Apr</div></div>
+</div></div></div>
+<div class="sl" style="color:var(--mid-indigo)">Vehicle Health Indicators</div>
+<div class="hg">
+<div class="hg-c"><div class="hg-t"><span class="mi">battery_full</span> Battery Health</div><div class="bl">
+<div class="bl-r"><div class="bl-rg">EV01 ABC</div><div class="bl-tk"><div class="bl-fl" style="width:96%;background:var(--tl-green)"></div></div><div class="bl-v" style="color:#4a8c1a">96%</div></div>
+<div class="bl-r"><div class="bl-rg">EV02 DEF</div><div class="bl-tk"><div class="bl-fl" style="width:97%;background:var(--tl-green)"></div></div><div class="bl-v" style="color:#4a8c1a">97%</div></div>
+<div class="bl-r"><div class="bl-rg">EV04 JKL</div><div class="bl-tk"><div class="bl-fl" style="width:91%;background:var(--tl-yellow)"></div></div><div class="bl-v" style="color:#9a7b00">91%</div></div>
+<div class="bl-r"><div class="bl-rg">EV09 RST</div><div class="bl-tk"><div class="bl-fl" style="width:84%;background:var(--tl-red)"></div></div><div class="bl-v" style="color:var(--tl-red)">84%</div></div>
+</div></div>
+<div class="hg-c"><div class="hg-t"><span class="mi">tire_repair</span> Tyre Pressures</div>
+<div class="tyre-r"><div class="tyre-rg">HY01 PQR</div><div class="tw-g"><div class="tw ok">32</div><div class="tw ok">32</div><div class="tw ok">31</div><div class="tw cr">24</div></div><div class="tyre-al" style="color:var(--tl-red)">RL Low</div></div>
+<div class="tyre-r"><div class="tyre-rg">AB12 CDE</div><div class="tw-g"><div class="tw ok">35</div><div class="tw lo">28</div><div class="tw ok">34</div><div class="tw ok">35</div></div><div class="tyre-al" style="color:#9a7b00">FR Low</div></div>
+<div class="tyre-r"><div class="tyre-rg">EV07 MNP</div><div class="tw-g"><div class="tw ok">33</div><div class="tw ok">33</div><div class="tw ok">32</div><div class="tw ok">33</div></div><div class="tyre-al" style="color:#4a8c1a">All OK</div></div>
+</div>
+<div class="hg-c"><div class="hg-t"><span class="mi">monitoring</span> Utilisation (30d)</div><div class="ul">
+<div class="ul-r"><div class="ul-rg">AB12 CDE</div><div class="ul-tk"><div class="ul-fl" style="width:92%;background:var(--tl-green)"></div></div><div class="ul-v" style="color:#4a8c1a">92%</div><div class="ul-d">28/30</div></div>
+<div class="ul-r"><div class="ul-rg">EV02 DEF</div><div class="ul-tk"><div class="ul-fl" style="width:88%;background:var(--tl-green)"></div></div><div class="ul-v" style="color:#4a8c1a">88%</div><div class="ul-d">27/30</div></div>
+<div class="ul-r"><div class="ul-rg">HY02 STU</div><div class="ul-tk"><div class="ul-fl" style="width:65%;background:var(--tl-yellow)"></div></div><div class="ul-v" style="color:#9a7b00">65%</div><div class="ul-d">19/30</div></div>
+<div class="ul-r"><div class="ul-rg">WX21 TUV</div><div class="ul-tk"><div class="ul-fl" style="width:42%;background:var(--tl-red)"></div></div><div class="ul-v" style="color:var(--tl-red)">42%</div><div class="ul-d">13/30</div></div>
+</div></div></div>
+<div class="db deep"><div style="width:42px;height:42px;background:rgba(255,255,255,.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0"><span class="mi" style="font-size:22px">psychology</span></div><div class="db-ct"><h3>Predictive Maintenance Forecast</h3><p>Diagnostics + service history + mileage = maintenance forecasting. Helps Lex budget fully-maintained contracts. Early intervention reduces breakdowns.</p></div><div class="db-mt"><div class="db-m"><div class="v" style="color:var(--pastel-blue)">£8,420</div><div class="l">Q2</div></div><div class="db-m"><div class="v" style="color:var(--covase)">£1,840</div><div class="l">Avoidable</div></div><div class="db-m"><div class="v" style="color:var(--tl-yellow)">4</div><div class="l">At-Risk</div></div></div></div>
+<div class="tw-h"><div class="tw-hd"><div class="tw-tt">Maintenance Status</div><div class="flt"><button class="fb on">All</button><button class="fb">Alerts</button><button class="fb">Service</button></div></div>
+<div class="tbl"><table><thead><tr><th>Reg</th><th>Vehicle</th><th>Health</th><th>Alerts</th><th>Service</th><th>Tyres</th><th>SoH</th><th>Util</th><th>Cost</th></tr></thead><tbody>
+<tr><td>AB12 CDE</td><td>Ford Transit</td><td><span class="pill critical">● Critical</span></td><td style="color:var(--tl-red);font-weight:600">Brakes</td><td style="color:var(--tl-orange);font-weight:600">25 Mar</td><td style="color:#9a7b00">1 low</td><td>—</td><td>92%</td><td><span class="ex">£680</span></td></tr>
+<tr><td>EV09 RST</td><td>Nissan Ariya</td><td><span class="pill critical">● Critical</span></td><td style="color:var(--tl-red);font-weight:600">Battery</td><td>15 May</td><td style="color:#4a8c1a">OK</td><td style="color:var(--tl-red);font-weight:600">84%</td><td>71%</td><td><span class="ex">£1,200</span></td></tr>
+<tr><td>EF56 GHI</td><td>VW Transporter</td><td><span class="pill attention">● Attention</span></td><td style="color:var(--tl-orange);font-weight:600">Overdue</td><td style="color:var(--tl-red);font-weight:600">Overdue</td><td style="color:#4a8c1a">OK</td><td>—</td><td>85%</td><td><span class="ex">£520</span></td></tr>
+<tr><td>EV01 ABC</td><td>Tesla Model 3</td><td><span class="pill healthy">● Healthy</span></td><td style="color:#4a8c1a">None</td><td style="color:var(--pastel-blue)">3 Apr</td><td style="color:#4a8c1a">OK</td><td style="color:#4a8c1a">96%</td><td>89%</td><td><span class="ex">£180</span></td></tr>
+</tbody></table></div><div class="pag"><span>1–4 of 42</span><div class="pag-b"><div class="pg on">1</div><div class="pg">2</div><div class="pg">3</div><div class="pg">4</div><div class="pg">5</div></div></div></div>
+</div>
+
+</div></div>
+<script>
+var evData=[
+{reg:'EV01 ABC',v:'Tesla Model 3 LR',d:'Tom Brown',wltp:374,orbis:276,kwh:4.2,oes:92,soh:96,evdb:{city:{cold:301,mild:475},highway:{cold:236,mild:314},combined:{cold:270,mild:382}}},
+{reg:'EV02 DEF',v:'VW ID.4 Pro',d:'Sarah Johnson',wltp:315,orbis:218,kwh:3.8,oes:87,soh:97,evdb:{city:{cold:270,mild:405},highway:{cold:195,mild:255},combined:{cold:230,mild:320}}},
+{reg:'EV03 GHI',v:'BMW iX1 xDrive',d:'Emma Davis',wltp:272,orbis:210,kwh:3.6,oes:78,soh:95,evdb:{city:{cold:220,mild:355},highway:{cold:170,mild:220},combined:{cold:195,mild:275}}},
+{reg:'EV04 JKL',v:'Mercedes EQC',d:'Lisa Taylor',wltp:232,orbis:134,kwh:2.4,oes:41,soh:91,evdb:{city:{cold:180,mild:290},highway:{cold:135,mild:180},combined:{cold:155,mild:230}}},
+{reg:'EV05 MNP',v:'Hyundai Ioniq 5',d:'Mark Thompson',wltp:303,orbis:228,kwh:3.3,oes:73,soh:94,evdb:{city:{cold:250,mild:395},highway:{cold:185,mild:245},combined:{cold:215,mild:310}}},
+{reg:'EV07 QRS',v:'Kia EV6 LR',d:'Mike Cooper',wltp:316,orbis:168,kwh:2.1,oes:35,soh:96,evdb:{city:{cold:260,mild:415},highway:{cold:195,mild:260},combined:{cold:225,mild:325}}}
+];
+var evDrive='city',evWeather='mild';
+function setEVFilter(type,val,el){
+if(type==='drive'){evDrive=val;document.querySelectorAll('#driveFilters .fb').forEach(function(b){b.classList.remove('on')});}
+else{evWeather=val;document.querySelectorAll('#weatherFilters .fb').forEach(function(b){b.classList.remove('on')});}
+el.classList.add('on');renderEV();
+}
+function renderEV(){
+var maxW=0;evData.forEach(function(c){if(c.wltp>maxW)maxW=c.wltp;var e=c.evdb[evDrive][evWeather];if(e>maxW)maxW=e;});
+var bars='';evData.forEach(function(c){
+var evdbVal=c.evdb[evDrive][evWeather];
+var wp=Math.round(c.wltp/maxW*100);
+var ep=Math.round(evdbVal/maxW*100);
+var op=Math.round(c.orbis/maxW*100);
+var orbisCol=c.orbis<evdbVal*0.7?'var(--tl-red)':c.orbis<evdbVal*0.85?'var(--tl-orange)':'var(--covase)';
+bars+='<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">';
+bars+='<div style="width:115px;flex-shrink:0"><div style="font-family:Outfit,sans-serif;font-weight:700;font-size:12px;color:var(--blue-black)">'+c.reg+'</div><div style="font-size:10px;color:var(--n500)">'+c.v+'</div></div>';
+bars+='<div style="flex:1;display:flex;flex-direction:column;gap:3px">';
+bars+='<div style="display:flex;align-items:center;gap:6px"><div style="font-size:9px;color:var(--n500);width:50px;text-align:right;flex-shrink:0">WLTP</div><div style="flex:1;height:11px;background:var(--n100);border-radius:4px;overflow:hidden"><div style="width:'+wp+'%;height:100%;background:var(--n300);border-radius:4px"></div></div><div style="font-family:Outfit,sans-serif;font-size:11px;font-weight:700;width:48px;text-align:right;color:var(--n400)">'+c.wltp+'</div></div>';
+bars+='<div style="display:flex;align-items:center;gap:6px"><div style="font-size:9px;color:var(--n500);width:50px;text-align:right;flex-shrink:0">ev-db</div><div style="flex:1;height:11px;background:var(--n100);border-radius:4px;overflow:hidden"><div style="width:'+ep+'%;height:100%;background:var(--pastel-blue);border-radius:4px"></div></div><div style="font-family:Outfit,sans-serif;font-size:11px;font-weight:700;width:48px;text-align:right;color:var(--light-indigo)">'+evdbVal+'</div></div>';
+bars+='<div style="display:flex;align-items:center;gap:6px"><div style="font-size:9px;color:var(--n500);width:50px;text-align:right;flex-shrink:0">Orbis</div><div style="flex:1;height:11px;background:var(--n100);border-radius:4px;overflow:hidden"><div style="width:'+op+'%;height:100%;background:'+orbisCol+';border-radius:4px"></div></div><div style="font-family:Outfit,sans-serif;font-size:11px;font-weight:700;width:48px;text-align:right;color:'+orbisCol+'">'+c.orbis+'</div></div>';
+bars+='</div></div>';
+});
+document.getElementById('evRangeBars').innerHTML=bars;
+var tb='';evData.forEach(function(c){
+var evdbVal=c.evdb[evDrive][evWeather];
+var pct=Math.round(c.orbis/evdbVal*100);
+var diff=pct-100;
+var diffCol=diff<-30?'var(--tl-red)':diff<-15?'var(--tl-orange)':'#4a8c1a';
+var orbisCol=diff<-30?'var(--tl-red)':diff<-15?'var(--tl-orange)':'inherit';
+var oesClass=c.oes>=80?'exc':c.oes>=60?'gd':'poor';
+tb+='<tr><td>'+c.reg+'</td><td>'+c.v+'</td><td>'+c.d+'</td>';
+tb+='<td style="color:var(--n400)">'+c.wltp+'</td>';
+tb+='<td style="color:var(--light-indigo);font-weight:600">'+evdbVal+'</td>';
+tb+='<td style="font-weight:600;color:'+orbisCol+'">'+c.orbis+'</td>';
+tb+='<td style="font-weight:600;color:'+diffCol+'">'+(diff>0?'+':'')+diff+'%</td>';
+tb+='<td style="font-weight:600;color:'+(c.kwh>=3.5?'#4a8c1a':c.kwh>=2.5?'var(--n700)':'var(--tl-red)')+'">'+c.kwh+'</td>';
+tb+='<td><span class="oes-p '+oesClass+'">'+c.oes+'</span></td>';
+tb+='<td>'+c.soh+'%</td></tr>';
+});
+document.getElementById('evTableBody').innerHTML=tb;
+}
+var T={
+orbis:{'--indigo':'#242254','--mid-indigo':'#301d7e','--light-indigo':'#4b2ebc','--blue-black':'#020029','--covase':'#03d3c6','--covase-l':'#d6fbf8','--lilac-blue':'#c2e9ff','--pastel-blue':'#726cff','--n50':'#f8f8fc','--n100':'#eeeff5','--n200':'#dfe0ea','--n300':'#c5c6d4','--n400':'#9294a8','--n500':'#6b6d82','--n600':'#4e5068','--n700':'#363850','--n800':'#242540','--bg':'#f4f5fa','--green-dk':'#064e3b','--green-lt':'#065f46','--deep-dk':'#1e1b4b','--bar-text':'#ffffff','--tl-red':'#e6333a','--tl-red-l':'#fdeaeb','--tl-orange':'#ff7650','--tl-orange-l':'#fff0ec','--tl-yellow':'#ffd72e','--tl-yellow-l':'#fff9dd','--tl-green':'#A7EB52','--tl-green-l':'#edfcd4'},
+midnight:{'--indigo':'#023E8A','--mid-indigo':'#01337a','--light-indigo':'#0077B6','--blue-black':'#012a4a','--covase':'#0096C7','--covase-l':'#CAF0F8','--lilac-blue':'#90E0EF','--pastel-blue':'#48CAE4','--n50':'#f7fafc','--n100':'#edf2f7','--n200':'#dce5ef','--n300':'#b8c9d9','--n400':'#8a9bb5','--n500':'#5e7489','--n600':'#3f5568','--n700':'#2a3f52','--n800':'#1a2e42','--bg':'#f2f6fa','--green-dk':'#012a4a','--green-lt':'#01337a','--deep-dk':'#012040','--bar-text':'#ffffff','--tl-red':'#e6333a','--tl-red-l':'#fdeaeb','--tl-orange':'#ff7650','--tl-orange-l':'#fff0ec','--tl-yellow':'#ffd72e','--tl-yellow-l':'#fff9dd','--tl-green':'#A7EB52','--tl-green-l':'#edfcd4'},
+forest:{'--indigo':'#283618','--mid-indigo':'#1f2c12','--light-indigo':'#2B9348','--blue-black':'#1a2410','--covase':'#55A630','--covase-l':'#e8f5de','--lilac-blue':'#d4e8c3','--pastel-blue':'#80B918','--n50':'#f8f9f5','--n100':'#eef0e8','--n200':'#dce0d4','--n300':'#b8bfaa','--n400':'#8a9478','--n500':'#656e56','--n600':'#4a5240','--n700':'#353c2e','--n800':'#252b20','--bg':'#f4f6f1','--green-dk':'#1a2410','--green-lt':'#283618','--deep-dk':'#1a2410','--bar-text':'#ffffff','--tl-red':'#e6333a','--tl-red-l':'#fdeaeb','--tl-orange':'#ff7650','--tl-orange-l':'#fff0ec','--tl-yellow':'#ffd72e','--tl-yellow-l':'#fff9dd','--tl-green':'#A7EB52','--tl-green-l':'#edfcd4'},
+coastal:{'--indigo':'#19747E','--mid-indigo':'#135e66','--light-indigo':'#1a8a96','--blue-black':'#0d4a52','--covase':'#2AB0A8','--covase-l':'#D1E8E2','--lilac-blue':'#A9D6E5','--pastel-blue':'#48b8c4','--n50':'#f7fafa','--n100':'#edf3f3','--n200':'#dce8e8','--n300':'#b8cece','--n400':'#8aa5a5','--n500':'#5e7e7e','--n600':'#3f5c5c','--n700':'#2a4242','--n800':'#1a2e2e','--bg':'#f2f7f6','--green-dk':'#0d4a52','--green-lt':'#135e66','--deep-dk':'#0a3038','--bar-text':'#ffffff','--tl-red':'#e6333a','--tl-red-l':'#fdeaeb','--tl-orange':'#ff7650','--tl-orange-l':'#fff0ec','--tl-yellow':'#ffd72e','--tl-yellow-l':'#fff9dd','--tl-green':'#A7EB52','--tl-green-l':'#edfcd4'},
+refined:{'--indigo':'#1B1B1B','--mid-indigo':'#2a2a2a','--light-indigo':'#595f39','--blue-black':'#111111','--covase':'#6b7340','--covase-l':'#eaecdd','--lilac-blue':'#ddddd0','--pastel-blue':'#8a9060','--n50':'#f9f9f7','--n100':'#f0f0ec','--n200':'#e4e4de','--n300':'#c4c5ba','--n400':'#9a9b8e','--n500':'#73746a','--n600':'#54554e','--n700':'#3a3b35','--n800':'#252620','--bg':'#f5f5f2','--green-dk':'#2a2a1a','--green-lt':'#3a3a28','--deep-dk':'#1a1a12','--bar-text':'#ffffff','--tl-red':'#e6333a','--tl-red-l':'#fdeaeb','--tl-orange':'#ff7650','--tl-orange-l':'#fff0ec','--tl-yellow':'#ffd72e','--tl-yellow-l':'#fff9dd','--tl-green':'#A7EB52','--tl-green-l':'#edfcd4'},
+navy:{'--indigo':'#0F2143','--mid-indigo':'#0a1830','--light-indigo':'#354E56','--blue-black':'#080f20','--covase':'#C49A1A','--covase-l':'#faf3dd','--lilac-blue':'#d4cbb0','--pastel-blue':'#8B6212','--n50':'#f8f8f6','--n100':'#eeeee8','--n200':'#e0dfda','--n300':'#c0bfb5','--n400':'#949389','--n500':'#6e6d64','--n600':'#504f48','--n700':'#383730','--n800':'#242320','--bg':'#f4f4f1','--green-dk':'#0a1830','--green-lt':'#0F2143','--deep-dk':'#060e1a','--bar-text':'#ffffff','--tl-red':'#e6333a','--tl-red-l':'#fdeaeb','--tl-orange':'#ff7650','--tl-orange-l':'#fff0ec','--tl-yellow':'#ffd72e','--tl-yellow-l':'#fff9dd','--tl-green':'#A7EB52','--tl-green-l':'#edfcd4'}
+};
+function setTheme(id,el){var t=T[id],r=document.documentElement.style;Object.keys(t).forEach(function(k){r.setProperty(k,t[k])});document.querySelectorAll('.tp-item').forEach(function(p){p.classList.remove('on')});el.classList.add('on');document.getElementById('themePanel').classList.remove('open')}
+var VM={mileage:{t:'Mileage Management',c:'Woodland Trust \u2014 42 Vehicles',b:'Connected Vehicle Data'},phev:{t:'PHEV Plug-in Audit',c:'Woodland Trust \u2014 11 PHEVs',b:'Connected Vehicle Data'},ev:{t:'EV Performance',c:'Woodland Trust \u2014 18 EVs',b:'Battery Telemetry Live'},charging:{t:'Charging Costs',c:'Woodland Trust \u2014 18 EVs',b:'GPS + Charging Data'},maintenance:{t:'Maintenance',c:'Woodland Trust \u2014 42 Vehicles',b:'Diagnostic Telemetry'}};
+function switchView(id){document.querySelectorAll('.page-view').forEach(function(v){v.classList.remove('active')});document.getElementById('view-'+id).classList.add('active');document.querySelectorAll('.sb-item').forEach(function(i){i.classList.remove('active')});var n=document.querySelector('.sb-item[data-view="'+id+'"]');if(n)n.classList.add('active');var m=VM[id];document.getElementById('tb-cl').textContent=m.c;document.getElementById('tb-bdg').textContent=m.b;window.scrollTo(0,0);if(id==='ev')renderEV()}
+switchView('mileage');
+
+/* Theme Editor Functions */
+function teSet(v,val){
+document.documentElement.style.setProperty(v,val);
+var k=v.replace('--','');
+var sw=document.getElementById('sw-'+k);
+var hx=document.getElementById('hx-'+k);
+if(sw)sw.style.background=val;
+if(hx)hx.textContent=val;
+document.querySelectorAll('.te-preset').forEach(function(p){p.classList.remove('on')});
+}
+function tePreset(id,el){
+var p=T[id];
+var r=document.documentElement.style;
+// Clear all inline vars first so nothing sticks
+var allVars=['--indigo','--mid-indigo','--light-indigo','--blue-black','--lilac-blue','--covase','--covase-l','--pastel-blue','--green-dk','--green-lt','--deep-dk','--bar-text','--tl-green','--tl-green-l','--tl-yellow','--tl-yellow-l','--tl-orange','--tl-orange-l','--tl-red','--tl-red-l','--n50','--n100','--n200','--n300','--n400','--n500','--n600','--n700','--n800','--bg'];
+allVars.forEach(function(v){r.removeProperty(v)});
+// Apply preset
+Object.keys(p).forEach(function(k){
+r.setProperty(k,p[k]);
+var key=k.replace('--','');
+var sw=document.getElementById('sw-'+key);
+var hx=document.getElementById('hx-'+key);
+var inp=sw?sw.querySelector('input'):null;
+if(sw)sw.style.background=p[k];
+if(hx)hx.textContent=p[k];
+if(inp)inp.value=p[k];
+});
+document.querySelectorAll('.te-preset').forEach(function(b){b.classList.remove('on')});
+el.classList.add('on');
+teToast('Applied: '+id.charAt(0).toUpperCase()+id.slice(1));
+}
+function teExport(){
+var evs=['--indigo','--blue-black','--covase','--covase-l','--mid-indigo','--light-indigo','--pastel-blue','--lilac-blue','--green-dk','--green-lt','--deep-dk','--bg','--n100','--n200','--n300','--n400','--n500','--n600','--n700','--n800','--tl-red','--tl-orange','--tl-yellow','--tl-green','--bar-text'];
+var lines=[':root {'];
+evs.forEach(function(v){var val=getComputedStyle(document.documentElement).getPropertyValue(v).trim();if(val)lines.push('  '+v+': '+val+';')});
+lines.push('}');
+var css=lines.join('\n');
+navigator.clipboard.writeText(css).then(function(){teToast('CSS variables copied')}).catch(function(){
+var ta=document.createElement('textarea');ta.value=css;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);teToast('CSS variables copied');
+});
+}
+function teToast(msg){
+var t=document.getElementById('teToast');document.getElementById('teToastMsg').textContent=msg;
+t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2500);
+}
+</script>
+</body>
+</html>
