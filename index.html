@@ -308,10 +308,10 @@ td{padding:12px 14px;font-size:12px;color:var(--n700);white-space:nowrap}td:firs
 <div class="sb-footer"><div class="sb-avatar">SC</div><div class="sb-user"><span class="email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4f3c262220210f2c20392e3c2a612c20613a24">[email&#160;protected]</a></span><span class="role">Administrator</span></div></div>
 </nav>
 <div class="main">
-<div class="content">
+<div class="content" style="position:relative">
 <div class="content-tools">
 <div class="tb-badge"><span class="tb-dot"></span> <span id="tb-bdg">Connected Vehicle Data</span></div>
-<div class="tb-client" id="tb-cl">Woodland Trust — 42 Vehicles</div>
+<div class="tb-client" id="tb-cl">Amblewood Inc — 42 Vehicles</div>
 <button class="te-toggle" onclick="document.getElementById('tePanel').classList.toggle('open')"><div class="dots"><span style="background:#242254"></span><span style="background:#03d3c6"></span><span style="background:#e6333a"></span></div>Theme Editor</button>
 </div>
 
@@ -345,15 +345,8 @@ td{padding:12px 14px;font-size:12px;color:var(--n700);white-space:nowrap}td:firs
 <div class="sc"><div class="sp" style="color:var(--tl-orange)">Review — 3 Vehicles</div><div class="st">Monitor &amp; Confirm Trend</div><div class="sd">3 vehicles 1–2k over. Orbis flags when threshold exceeded.</div><div class="ss" style="color:var(--tl-orange)">Potential £4,890</div></div>
 <div class="sc"><div class="sp" style="color:var(--covase)">Opportunity — 8 Vehicles</div><div class="st">Reduce Under-Mileage Contracts</div><div class="sd">8 vehicles significantly under. Reduce to lower monthly rentals.</div><div class="ss" style="color:var(--covase)">Saves £9,120/yr</div></div>
 </div>
-<div class="tw-h"><div class="tw-hd"><div class="tw-tt">Vehicle Mileage Detail</div><div class="flt"><button class="fb on">All</button><button class="fb">Over</button><button class="fb">Under</button></div></div>
-<div class="tbl"><table><thead><tr><th>Reg</th><th>Vehicle</th><th>Driver</th><th>Contract</th><th>Projected</th><th>Variance</th><th>Status</th><th>Charge</th><th>Reading</th></tr></thead><tbody>
-<tr><td>BD21 VWX</td><td>BMW 320d</td><td>James Harper</td><td>10,000</td><td>16,240</td><td><span class="mb"><span style="width:92%;background:var(--tl-red)"></span></span>+6,240</td><td><span class="pill over">● Over</span></td><td><span class="ex" style="color:var(--tl-red)">£4,368</span></td><td style="color:var(--n400)">2h ago</td></tr>
-<tr><td>EF19 JKL</td><td>Audi A4 Avant</td><td>Sarah Mitchell</td><td>12,000</td><td>16,810</td><td><span class="mb"><span style="width:78%;background:var(--tl-red)"></span></span>+4,810</td><td><span class="pill over">● Over</span></td><td><span class="ex" style="color:var(--tl-red)">£3,367</span></td><td style="color:var(--n400)">45m</td></tr>
-<tr><td>GH22 MNP</td><td>Volvo XC40</td><td>David Clarke</td><td>15,000</td><td>18,920</td><td><span class="mb"><span style="width:64%;background:var(--tl-red)"></span></span>+3,920</td><td><span class="pill over">● Over</span></td><td><span class="ex" style="color:var(--tl-red)">£2,744</span></td><td style="color:var(--n400)">1h</td></tr>
-<tr><td>MN22 FGH</td><td>VW ID.4</td><td>Rachel Adams</td><td>10,000</td><td>10,340</td><td><span class="mb"><span style="width:15%;background:var(--covase)"></span></span>+340</td><td><span class="pill on-track">● On Track</span></td><td><span class="ex" style="color:var(--n400)">—</span></td><td style="color:var(--n400)">1h</td></tr>
-<tr><td>ST23 MNP</td><td>Kia EV6</td><td>Claire Dawson</td><td>12,000</td><td>8,400</td><td><span class="mb"><span style="width:60%;background:var(--tl-green)"></span></span>-3,600</td><td><span class="pill under">● Under</span></td><td><span class="ex" style="color:#4a8c1a">-£432/mo</span></td><td style="color:var(--n400)">20m</td></tr>
-<tr><td>UV22 QRS</td><td>BMW iX1</td><td>Andrew Foster</td><td>15,000</td><td>9,200</td><td><span class="mb"><span style="width:77%;background:var(--tl-green)"></span></span>-5,800</td><td><span class="pill under">● Under</span></td><td><span class="ex" style="color:#4a8c1a">-£580/mo</span></td><td style="color:var(--n400)">4h</td></tr>
-</tbody></table></div><div class="pag"><span>Showing 1–6 of 42</span><div class="pag-b"><div class="pg on">1</div><div class="pg">2</div><div class="pg">3</div><div class="pg">4</div><div class="pg">5</div></div></div></div>
+<div class="tw-h"><div class="tw-hd"><div class="tw-tt">Vehicle Mileage Detail</div></div>
+<div id="tbl-mileage"></div></div>
 </div>
 
 <!-- 2. PHEV -->
@@ -389,12 +382,7 @@ td{padding:12px 14px;font-size:12px;color:var(--n700);white-space:nowrap}td:firs
 <div class="sc"><div class="si"><span class="mi" style="font-size:22px">trending_down</span></div><div class="st">CO₂ Impact</div><div class="sd">Unplugged PHEVs emit 3–4× more CO₂ than declared. Undermines ESG targets.</div><div class="ss" style="color:#9a7b00">3.2× over declared</div></div>
 </div>
 <div class="tw-h"><div class="tw-hd"><div class="tw-tt">PHEV Fleet Detail</div></div>
-<div class="tbl"><table><thead><tr><th>Reg</th><th>Vehicle</th><th>Driver</th><th>WLTP</th><th>Actual</th><th>Gap</th><th>Plug-in</th><th>Fuel Ben.</th><th>Waste/yr</th></tr></thead><tbody>
-<tr><td>GH22 MNP</td><td>Volvo XC40</td><td>David Clarke</td><td style="color:var(--n400)">141</td><td><span class="ex" style="color:var(--tl-red)">25.3</span></td><td style="color:var(--tl-red);font-weight:600">-82%</td><td><span class="pill never">● Never</span></td><td>Yes</td><td><span class="ex" style="color:var(--tl-red)">£2,180</span></td></tr>
-<tr><td>HY02 STU</td><td>BMW 330e</td><td>Rachel Green</td><td style="color:var(--n400)">188</td><td><span class="ex" style="color:var(--tl-red)">27.5</span></td><td style="color:var(--tl-red);font-weight:600">-85%</td><td><span class="pill rare">● Rare</span></td><td>Yes</td><td><span class="ex" style="color:var(--tl-red)">£1,920</span></td></tr>
-<tr><td>JP21 ABC</td><td>BMW 530e</td><td>Jon Plank</td><td style="color:var(--n400)">99.9</td><td><span class="ex" style="color:var(--tl-red)">28.6</span></td><td style="color:var(--tl-red);font-weight:600">-71%</td><td><span class="pill never">● Never</span></td><td>Yes</td><td><span class="ex" style="color:var(--tl-red)">£1,840</span></td></tr>
-<tr><td>LN22 GHJ</td><td>Merc C 300 e</td><td>Paul Foster</td><td style="color:var(--n400)">176</td><td><span class="ex" style="color:#4a8c1a">89.2</span></td><td style="color:#9a7b00;font-weight:600">-49%</td><td><span class="pill regular">● Regular</span></td><td>No</td><td style="color:#4a8c1a;font-weight:600">£0</td></tr>
-</tbody></table></div><div class="pag"><span>1–4 of 11</span><div class="pag-b"><div class="pg on">1</div><div class="pg">2</div></div></div></div>
+<div id="tbl-phev"></div></div>
 </div>
 
 <!-- 3. EV -->
@@ -470,9 +458,8 @@ td{padding:12px 14px;font-size:12px;color:var(--n700);white-space:nowrap}td:firs
 </div>
 </div></div>
 
-<div class="tw-h"><div class="tw-hd"><div class="tw-tt">EV Fleet Detail</div><div class="flt"><button class="fb on">All</button><button class="fb">Flagged</button></div></div>
-<div class="tbl"><table><thead><tr><th>Reg</th><th>Vehicle</th><th>Driver</th><th>WLTP</th><th>ev-db</th><th>Orbis</th><th>vs ev-db</th><th>mi/kWh</th><th>OES</th><th>SoH</th></tr></thead><tbody id="evTableBody">
-</tbody></table></div><div class="pag"><span>1&#8211;6 of 18</span><div class="pag-b"><div class="pg on">1</div><div class="pg">2</div><div class="pg">3</div></div></div></div>
+<div class="tw-h"><div class="tw-hd"><div class="tw-tt">EV Fleet Detail</div></div>
+<div id="tbl-ev"></div></div>
 </div>
 <!-- 4. CHARGING -->
 <div class="page-view" id="view-charging">
@@ -507,11 +494,7 @@ td{padding:12px 14px;font-size:12px;color:var(--n700);white-space:nowrap}td:firs
 <div class="sc"><div class="st">Off-Peak Tariffs</div><div class="sd">6 drivers lack EV tariff. Octopus Go halves home cost.</div><div class="ss" style="color:#4a8c1a">Saves £1,440/yr</div></div>
 </div>
 <div class="tw-h"><div class="tw-hd"><div class="tw-tt">Charging Cost Detail</div></div>
-<div class="tbl"><table><thead><tr><th>Reg</th><th>Vehicle</th><th>Driver</th><th>Sessions</th><th>kWh</th><th>Actual</th><th>AER</th><th>Location</th><th>Overpay</th></tr></thead><tbody>
-<tr><td>EV01 ABC</td><td>Tesla Model 3</td><td>Tom Brown</td><td>18</td><td>312</td><td>£24</td><td>£70</td><td><span class="loc-p home"><span class="mi" style="font-size:14px">home</span> Home</span></td><td><span class="ex" style="color:var(--tl-red)">+£46</span></td></tr>
-<tr><td>EV03 GHI</td><td>BMW iX1</td><td>Emma Davis</td><td>12</td><td>198</td><td>£15</td><td>£56</td><td><span class="loc-p home"><span class="mi" style="font-size:14px">home</span> Home</span></td><td><span class="ex" style="color:var(--tl-red)">+£41</span></td></tr>
-<tr><td>EV07 MNP</td><td>Kia EV6</td><td>Mike Cooper</td><td>22</td><td>510</td><td>£332</td><td>£342</td><td><span class="loc-p pub"><span class="mi" style="font-size:14px">ev_station</span> Rapid</span></td><td><span class="ex" style="color:#4a8c1a">+£10</span></td></tr>
-</tbody></table></div><div class="pag"><span>1–3 of 18</span><div class="pag-b"><div class="pg on">1</div><div class="pg">2</div><div class="pg">3</div></div></div></div>
+<div id="tbl-charging"></div></div>
 </div>
 
 <!-- 5. MAINTENANCE -->
@@ -562,13 +545,8 @@ td{padding:12px 14px;font-size:12px;color:var(--n700);white-space:nowrap}td:firs
 <div class="ul-r"><div class="ul-rg">WX21 TUV</div><div class="ul-tk"><div class="ul-fl" style="width:42%;background:var(--tl-red)"></div></div><div class="ul-v" style="color:var(--tl-red)">42%</div><div class="ul-d">13/30</div></div>
 </div></div></div>
 <div class="db deep"><div style="width:42px;height:42px;background:rgba(255,255,255,.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0"><span class="mi" style="font-size:22px">psychology</span></div><div class="db-ct"><h3>Predictive Maintenance Forecast</h3><p>Diagnostics + service history + mileage = maintenance forecasting. Helps Lex budget fully-maintained contracts. Early intervention reduces breakdowns.</p></div><div class="db-mt"><div class="db-m"><div class="v" style="color:var(--pastel-blue)">£8,420</div><div class="l">Q2</div></div><div class="db-m"><div class="v" style="color:var(--covase)">£1,840</div><div class="l">Avoidable</div></div><div class="db-m"><div class="v" style="color:var(--tl-yellow)">4</div><div class="l">At-Risk</div></div></div></div>
-<div class="tw-h"><div class="tw-hd"><div class="tw-tt">Maintenance Status</div><div class="flt"><button class="fb on">All</button><button class="fb">Alerts</button><button class="fb">Service</button></div></div>
-<div class="tbl"><table><thead><tr><th>Reg</th><th>Vehicle</th><th>Health</th><th>Alerts</th><th>Service</th><th>Tyres</th><th>SoH</th><th>Util</th><th>Cost</th></tr></thead><tbody>
-<tr><td>AB12 CDE</td><td>Ford Transit</td><td><span class="pill critical">● Critical</span></td><td style="color:var(--tl-red);font-weight:600">Brakes</td><td style="color:var(--tl-orange);font-weight:600">25 Mar</td><td style="color:#9a7b00">1 low</td><td>—</td><td>92%</td><td><span class="ex">£680</span></td></tr>
-<tr><td>EV09 RST</td><td>Nissan Ariya</td><td><span class="pill critical">● Critical</span></td><td style="color:var(--tl-red);font-weight:600">Battery</td><td>15 May</td><td style="color:#4a8c1a">OK</td><td style="color:var(--tl-red);font-weight:600">84%</td><td>71%</td><td><span class="ex">£1,200</span></td></tr>
-<tr><td>EF56 GHI</td><td>VW Transporter</td><td><span class="pill attention">● Attention</span></td><td style="color:var(--tl-orange);font-weight:600">Overdue</td><td style="color:var(--tl-red);font-weight:600">Overdue</td><td style="color:#4a8c1a">OK</td><td>—</td><td>85%</td><td><span class="ex">£520</span></td></tr>
-<tr><td>EV01 ABC</td><td>Tesla Model 3</td><td><span class="pill healthy">● Healthy</span></td><td style="color:#4a8c1a">None</td><td style="color:var(--pastel-blue)">3 Apr</td><td style="color:#4a8c1a">OK</td><td style="color:#4a8c1a">96%</td><td>89%</td><td><span class="ex">£180</span></td></tr>
-</tbody></table></div><div class="pag"><span>1–4 of 42</span><div class="pag-b"><div class="pg on">1</div><div class="pg">2</div><div class="pg">3</div><div class="pg">4</div><div class="pg">5</div></div></div></div>
+<div class="tw-h"><div class="tw-hd"><div class="tw-tt">Maintenance Status</div></div>
+<div id="tbl-maintenance"></div></div>
 </div>
 
 </div></div>
@@ -585,7 +563,7 @@ var evDrive='city',evWeather='mild';
 function setEVFilter(type,val,el){
 if(type==='drive'){evDrive=val;document.querySelectorAll('#driveFilters .fb').forEach(function(b){b.classList.remove('on')});}
 else{evWeather=val;document.querySelectorAll('#weatherFilters .fb').forEach(function(b){b.classList.remove('on')});}
-el.classList.add('on');renderEV();
+el.classList.add('on');renderEV();renderTbl('ev',1);
 }
 function renderEV(){
 var maxW=0;evData.forEach(function(c){if(c.wltp>maxW)maxW=c.wltp;var e=c.evdb[evDrive][evWeather];if(e>maxW)maxW=e;});
@@ -604,23 +582,6 @@ bars+='<div style="display:flex;align-items:center;gap:6px"><div style="font-siz
 bars+='</div></div>';
 });
 document.getElementById('evRangeBars').innerHTML=bars;
-var tb='';evData.forEach(function(c){
-var evdbVal=c.evdb[evDrive][evWeather];
-var pct=Math.round(c.orbis/evdbVal*100);
-var diff=pct-100;
-var diffCol=diff<-30?'var(--tl-red)':diff<-15?'var(--tl-orange)':'#4a8c1a';
-var orbisCol=diff<-30?'var(--tl-red)':diff<-15?'var(--tl-orange)':'inherit';
-var oesClass=c.oes>=80?'exc':c.oes>=60?'gd':'poor';
-tb+='<tr><td>'+c.reg+'</td><td>'+c.v+'</td><td>'+c.d+'</td>';
-tb+='<td style="color:var(--n400)">'+c.wltp+'</td>';
-tb+='<td style="color:var(--light-indigo);font-weight:600">'+evdbVal+'</td>';
-tb+='<td style="font-weight:600;color:'+orbisCol+'">'+c.orbis+'</td>';
-tb+='<td style="font-weight:600;color:'+diffCol+'">'+(diff>0?'+':'')+diff+'%</td>';
-tb+='<td style="font-weight:600;color:'+(c.kwh>=3.5?'#4a8c1a':c.kwh>=2.5?'var(--n700)':'var(--tl-red)')+'">'+c.kwh+'</td>';
-tb+='<td><span class="oes-p '+oesClass+'">'+c.oes+'</span></td>';
-tb+='<td>'+c.soh+'%</td></tr>';
-});
-document.getElementById('evTableBody').innerHTML=tb;
 }
 var T={
 orbis:{'--indigo':'#242254','--mid-indigo':'#301d7e','--light-indigo':'#4b2ebc','--blue-black':'#020029','--covase':'#03d3c6','--covase-l':'#d6fbf8','--lilac-blue':'#c2e9ff','--pastel-blue':'#726cff','--n50':'#f8f8fc','--n100':'#eeeff5','--n200':'#dfe0ea','--n300':'#c5c6d4','--n400':'#9294a8','--n500':'#6b6d82','--n600':'#4e5068','--n700':'#363850','--n800':'#242540','--bg':'#f4f5fa','--green-dk':'#064e3b','--green-lt':'#065f46','--deep-dk':'#1e1b4b','--bar-text':'#ffffff','--tl-red':'#e6333a','--tl-red-l':'#fdeaeb','--tl-orange':'#ff7650','--tl-orange-l':'#fff0ec','--tl-yellow':'#ffd72e','--tl-yellow-l':'#fff9dd','--tl-green':'#A7EB52','--tl-green-l':'#edfcd4'},
@@ -631,8 +592,8 @@ refined:{'--indigo':'#1B1B1B','--mid-indigo':'#2a2a2a','--light-indigo':'#595f39
 navy:{'--indigo':'#0F2143','--mid-indigo':'#0a1830','--light-indigo':'#354E56','--blue-black':'#080f20','--covase':'#C49A1A','--covase-l':'#faf3dd','--lilac-blue':'#d4cbb0','--pastel-blue':'#8B6212','--n50':'#f8f8f6','--n100':'#eeeee8','--n200':'#e0dfda','--n300':'#c0bfb5','--n400':'#949389','--n500':'#6e6d64','--n600':'#504f48','--n700':'#383730','--n800':'#242320','--bg':'#f4f4f1','--green-dk':'#0a1830','--green-lt':'#0F2143','--deep-dk':'#060e1a','--bar-text':'#ffffff','--tl-red':'#e6333a','--tl-red-l':'#fdeaeb','--tl-orange':'#ff7650','--tl-orange-l':'#fff0ec','--tl-yellow':'#ffd72e','--tl-yellow-l':'#fff9dd','--tl-green':'#A7EB52','--tl-green-l':'#edfcd4'}
 };
 function setTheme(id,el){var t=T[id],r=document.documentElement.style;Object.keys(t).forEach(function(k){r.setProperty(k,t[k])});document.querySelectorAll('.tp-item').forEach(function(p){p.classList.remove('on')});el.classList.add('on');document.getElementById('themePanel').classList.remove('open')}
-var VM={mileage:{t:'Mileage Management',c:'Woodland Trust \u2014 42 Vehicles',b:'Connected Vehicle Data'},phev:{t:'PHEV Plug-in Audit',c:'Woodland Trust \u2014 11 PHEVs',b:'Connected Vehicle Data'},ev:{t:'EV Performance',c:'Woodland Trust \u2014 18 EVs',b:'Battery Telemetry Live'},charging:{t:'Charging Costs',c:'Woodland Trust \u2014 18 EVs',b:'GPS + Charging Data'},maintenance:{t:'Maintenance',c:'Woodland Trust \u2014 42 Vehicles',b:'Diagnostic Telemetry'}};
-function switchView(id){document.querySelectorAll('.page-view').forEach(function(v){v.classList.remove('active')});document.getElementById('view-'+id).classList.add('active');document.querySelectorAll('.sb-item').forEach(function(i){i.classList.remove('active')});var n=document.querySelector('.sb-item[data-view="'+id+'"]');if(n)n.classList.add('active');var m=VM[id];document.getElementById('tb-cl').textContent=m.c;document.getElementById('tb-bdg').textContent=m.b;window.scrollTo(0,0);if(id==='ev')renderEV()}
+var VM={mileage:{t:'Mileage Management',c:'Amblewood Inc \u2014 42 Vehicles',b:'Connected Vehicle Data'},phev:{t:'PHEV Plug-in Audit',c:'Amblewood Inc \u2014 11 PHEVs',b:'Connected Vehicle Data'},ev:{t:'EV Performance',c:'Amblewood Inc \u2014 18 EVs',b:'Battery Telemetry Live'},charging:{t:'Charging Costs',c:'Amblewood Inc \u2014 18 EVs',b:'GPS + Charging Data'},maintenance:{t:'Maintenance',c:'Amblewood Inc \u2014 42 Vehicles',b:'Diagnostic Telemetry'}};
+function switchView(id){document.querySelectorAll('.page-view').forEach(function(v){v.classList.remove('active')});document.getElementById('view-'+id).classList.add('active');document.querySelectorAll('.sb-item').forEach(function(i){i.classList.remove('active')});var n=document.querySelector('.sb-item[data-view="'+id+'"]');if(n)n.classList.add('active');var m=VM[id];document.getElementById('tb-cl').textContent=m.c;document.getElementById('tb-bdg').textContent=m.b;window.scrollTo(0,0);if(id==='ev'){renderEV();renderTbl('ev',1)}}
 switchView('mileage');
 
 /* Theme Editor Functions */
@@ -680,6 +641,308 @@ function teToast(msg){
 var t=document.getElementById('teToast');document.getElementById('teToastMsg').textContent=msg;
 t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2500);
 }
+
+/* Paginated Tables — 50 records per module, 10 per page */
+var PG={page:{mileage:1,phev:1,ev:1,charging:1,maintenance:1}};
+var times=['2m','5m','12m','20m','35m','45m','1h','2h','3h','4h','6h','8h','12h','1d'];
+function rT(a){return a[Math.floor(Math.random()*a.length)]}
+
+/* MILEAGE DATA */
+var MD=[
+{r:'BD21 VWX',v:'BMW 320d',d:'James Harper',c:10000,p:16240,va:6240,s:'over',ch:4368},
+{r:'EF19 JKL',v:'Audi A4 Avant',d:'Sarah Mitchell',c:12000,p:16810,va:4810,s:'over',ch:3367},
+{r:'GH22 MNP',v:'Volvo XC40',d:'David Clarke',c:15000,p:18920,va:3920,s:'over',ch:2744},
+{r:'KL20 RST',v:'Ford Focus',d:'Karen White',c:10000,p:13150,va:3150,s:'over',ch:2205},
+{r:'AB23 CDE',v:'VW Passat',d:'Ben Taylor',c:12000,p:14400,va:2400,s:'over',ch:1680},
+{r:'PQ21 FGH',v:'BMW 530e',d:'Jon Plank',c:15000,p:16800,va:1800,s:'over',ch:1260},
+{r:'RS22 JKL',v:'Audi Q5',d:'Lucy Evans',c:10000,p:11200,va:1200,s:'over',ch:840},
+{r:'MN22 FGH',v:'VW ID.4',d:'Rachel Adams',c:10000,p:10340,va:340,s:'on-track',ch:0},
+{r:'TU23 MNP',v:'Hyundai Tucson',d:'Chris Wood',c:12000,p:12180,va:180,s:'on-track',ch:0},
+{r:'WX21 QRS',v:'Kia Sportage',d:'Helen Price',c:15000,p:14920,va:-80,s:'on-track',ch:0},
+{r:'ST23 MNP',v:'Kia EV6',d:'Claire Dawson',c:12000,p:8400,va:-3600,s:'under',ch:0},
+{r:'UV22 QRS',v:'BMW iX1',d:'Andrew Foster',c:15000,p:9200,va:-5800,s:'under',ch:0},
+{r:'CD24 EFG',v:'Tesla Model Y',d:'Fiona Grant',c:10000,p:7200,va:-2800,s:'under',ch:0},
+{r:'YZ22 ABC',v:'Volvo XC60',d:'Tom Brown',c:15000,p:14100,va:-900,s:'on-track',ch:0},
+{r:'DE23 HIJ',v:'Merc C-Class',d:'Nigel Cross',c:12000,p:12450,va:450,s:'on-track',ch:0},
+{r:'FG21 KLM',v:'Ford Puma',d:'Amy Collins',c:10000,p:10050,va:50,s:'on-track',ch:0},
+{r:'HJ24 NOP',v:'Skoda Octavia',d:'Mark Thompson',c:15000,p:13200,va:-1800,s:'under',ch:0},
+{r:'KM22 QRS',v:'VW Tiguan',d:'Paula Reid',c:12000,p:11400,va:-600,s:'on-track',ch:0},
+{r:'NP23 TUV',v:'Nissan Qashqai',d:'Steve Morris',c:10000,p:10800,va:800,s:'on-track',ch:0},
+{r:'QR21 WXY',v:'Toyota RAV4',d:'Jenny Walsh',c:15000,p:15680,va:680,s:'on-track',ch:0},
+{r:'SU24 ABC',v:'Peugeot 3008',d:'Dan Hughes',c:10000,p:9400,va:-600,s:'on-track',ch:0},
+{r:'VW22 DEF',v:'Renault Arkana',d:'Lisa Taylor',c:12000,p:13800,va:1800,s:'over',ch:1260},
+{r:'XY23 GHI',v:'Mazda CX-5',d:'Rob Marsh',c:15000,p:14200,va:-800,s:'on-track',ch:0},
+{r:'ZA21 JKL',v:'Hyundai Ioniq 5',d:'Emma Davis',c:10000,p:7800,va:-2200,s:'under',ch:0},
+{r:'BC24 MNP',v:'BMW X1',d:'Mike Cooper',c:12000,p:11100,va:-900,s:'on-track',ch:0},
+{r:'EG22 QRS',v:'Audi A3',d:'Chloe Barnes',c:10000,p:10200,va:200,s:'on-track',ch:0},
+{r:'HK23 TUV',v:'VW Golf',d:'Phil Ward',c:12000,p:14600,va:2600,s:'over',ch:1820},
+{r:'JM21 WXY',v:'Ford Kuga',d:'Sarah Johnson',c:15000,p:15200,va:200,s:'on-track',ch:0},
+{r:'LN24 ABC',v:'Seat Leon',d:'Gary Mills',c:10000,p:9600,va:-400,s:'on-track',ch:0},
+{r:'PQ22 DEF',v:'Citroen C5 X',d:'Diane Hart',c:12000,p:12600,va:600,s:'on-track',ch:0},
+{r:'RS23 GHI',v:'MG ZS EV',d:'Oliver Stone',c:10000,p:8200,va:-1800,s:'under',ch:0},
+{r:'TU21 JKL',v:'Vauxhall Mokka',d:'Jane Bishop',c:15000,p:16200,va:1200,s:'over',ch:840},
+{r:'WX24 MNP',v:'Dacia Jogger',d:'Pete Allen',c:12000,p:11200,va:-800,s:'on-track',ch:0},
+{r:'YZ23 QRS',v:'Fiat 500e',d:'Susan Day',c:10000,p:6800,va:-3200,s:'under',ch:0},
+{r:'AB22 TUV',v:'Mini Electric',d:'Tony Black',c:10000,p:7400,va:-2600,s:'under',ch:0},
+{r:'CD21 WXY',v:'Honda e:Ny1',d:'Maria Lopez',c:12000,p:12800,va:800,s:'on-track',ch:0},
+{r:'EF24 ABC',v:'BMW 320i',d:'Kevin Smith',c:15000,p:17400,va:2400,s:'over',ch:1680},
+{r:'GH23 DEF',v:'Merc EQA',d:'Laura King',c:10000,p:9000,va:-1000,s:'on-track',ch:0},
+{r:'JK22 GHI',v:'Volvo C40',d:'Simon Carter',c:12000,p:10600,va:-1400,s:'under',ch:0},
+{r:'LM21 JKL',v:'Peugeot e-208',d:'Rebecca Fox',c:10000,p:8600,va:-1400,s:'under',ch:0},
+{r:'NP24 MNP',v:'Renault Megane E',d:'Ian Webb',c:15000,p:15800,va:800,s:'on-track',ch:0},
+{r:'QS22 QRS',v:'Toyota bZ4X',d:'Wendy Hale',c:12000,p:11000,va:-1000,s:'on-track',ch:0},
+{r:'TV23 TUV',v:'Cupra Born',d:'Alex Reed',c:10000,p:10400,va:400,s:'on-track',ch:0},
+{r:'UW21 WXY',v:'Skoda Enyaq',d:'Debbie Nash',c:15000,p:13600,va:-1400,s:'under',ch:0},
+{r:'XZ24 ABC',v:'VW ID.3',d:'Matt Young',c:10000,p:9200,va:-800,s:'on-track',ch:0},
+{r:'BA22 DEF',v:'Ford E-Transit',d:'Craig Hunt',c:20000,p:22400,va:2400,s:'over',ch:1680},
+{r:'DC23 GHI',v:'Merc eVito',d:'Sandra Bell',c:15000,p:14400,va:-600,s:'on-track',ch:0},
+{r:'FE21 JKL',v:'Nissan Leaf',d:'Brian Cook',c:10000,p:7600,va:-2400,s:'under',ch:0},
+{r:'HG24 MNP',v:'BYD Atto 3',d:'Tracey Dunn',c:12000,p:11800,va:-200,s:'on-track',ch:0},
+{r:'JI22 QRS',v:'MG4 EV',d:'Neil Watts',c:10000,p:10600,va:600,s:'on-track',ch:0}
+];
+
+/* PHEV DATA */
+var PD=[
+{r:'GH22 MNP',v:'Volvo XC40 R',d:'David Clarke',w:141,a:25.3,g:82,pi:'never',fb:'Yes',wa:2180},
+{r:'HY02 STU',v:'BMW 330e',d:'Rachel Green',w:188,a:27.5,g:85,pi:'rare',fb:'Yes',wa:1920},
+{r:'JP21 ABC',v:'BMW 530e',d:'Jon Plank',w:99.9,a:28.6,g:71,pi:'never',fb:'Yes',wa:1840},
+{r:'LN22 GHJ',v:'Merc C 300 e',d:'Paul Foster',w:176,a:89.2,g:49,pi:'regular',fb:'No',wa:0},
+{r:'RT23 KLM',v:'VW Passat GTE',d:'Claire Brown',w:162,a:31.2,g:81,pi:'never',fb:'Yes',wa:1760},
+{r:'UV21 NOP',v:'BMW X5 45e',d:'Gary Price',w:88.2,a:24.8,g:72,pi:'rare',fb:'Yes',wa:2340},
+{r:'WX22 QRS',v:'Volvo XC60 R',d:'Helen Cross',w:113,a:32.4,g:71,pi:'never',fb:'Yes',wa:1680},
+{r:'YZ24 TUV',v:'Audi Q5 55e',d:'Tom Harris',w:128,a:26.8,g:79,pi:'never',fb:'Yes',wa:2080},
+{r:'AB21 WXY',v:'Merc GLC 300e',d:'Lisa Young',w:156,a:42.6,g:73,pi:'rare',fb:'Yes',wa:1420},
+{r:'CD23 ABC',v:'BMW 320e',d:'Mark Ellis',w:156,a:68.4,g:56,pi:'regular',fb:'No',wa:0},
+{r:'EF22 DEF',v:'Cupra Formentor',d:'Amy Scott',w:124,a:34.8,g:72,pi:'never',fb:'Yes',wa:1580},
+{r:'GH24 GHI',v:'Peugeot 3008 H',d:'Dan Mills',w:148,a:38.2,g:74,pi:'rare',fb:'Yes',wa:1320},
+{r:'JK21 JKL',v:'Volvo S60 R',d:'Sarah Lane',w:118,a:29.4,g:75,pi:'never',fb:'Yes',wa:1900},
+{r:'LM23 MNP',v:'Land Rover P400e',d:'Rob Dixon',w:72.4,a:22.6,g:69,pi:'never',fb:'Yes',wa:2620},
+{r:'NP22 QRS',v:'BMW X3 30e',d:'Emma Cook',w:132,a:35.6,g:73,pi:'rare',fb:'Yes',wa:1480},
+{r:'QR24 TUV',v:'Merc A 250 e',d:'Chris Webb',w:180,a:52.4,g:71,pi:'regular',fb:'No',wa:420},
+{r:'ST21 WXY',v:'Ford Kuga PHEV',d:'Diane Hart',w:148,a:38.8,g:74,pi:'never',fb:'Yes',wa:1280},
+{r:'UV23 ABC',v:'Citroen C5 H',d:'Pete Allen',w:136,a:32.2,g:76,pi:'never',fb:'Yes',wa:1640},
+{r:'WX24 DEF',v:'Kia Niro PHEV',d:'Jenny Walsh',w:158,a:48.6,g:69,pi:'regular',fb:'No',wa:380},
+{r:'YZ21 GHI',v:'Hyundai Tucson P',d:'Tony Black',w:168,a:36.4,g:78,pi:'rare',fb:'Yes',wa:1380},
+{r:'BC22 JKL',v:'Skoda Superb iV',d:'Ian Webb',w:148,a:42.8,g:71,pi:'rare',fb:'Yes',wa:1180},
+{r:'DE24 MNP',v:'Renault Captur P',d:'Chloe Barnes',w:118,a:44.2,g:63,pi:'regular',fb:'No',wa:0},
+{r:'FG23 QRS',v:'Volvo XC90 R',d:'Phil Ward',w:84.6,a:23.4,g:72,pi:'never',fb:'Yes',wa:2480},
+{r:'HJ21 TUV',v:'Merc E 300 e',d:'Laura King',w:154,a:46.8,g:70,pi:'regular',fb:'No',wa:0},
+{r:'KM24 WXY',v:'BMW 225xe',d:'Steve Morris',w:142,a:33.6,g:76,pi:'never',fb:'Yes',wa:1520},
+{r:'NQ22 ABC',v:'Peugeot 508 H',d:'Maria Lopez',w:128,a:36.2,g:72,pi:'rare',fb:'Yes',wa:1440},
+{r:'PR23 DEF',v:'Jeep Compass 4xe',d:'Kevin Smith',w:96.8,a:26.4,g:73,pi:'never',fb:'Yes',wa:1960},
+{r:'SU21 GHI',v:'Seat Tarraco P',d:'Nigel Cross',w:128,a:34.8,g:73,pi:'rare',fb:'Yes',wa:1380},
+{r:'VX24 JKL',v:'DS 7 E-Tense',d:'Karen White',w:136,a:38.6,g:72,pi:'never',fb:'Yes',wa:1480},
+{r:'WY22 MNP',v:'Audi A6 55e',d:'Ben Taylor',w:118,a:28.2,g:76,pi:'never',fb:'Yes',wa:1880},
+{r:'ZB23 QRS',v:'Mini Countryman P',d:'Fiona Grant',w:126,a:42.4,g:66,pi:'regular',fb:'No',wa:0},
+{r:'AC21 TUV',v:'BMW X1 25e',d:'Oliver Stone',w:148,a:44.8,g:70,pi:'regular',fb:'No',wa:0},
+{r:'BD24 WXY',v:'VW Touareg R',d:'Gary Mills',w:92.4,a:24.2,g:74,pi:'never',fb:'Yes',wa:2280},
+{r:'CE22 ABC',v:'Range Rover P440',d:'Wendy Hale',w:68.2,a:21.8,g:68,pi:'never',fb:'Yes',wa:2840},
+{r:'DF23 DEF',v:'Porsche Cayenne E',d:'Alex Reed',w:80.6,a:22.4,g:72,pi:'never',fb:'Yes',wa:2560},
+{r:'EH21 GHI',v:'Audi Q7 55e',d:'Debbie Nash',w:96.4,a:25.6,g:73,pi:'rare',fb:'Yes',wa:2140},
+{r:'FJ24 JKL',v:'Volvo V60 R',d:'Matt Young',w:118,a:45.2,g:62,pi:'regular',fb:'No',wa:0},
+{r:'GK22 MNP',v:'Merc GLE 350 e',d:'Craig Hunt',w:102,a:24.8,g:76,pi:'never',fb:'Yes',wa:2220},
+{r:'HL23 QRS',v:'BMW 745e',d:'Sandra Bell',w:88.4,a:23.6,g:73,pi:'never',fb:'Yes',wa:2380},
+{r:'JN21 TUV',v:'Ford Explorer P',d:'Brian Cook',w:104,a:28.4,g:73,pi:'rare',fb:'Yes',wa:1820},
+{r:'KP24 WXY',v:'Citroen C5 X P',d:'Tracey Dunn',w:132,a:38.8,g:71,pi:'rare',fb:'Yes',wa:1360},
+{r:'LQ22 ABC',v:'Peugeot 308 H',d:'Neil Watts',w:158,a:52.6,g:67,pi:'regular',fb:'No',wa:0},
+{r:'MR23 DEF',v:'Kia Sorento PHEV',d:'Jane Bishop',w:108,a:30.4,g:72,pi:'never',fb:'Yes',wa:1720},
+{r:'NS21 GHI',v:'Hyundai Santa Fe P',d:'Rebecca Fox',w:112,a:32.8,g:71,pi:'rare',fb:'Yes',wa:1560},
+{r:'PT24 JKL',v:'Toyota RAV4 PHEV',d:'Simon Carter',w:178,a:62.4,g:65,pi:'regular',fb:'No',wa:0},
+{r:'QU22 MNP',v:'Suzuki Across P',d:'Paula Reid',w:178,a:56.8,g:68,pi:'regular',fb:'No',wa:0},
+{r:'RV23 QRS',v:'Vauxhall Grandland P',d:'Chris Wood',w:132,a:34.2,g:74,pi:'never',fb:'Yes',wa:1580},
+{r:'SW21 TUV',v:'Skoda Octavia iV',d:'Helen Price',w:148,a:44.6,g:70,pi:'regular',fb:'No',wa:0},
+{r:'TX24 WXY',v:'Audi A3 40e',d:'Lucy Evans',w:162,a:48.2,g:70,pi:'regular',fb:'No',wa:0},
+{r:'UY22 ABC',v:'Seat Leon e-H',d:'Dan Hughes',w:156,a:46.4,g:70,pi:'regular',fb:'No',wa:0}
+];
+
+/* EV DATA — extended from evData */
+var ED=evData.slice();
+ED.push(
+{reg:'EV04 JKL',v:'Mercedes EQC',d:'Lisa Taylor',wltp:232,orbis:134,kwh:2.4,oes:41,soh:91,evdb:{city:{cold:180,mild:290},highway:{cold:135,mild:180},combined:{cold:155,mild:230}}},
+{reg:'EV05 MNP',v:'Hyundai Ioniq 5',d:'Mark Thompson',wltp:303,orbis:228,kwh:3.3,oes:73,soh:94,evdb:{city:{cold:250,mild:395},highway:{cold:185,mild:245},combined:{cold:215,mild:310}}},
+{reg:'EV07 QRS',v:'Kia EV6 LR',d:'Mike Cooper',wltp:316,orbis:168,kwh:2.1,oes:35,soh:96,evdb:{city:{cold:260,mild:415},highway:{cold:195,mild:260},combined:{cold:225,mild:325}}},
+{reg:'EV08 TUV',v:'Nissan Leaf e+',d:'Jenny Walsh',wltp:239,orbis:182,kwh:3.2,oes:72,soh:93,evdb:{city:{cold:185,mild:305},highway:{cold:140,mild:195},combined:{cold:160,mild:240}}},
+{reg:'EV09 RST',v:'Nissan Ariya',d:'Rob Marsh',wltp:272,orbis:152,kwh:2.3,oes:38,soh:89,evdb:{city:{cold:210,mild:340},highway:{cold:155,mild:215},combined:{cold:180,mild:265}}},
+{reg:'EV10 WXY',v:'Peugeot e-208',d:'Rebecca Fox',wltp:225,orbis:178,kwh:3.4,oes:76,soh:97,evdb:{city:{cold:175,mild:310},highway:{cold:130,mild:185},combined:{cold:150,mild:235}}},
+{reg:'EV11 ABC',v:'Renault Megane E',d:'Ian Webb',wltp:292,orbis:215,kwh:3.5,oes:79,soh:96,evdb:{city:{cold:230,mild:370},highway:{cold:175,mild:230},combined:{cold:200,mild:290}}},
+{reg:'EV12 DEF',v:'Cupra Born',d:'Alex Reed',wltp:264,orbis:198,kwh:3.3,oes:74,soh:95,evdb:{city:{cold:205,mild:335},highway:{cold:155,mild:210},combined:{cold:178,mild:260}}},
+{reg:'EV13 GHI',v:'MG4 EV LR',d:'Neil Watts',wltp:281,orbis:212,kwh:3.5,oes:80,soh:98,evdb:{city:{cold:220,mild:355},highway:{cold:165,mild:220},combined:{cold:190,mild:275}}},
+{reg:'EV14 JKL',v:'Skoda Enyaq 80',d:'Debbie Nash',wltp:336,orbis:248,kwh:3.6,oes:82,soh:96,evdb:{city:{cold:265,mild:420},highway:{cold:200,mild:265},combined:{cold:230,mild:330}}},
+{reg:'EV15 MNP',v:'Volvo C40',d:'Simon Carter',wltp:270,orbis:206,kwh:3.4,oes:75,soh:94,evdb:{city:{cold:210,mild:340},highway:{cold:160,mild:215},combined:{cold:182,mild:265}}},
+{reg:'EV16 QRS',v:'Ford Mustang ME',d:'Craig Hunt',wltp:379,orbis:268,kwh:3.1,oes:68,soh:93,evdb:{city:{cold:295,mild:470},highway:{cold:225,mild:300},combined:{cold:255,mild:370}}},
+{reg:'EV17 TUV',v:'Mini Electric',d:'Tony Black',wltp:159,orbis:128,kwh:3.6,oes:78,soh:97,evdb:{city:{cold:125,mild:210},highway:{cold:95,mild:130},combined:{cold:108,mild:165}}},
+{reg:'EV18 WXY',v:'Honda e:Ny1',d:'Maria Lopez',wltp:256,orbis:192,kwh:3.3,oes:74,soh:95,evdb:{city:{cold:200,mild:325},highway:{cold:150,mild:200},combined:{cold:172,mild:250}}},
+{reg:'EV19 ABC',v:'Fiat 500e',d:'Susan Day',wltp:199,orbis:158,kwh:3.7,oes:81,soh:98,evdb:{city:{cold:155,mild:260},highway:{cold:115,mild:160},combined:{cold:132,mild:200}}},
+{reg:'EV20 DEF',v:'BYD Atto 3',d:'Tracey Dunn',wltp:261,orbis:196,kwh:3.2,oes:72,soh:96,evdb:{city:{cold:205,mild:330},highway:{cold:155,mild:205},combined:{cold:175,mild:255}}},
+{reg:'EV21 GHI',v:'MG ZS EV',d:'Oliver Stone',wltp:273,orbis:208,kwh:3.4,oes:76,soh:95,evdb:{city:{cold:215,mild:345},highway:{cold:160,mild:215},combined:{cold:185,mild:268}}},
+{reg:'EV22 JKL',v:'Vauxhall Mokka-e',d:'Jane Bishop',wltp:209,orbis:162,kwh:3.2,oes:71,soh:94,evdb:{city:{cold:162,mild:265},highway:{cold:120,mild:168},combined:{cold:140,mild:208}}},
+{reg:'EV23 MNP',v:'Merc EQA',d:'Laura King',wltp:263,orbis:198,kwh:3.3,oes:75,soh:95,evdb:{city:{cold:205,mild:332},highway:{cold:155,mild:208},combined:{cold:178,mild:258}}},
+{reg:'EV24 QRS',v:'BMW iX3',d:'Kevin Smith',wltp:285,orbis:218,kwh:3.5,oes:79,soh:96,evdb:{city:{cold:224,mild:360},highway:{cold:170,mild:225},combined:{cold:194,mild:280}}},
+{reg:'EV25 TUV',v:'Audi Q4 e-tron',d:'Nigel Cross',wltp:312,orbis:234,kwh:3.4,oes:77,soh:94,evdb:{city:{cold:245,mild:395},highway:{cold:185,mild:245},combined:{cold:212,mild:308}}},
+{reg:'EV26 WXY',v:'Polestar 2',d:'Amy Collins',wltp:341,orbis:252,kwh:3.6,oes:82,soh:97,evdb:{city:{cold:268,mild:430},highway:{cold:205,mild:270},combined:{cold:232,mild:338}}},
+{reg:'EV27 ABC',v:'Toyota bZ4X',d:'Wendy Hale',wltp:280,orbis:210,kwh:3.3,oes:74,soh:95,evdb:{city:{cold:220,mild:354},highway:{cold:165,mild:220},combined:{cold:190,mild:275}}},
+{reg:'EV28 DEF',v:'Kia Niro EV',d:'Fiona Grant',wltp:285,orbis:222,kwh:3.6,oes:80,soh:97,evdb:{city:{cold:224,mild:360},highway:{cold:168,mild:225},combined:{cold:194,mild:280}}},
+{reg:'EV29 GHI',v:'Hyundai Kona EV',d:'Dan Hughes',wltp:305,orbis:232,kwh:3.5,oes:78,soh:96,evdb:{city:{cold:240,mild:385},highway:{cold:180,mild:240},combined:{cold:208,mild:300}}},
+{reg:'EV30 JKL',v:'VW ID.5 GTX',d:'Chloe Barnes',wltp:322,orbis:238,kwh:3.4,oes:76,soh:95,evdb:{city:{cold:252,mild:405},highway:{cold:192,mild:255},combined:{cold:220,mild:318}}},
+{reg:'EV31 MNP',v:'Tesla Model Y LR',d:'Gary Mills',wltp:373,orbis:286,kwh:4.0,oes:88,soh:97,evdb:{city:{cold:295,mild:470},highway:{cold:225,mild:300},combined:{cold:256,mild:372}}},
+{reg:'EV32 QRS',v:'Ford Explorer EV',d:'Diane Hart',wltp:340,orbis:254,kwh:3.5,oes:78,soh:95,evdb:{city:{cold:268,mild:428},highway:{cold:202,mild:268},combined:{cold:232,mild:336}}},
+{reg:'EV33 TUV',v:'Volkswagen ID.7',d:'Pete Allen',wltp:382,orbis:290,kwh:3.8,oes:85,soh:97,evdb:{city:{cold:302,mild:480},highway:{cold:228,mild:305},combined:{cold:262,mild:380}}},
+{reg:'EV34 WXY',v:'BMW iX xDrive40',d:'Chris Wood',wltp:372,orbis:278,kwh:3.4,oes:77,soh:94,evdb:{city:{cold:292,mild:468},highway:{cold:222,mild:295},combined:{cold:254,mild:368}}},
+{reg:'EV35 ABC',v:'Merc EQB',d:'Helen Price',wltp:243,orbis:186,kwh:3.2,oes:72,soh:95,evdb:{city:{cold:190,mild:308},highway:{cold:142,mild:192},combined:{cold:164,mild:238}}},
+{reg:'EV36 DEF',v:'Hyundai Ioniq 6',d:'Lucy Evans',wltp:382,orbis:294,kwh:4.1,oes:87,soh:97,evdb:{city:{cold:300,mild:482},highway:{cold:228,mild:305},combined:{cold:260,mild:380}}},
+{reg:'EV37 GHI',v:'BYD Seal',d:'Karen White',wltp:354,orbis:264,kwh:3.6,oes:80,soh:96,evdb:{city:{cold:278,mild:446},highway:{cold:212,mild:280},combined:{cold:242,mild:350}}},
+{reg:'EV38 JKL',v:'MG5 EV',d:'Ben Taylor',wltp:250,orbis:192,kwh:3.4,oes:75,soh:95,evdb:{city:{cold:196,mild:316},highway:{cold:148,mild:198},combined:{cold:170,mild:245}}},
+{reg:'EV39 MNP',v:'Nissan Ariya 87',d:'Steve Morris',wltp:310,orbis:228,kwh:3.3,oes:74,soh:94,evdb:{city:{cold:244,mild:392},highway:{cold:184,mild:245},combined:{cold:212,mild:306}}},
+{reg:'EV40 QRS',v:'Renault Scenic E',d:'Phil Ward',wltp:385,orbis:288,kwh:3.7,oes:83,soh:97,evdb:{city:{cold:304,mild:486},highway:{cold:230,mild:306},combined:{cold:264,mild:382}}},
+{reg:'EV41 TUV',v:'Volvo EX30',d:'Matt Young',wltp:298,orbis:228,kwh:3.5,oes:79,soh:98,evdb:{city:{cold:234,mild:376},highway:{cold:178,mild:236},combined:{cold:204,mild:294}}},
+{reg:'EV42 WXY',v:'Tesla Model 3 SR',d:'Sandra Bell',wltp:305,orbis:236,kwh:3.8,oes:82,soh:97,evdb:{city:{cold:240,mild:386},highway:{cold:182,mild:242},combined:{cold:208,mild:302}}},
+{reg:'EV43 ABC',v:'Audi Q8 e-tron',d:'Brian Cook',wltp:373,orbis:268,kwh:3.2,oes:72,soh:93,evdb:{city:{cold:294,mild:470},highway:{cold:222,mild:296},combined:{cold:254,mild:370}}},
+{reg:'EV44 DEF',v:'BMW i4',d:'Tracey Dunn',wltp:365,orbis:276,kwh:3.7,oes:81,soh:96,evdb:{city:{cold:288,mild:460},highway:{cold:218,mild:290},combined:{cold:250,mild:362}}},
+{reg:'EV45 GHI',v:'Kia EV9',d:'Neil Watts',wltp:336,orbis:246,kwh:3.2,oes:73,soh:95,evdb:{city:{cold:264,mild:424},highway:{cold:200,mild:266},combined:{cold:230,mild:332}}},
+{reg:'EV46 JKL',v:'VW ID.Buzz',d:'Jane Bishop',wltp:264,orbis:198,kwh:3.0,oes:68,soh:94,evdb:{city:{cold:208,mild:334},highway:{cold:156,mild:208},combined:{cold:180,mild:260}}},
+{reg:'EV47 MNP',v:'Polestar 4',d:'Rebecca Fox',wltp:380,orbis:286,kwh:3.7,oes:82,soh:97,evdb:{city:{cold:300,mild:480},highway:{cold:226,mild:302},combined:{cold:260,mild:378}}},
+{reg:'EV48 QRS',v:'Toyota bZ4X',d:'Ian Webb',wltp:280,orbis:214,kwh:3.4,oes:76,soh:96,evdb:{city:{cold:220,mild:354},highway:{cold:166,mild:220},combined:{cold:190,mild:276}}}
+);
+
+/* CHARGING DATA */
+var CD=[
+{r:'EV01 ABC',v:'Tesla Model 3',d:'Tom Brown',s:18,k:312,a:24,ae:70,loc:'home',op:46},
+{r:'EV03 GHI',v:'BMW iX1',d:'Emma Davis',s:12,k:198,a:15,ae:56,loc:'home',op:41},
+{r:'EV07 QRS',v:'Kia EV6',d:'Mike Cooper',s:22,k:510,a:332,ae:342,loc:'rapid',op:10},
+{r:'EV02 DEF',v:'VW ID.4',d:'Sarah Johnson',s:15,k:264,a:21,ae:63,loc:'home',op:42},
+{r:'EV04 JKL',v:'Mercedes EQC',d:'Lisa Taylor',s:20,k:480,a:298,ae:306,loc:'rapid',op:8},
+{r:'EV05 MNP',v:'Ioniq 5',d:'Mark Thompson',s:14,k:238,a:19,ae:56,loc:'home',op:37},
+{r:'EV08 TUV',v:'Nissan Leaf',d:'Jenny Walsh',s:16,k:210,a:16,ae:49,loc:'home',op:33},
+{r:'EV09 RST',v:'Nissan Ariya',d:'Rob Marsh',s:18,k:324,a:186,ae:198,loc:'mixed',op:12},
+{r:'EV10 WXY',v:'Peugeot e-208',d:'Rebecca Fox',s:10,k:156,a:12,ae:42,loc:'home',op:30},
+{r:'EV11 ABC',v:'Renault Megane E',d:'Ian Webb',s:13,k:208,a:16,ae:52,loc:'home',op:36},
+{r:'EV12 DEF',v:'Cupra Born',d:'Alex Reed',s:11,k:178,a:14,ae:44,loc:'home',op:30},
+{r:'EV13 GHI',v:'MG4 EV',d:'Neil Watts',s:14,k:224,a:17,ae:54,loc:'home',op:37},
+{r:'EV14 JKL',v:'Skoda Enyaq',d:'Debbie Nash',s:16,k:286,a:22,ae:66,loc:'home',op:44},
+{r:'EV15 MNP',v:'Volvo C40',d:'Simon Carter',s:12,k:198,a:46,ae:52,loc:'work',op:6},
+{r:'EV16 QRS',v:'Mustang ME',d:'Craig Hunt',s:24,k:552,a:362,ae:378,loc:'rapid',op:16},
+{r:'EV17 TUV',v:'Mini Electric',d:'Tony Black',s:8,k:102,a:8,ae:28,loc:'home',op:20},
+{r:'EV18 WXY',v:'Honda e:Ny1',d:'Maria Lopez',s:11,k:176,a:14,ae:42,loc:'home',op:28},
+{r:'EV19 ABC',v:'Fiat 500e',d:'Susan Day',s:9,k:118,a:9,ae:32,loc:'home',op:23},
+{r:'EV20 DEF',v:'BYD Atto 3',d:'Tracey Dunn',s:14,k:228,a:18,ae:52,loc:'home',op:34},
+{r:'EV21 GHI',v:'MG ZS EV',d:'Oliver Stone',s:15,k:242,a:62,ae:68,loc:'work',op:6},
+{r:'EV22 JKL',v:'Mokka-e',d:'Jane Bishop',s:10,k:148,a:11,ae:38,loc:'home',op:27},
+{r:'EV23 MNP',v:'Merc EQA',d:'Laura King',s:13,k:212,a:16,ae:50,loc:'home',op:34},
+{r:'EV24 QRS',v:'BMW iX3',d:'Kevin Smith',s:15,k:258,a:20,ae:60,loc:'home',op:40},
+{r:'EV25 TUV',v:'Audi Q4 e-tron',d:'Nigel Cross',s:17,k:298,a:24,ae:68,loc:'home',op:44},
+{r:'EV26 WXY',v:'Polestar 2',d:'Amy Collins',s:16,k:278,a:22,ae:64,loc:'home',op:42},
+{r:'EV27 ABC',v:'Toyota bZ4X',d:'Wendy Hale',s:14,k:232,a:18,ae:54,loc:'home',op:36},
+{r:'EV28 DEF',v:'Kia Niro EV',d:'Fiona Grant',s:13,k:214,a:17,ae:50,loc:'home',op:33},
+{r:'EV29 GHI',v:'Hyundai Kona',d:'Dan Hughes',s:15,k:252,a:20,ae:58,loc:'home',op:38},
+{r:'EV30 JKL',v:'VW ID.5 GTX',d:'Chloe Barnes',s:18,k:318,a:26,ae:72,loc:'home',op:46},
+{r:'EV31 MNP',v:'Tesla Model Y',d:'Gary Mills',s:20,k:348,a:27,ae:78,loc:'home',op:51},
+{r:'EV32 QRS',v:'Ford Explorer',d:'Diane Hart',s:16,k:280,a:22,ae:64,loc:'home',op:42},
+{r:'EV33 TUV',v:'VW ID.7',d:'Pete Allen',s:17,k:296,a:23,ae:68,loc:'home',op:45},
+{r:'EV34 WXY',v:'BMW iX',d:'Chris Wood',s:19,k:342,a:178,ae:192,loc:'mixed',op:14},
+{r:'EV35 ABC',v:'Merc EQB',d:'Helen Price',s:14,k:228,a:18,ae:52,loc:'home',op:34},
+{r:'EV36 DEF',v:'Hyundai Ioniq 6',d:'Lucy Evans',s:16,k:268,a:21,ae:62,loc:'home',op:41},
+{r:'EV37 GHI',v:'BYD Seal',d:'Karen White',s:18,k:312,a:24,ae:70,loc:'home',op:46},
+{r:'EV38 JKL',v:'MG5 EV',d:'Ben Taylor',s:12,k:192,a:15,ae:44,loc:'home',op:29},
+{r:'EV39 MNP',v:'Nissan Ariya 87',d:'Steve Morris',s:15,k:264,a:136,ae:148,loc:'mixed',op:12},
+{r:'EV40 QRS',v:'Renault Scenic E',d:'Phil Ward',s:14,k:236,a:18,ae:54,loc:'home',op:36},
+{r:'EV41 TUV',v:'Volvo EX30',d:'Matt Young',s:11,k:168,a:13,ae:40,loc:'home',op:27},
+{r:'EV42 WXY',v:'Tesla Model 3 SR',d:'Sandra Bell',s:15,k:248,a:19,ae:58,loc:'home',op:39},
+{r:'EV43 ABC',v:'Audi Q8 e-tron',d:'Brian Cook',s:20,k:382,a:242,ae:258,loc:'rapid',op:16},
+{r:'EV44 DEF',v:'BMW i4',d:'Tracey Dunn',s:16,k:272,a:21,ae:62,loc:'home',op:41},
+{r:'EV45 GHI',v:'Kia EV9',d:'Neil Watts',s:18,k:324,a:168,ae:180,loc:'mixed',op:12},
+{r:'EV46 JKL',v:'VW ID.Buzz',d:'Jane Bishop',s:14,k:232,a:18,ae:54,loc:'home',op:36},
+{r:'EV47 MNP',v:'Polestar 4',d:'Rebecca Fox',s:17,k:294,a:23,ae:66,loc:'home',op:43},
+{r:'EV48 QRS',v:'Toyota bZ4X',d:'Ian Webb',s:13,k:216,a:17,ae:50,loc:'home',op:33},
+{r:'EV49 TUV',v:'Ford E-Transit',d:'Craig Hunt',s:22,k:396,a:31,ae:88,loc:'work',op:57},
+{r:'EV50 WXY',v:'Merc eVito',d:'Sandra Bell',s:20,k:342,a:27,ae:76,loc:'work',op:49}
+];
+
+/* MAINTENANCE DATA */
+var XD=[
+{r:'AB12 CDE',v:'Ford Transit',h:'critical',al:'Brakes',sv:'25 Mar',ty:'1 low',sh:'\u2014',ut:92,co:680},
+{r:'EV09 RST',v:'Nissan Ariya',h:'critical',al:'Battery',sv:'15 May',ty:'OK',sh:'84%',ut:71,co:1200},
+{r:'EF56 GHI',v:'VW Transporter',h:'attention',al:'Overdue',sv:'Overdue',ty:'OK',sh:'\u2014',ut:85,co:520},
+{r:'EV01 ABC',v:'Tesla Model 3',h:'healthy',al:'None',sv:'3 Apr',ty:'OK',sh:'96%',ut:89,co:180},
+{r:'GH22 MNP',v:'Volvo XC40',h:'attention',al:'Coolant',sv:'18 Apr',ty:'OK',sh:'\u2014',ut:78,co:340},
+{r:'BD21 VWX',v:'BMW 320d',h:'healthy',al:'None',sv:'12 May',ty:'OK',sh:'\u2014',ut:94,co:120},
+{r:'EV02 DEF',v:'VW ID.4',h:'healthy',al:'None',sv:'28 Apr',ty:'OK',sh:'97%',ut:88,co:150},
+{r:'EF19 JKL',v:'Audi A4',h:'attention',al:'Tyres',sv:'2 Apr',ty:'2 low',sh:'\u2014',ut:91,co:460},
+{r:'ST23 MNP',v:'Kia EV6',h:'healthy',al:'None',sv:'20 May',ty:'OK',sh:'96%',ut:82,co:90},
+{r:'UV22 QRS',v:'BMW iX1',h:'healthy',al:'None',sv:'8 Jun',ty:'OK',sh:'95%',ut:76,co:140},
+{r:'HY02 STU',v:'BMW 330e',h:'attention',al:'Oil',sv:'1 Apr',ty:'OK',sh:'\u2014',ut:87,co:280},
+{r:'JP21 ABC',v:'BMW 530e',h:'healthy',al:'None',sv:'15 Apr',ty:'OK',sh:'\u2014',ut:83,co:200},
+{r:'MN22 FGH',v:'VW ID.4',h:'healthy',al:'None',sv:'22 Apr',ty:'OK',sh:'\u2014',ut:90,co:110},
+{r:'KL20 RST',v:'Ford Focus',h:'attention',al:'Brakes',sv:'10 Apr',ty:'1 low',sh:'\u2014',ut:86,co:380},
+{r:'AB23 CDE',v:'VW Passat',h:'healthy',al:'None',sv:'5 May',ty:'OK',sh:'\u2014',ut:88,co:160},
+{r:'CD24 EFG',v:'Tesla Model Y',h:'healthy',al:'None',sv:'18 May',ty:'OK',sh:'97%',ut:91,co:90},
+{r:'EV03 GHI',v:'BMW iX1',h:'healthy',al:'None',sv:'2 Jun',ty:'OK',sh:'95%',ut:79,co:130},
+{r:'EV04 JKL',v:'Mercedes EQC',h:'critical',al:'SoH 78%',sv:'28 Mar',ty:'OK',sh:'78%',ut:68,co:1800},
+{r:'EV05 MNP',v:'Ioniq 5',h:'healthy',al:'None',sv:'12 May',ty:'OK',sh:'94%',ut:84,co:120},
+{r:'TU23 MNP',v:'Hyundai Tucson',h:'healthy',al:'None',sv:'25 Apr',ty:'OK',sh:'\u2014',ut:82,co:140},
+{r:'WX21 QRS',v:'Kia Sportage',h:'healthy',al:'None',sv:'8 May',ty:'OK',sh:'\u2014',ut:80,co:160},
+{r:'YZ22 ABC',v:'Volvo XC60',h:'attention',al:'Filter',sv:'30 Mar',ty:'OK',sh:'\u2014',ut:86,co:220},
+{r:'DE23 HIJ',v:'Merc C-Class',h:'healthy',al:'None',sv:'14 May',ty:'OK',sh:'\u2014',ut:84,co:180},
+{r:'FG21 KLM',v:'Ford Puma',h:'healthy',al:'None',sv:'22 May',ty:'OK',sh:'\u2014',ut:78,co:100},
+{r:'VW22 DEF',v:'Renault Arkana',h:'healthy',al:'None',sv:'6 Jun',ty:'OK',sh:'\u2014',ut:82,co:130},
+{r:'HK23 TUV',v:'VW Golf',h:'healthy',al:'None',sv:'18 Apr',ty:'OK',sh:'\u2014',ut:90,co:110},
+{r:'EV10 WXY',v:'Peugeot e-208',h:'healthy',al:'None',sv:'28 May',ty:'OK',sh:'97%',ut:74,co:80},
+{r:'EV11 ABC',v:'Renault Megane E',h:'healthy',al:'None',sv:'10 Jun',ty:'OK',sh:'96%',ut:81,co:100},
+{r:'EV12 DEF',v:'Cupra Born',h:'healthy',al:'None',sv:'2 May',ty:'OK',sh:'95%',ut:78,co:110},
+{r:'EV13 GHI',v:'MG4 EV',h:'healthy',al:'None',sv:'15 May',ty:'OK',sh:'98%',ut:86,co:70},
+{r:'BA22 DEF',v:'Ford E-Transit',h:'attention',al:'Tyres',sv:'5 Apr',ty:'2 worn',sh:'\u2014',ut:94,co:480},
+{r:'EV14 JKL',v:'Skoda Enyaq',h:'healthy',al:'None',sv:'20 May',ty:'OK',sh:'96%',ut:82,co:90},
+{r:'EV15 MNP',v:'Volvo C40',h:'healthy',al:'None',sv:'1 Jun',ty:'OK',sh:'94%',ut:76,co:120},
+{r:'EV16 QRS',v:'Mustang ME',h:'attention',al:'Recall',sv:'12 Apr',ty:'OK',sh:'93%',ut:72,co:0},
+{r:'NP23 TUV',v:'Nissan Qashqai',h:'healthy',al:'None',sv:'8 May',ty:'OK',sh:'\u2014',ut:84,co:140},
+{r:'QR21 WXY',v:'Toyota RAV4',h:'healthy',al:'None',sv:'22 Apr',ty:'OK',sh:'\u2014',ut:80,co:160},
+{r:'LN22 GHJ',v:'Merc C 300 e',h:'healthy',al:'None',sv:'15 Apr',ty:'OK',sh:'\u2014',ut:86,co:150},
+{r:'PQ21 FGH',v:'BMW 530e',h:'healthy',al:'None',sv:'28 Apr',ty:'OK',sh:'\u2014',ut:83,co:190},
+{r:'RS22 JKL',v:'Audi Q5',h:'healthy',al:'None',sv:'10 May',ty:'OK',sh:'\u2014',ut:88,co:170},
+{r:'EF24 ABC',v:'BMW 320i',h:'healthy',al:'None',sv:'18 May',ty:'OK',sh:'\u2014',ut:90,co:130},
+{r:'GH23 DEF',v:'Merc EQA',h:'healthy',al:'None',sv:'25 May',ty:'OK',sh:'95%',ut:82,co:100},
+{r:'JK22 GHI',v:'Volvo C40',h:'healthy',al:'None',sv:'5 Jun',ty:'OK',sh:'95%',ut:74,co:110},
+{r:'EV17 TUV',v:'Mini Electric',h:'healthy',al:'None',sv:'12 Jun',ty:'OK',sh:'97%',ut:68,co:60},
+{r:'EV18 WXY',v:'Honda e:Ny1',h:'healthy',al:'None',sv:'18 Jun',ty:'OK',sh:'95%',ut:72,co:90},
+{r:'EV19 ABC',v:'Fiat 500e',h:'healthy',al:'None',sv:'22 Jun',ty:'OK',sh:'98%',ut:64,co:50},
+{r:'EV20 DEF',v:'BYD Atto 3',h:'healthy',al:'None',sv:'28 Jun',ty:'OK',sh:'96%',ut:78,co:80},
+{r:'EV21 GHI',v:'MG ZS EV',h:'healthy',al:'None',sv:'2 Jul',ty:'OK',sh:'95%',ut:80,co:70},
+{r:'DC23 GHI',v:'Merc eVito',h:'attention',al:'AdBlue',sv:'2 Apr',ty:'OK',sh:'\u2014',ut:92,co:35},
+{r:'WX24 MNP',v:'Dacia Jogger',h:'healthy',al:'None',sv:'15 Jun',ty:'OK',sh:'\u2014',ut:76,co:90},
+{r:'FE21 JKL',v:'Nissan Leaf',h:'healthy',al:'None',sv:'8 Jul',ty:'OK',sh:'93%',ut:70,co:80}
+];
+
+/* RENDER FUNCTION */
+function renderTbl(mod,pg){
+PG.page[mod]=pg;
+var data,hds,rowFn;
+if(mod==='mileage'){data=MD;hds=['Reg','Vehicle','Driver','Contract','Projected','Variance','Status','Charge','Reading'];
+rowFn=function(r){var vw=Math.min(92,Math.abs(r.va)/70);var col=r.s==='over'?'var(--tl-red)':r.s==='under'?'var(--tl-green)':'var(--covase)';var pc=r.s==='over'?'over':r.s==='under'?'under':'on-track';var chTxt=r.ch>0?'<span class="ex" style="color:var(--tl-red)">\u00a3'+r.ch.toLocaleString()+'</span>':r.s==='under'?'<span class="ex" style="color:#4a8c1a">-\u00a3'+Math.abs(Math.round(r.va*0.12))+'/mo</span>':'<span class="ex" style="color:var(--n400)">\u2014</span>';
+return '<tr><td>'+r.r+'</td><td>'+r.v+'</td><td>'+r.d+'</td><td>'+r.c.toLocaleString()+'</td><td>'+r.p.toLocaleString()+'</td><td><span class="mb"><span style="width:'+vw+'%;background:'+col+'"></span></span>'+(r.va>0?'+':'')+r.va.toLocaleString()+'</td><td><span class="pill '+pc+'">● '+(r.s==='on-track'?'On Track':r.s.charAt(0).toUpperCase()+r.s.slice(1))+'</span></td><td>'+chTxt+'</td><td style="color:var(--n400)">'+rT(times)+'</td></tr>'}}
+else if(mod==='phev'){data=PD;hds=['Reg','Vehicle','Driver','WLTP','Actual','Gap','Plug-in','Fuel Ben.','Waste/yr'];
+rowFn=function(r){var ac=r.a<35?'var(--tl-red)':r.a<60?'var(--tl-orange)':'#4a8c1a';var gc=r.g>70?'var(--tl-red)':r.g>50?'var(--tl-orange)':'#4a8c1a';var wc=r.wa>0?'var(--tl-red)':'#4a8c1a';
+return '<tr><td>'+r.r+'</td><td>'+r.v+'</td><td>'+r.d+'</td><td style="color:var(--n400)">'+r.w+'</td><td><span class="ex" style="color:'+ac+'">'+r.a+'</span></td><td style="color:'+gc+';font-weight:600">-'+r.g+'%</td><td><span class="pill '+r.pi+'">● '+r.pi.charAt(0).toUpperCase()+r.pi.slice(1)+'</span></td><td>'+r.fb+'</td><td style="color:'+wc+';font-weight:600">'+(r.wa>0?'\u00a3'+r.wa.toLocaleString():'\u00a30')+'</td></tr>'}}
+else if(mod==='ev'){data=ED;hds=['Reg','Vehicle','Driver','WLTP','ev-db','Orbis','vs ev-db','mi/kWh','OES','SoH'];
+rowFn=function(r){var evdbVal=r.evdb[evDrive][evWeather];var pct=Math.round(r.orbis/evdbVal*100)-100;var dc=pct<-30?'var(--tl-red)':pct<-15?'var(--tl-orange)':'#4a8c1a';var oc=pct<-30?'var(--tl-red)':pct<-15?'var(--tl-orange)':'inherit';var ec=r.kwh>=3.5?'#4a8c1a':r.kwh>=2.5?'var(--n700)':'var(--tl-red)';var oC=r.oes>=80?'exc':r.oes>=60?'gd':'poor';
+return '<tr><td>'+r.reg+'</td><td>'+r.v+'</td><td>'+r.d+'</td><td style="color:var(--n400)">'+r.wltp+'</td><td style="color:var(--light-indigo);font-weight:600">'+evdbVal+'</td><td style="font-weight:600;color:'+oc+'">'+r.orbis+'</td><td style="font-weight:600;color:'+dc+'">'+(pct>0?'+':'')+pct+'%</td><td style="font-weight:600;color:'+ec+'">'+r.kwh+'</td><td><span class="oes-p '+oC+'">'+r.oes+'</span></td><td>'+r.soh+'%</td></tr>'}}
+else if(mod==='charging'){data=CD;hds=['Reg','Vehicle','Driver','Sessions','kWh','Actual','AER','Location','Overpay'];
+rowFn=function(r){var lc=r.loc==='home'?'<span class="loc-p home"><span class="mi" style="font-size:14px">home</span> Home</span>':r.loc==='rapid'?'<span class="loc-p pub"><span class="mi" style="font-size:14px">ev_station</span> Rapid</span>':r.loc==='work'?'<span class="loc-p" style="background:rgba(114,108,255,.1);color:var(--pastel-blue)"><span class="mi" style="font-size:14px">business</span> Work</span>':'<span class="loc-p" style="background:var(--n100);color:var(--n600)">Mixed</span>';var opc=r.op>30?'var(--tl-red)':r.op>15?'var(--tl-orange)':'#4a8c1a';
+return '<tr><td>'+r.r+'</td><td>'+r.v+'</td><td>'+r.d+'</td><td>'+r.s+'</td><td>'+r.k+'</td><td>\u00a3'+r.a+'</td><td>\u00a3'+r.ae+'</td><td>'+lc+'</td><td><span class="ex" style="color:'+opc+'">+\u00a3'+r.op+'</span></td></tr>'}}
+else if(mod==='maintenance'){data=XD;hds=['Reg','Vehicle','Health','Alerts','Service','Tyres','SoH','Util','Cost'];
+rowFn=function(r){var hc=r.h==='critical'?'critical':r.h==='attention'?'attention':'healthy';var ac=r.al==='None'?'#4a8c1a':r.h==='critical'?'var(--tl-red)':'var(--tl-orange)';var sc=r.sv.indexOf('Overdue')>-1?'var(--tl-red)':r.sv.indexOf('Mar')>-1||r.sv.indexOf('Apr')>-1?'var(--pastel-blue)':'var(--n700)';var tc=r.ty==='OK'?'#4a8c1a':'#9a7b00';var shc=r.sh==='\u2014'?'var(--n400)':parseInt(r.sh)<90?'var(--tl-red)':'#4a8c1a';
+return '<tr><td>'+r.r+'</td><td>'+r.v+'</td><td><span class="pill '+hc+'">● '+(r.h==='attention'?'Attention':r.h.charAt(0).toUpperCase()+r.h.slice(1))+'</span></td><td style="color:'+ac+';font-weight:600">'+r.al+'</td><td style="color:'+sc+';font-weight:600">'+r.sv+'</td><td style="color:'+tc+'">'+r.ty+'</td><td style="color:'+shc+'">'+r.sh+'</td><td>'+r.ut+'%</td><td><span class="ex">\u00a3'+r.co+'</span></td></tr>'}}
+
+var total=Math.min(data.length,50);var pages=Math.ceil(total/10);var start=(pg-1)*10;var end=Math.min(start+10,total);
+var h='<div class="tbl"><table><thead><tr>';hds.forEach(function(t){h+='<th>'+t+'</th>'});h+='</tr></thead><tbody>';
+for(var i=start;i<end;i++){h+=rowFn(data[i])}
+h+='</tbody></table></div>';
+h+='<div class="pag"><span>'+(start+1)+'\u2013'+end+' of '+total+'</span><div class="pag-b">';
+for(var p=1;p<=pages;p++){h+='<div class="pg'+(p===pg?' on':'')+'" onclick="renderTbl(\''+mod+'\','+p+')">'+p+'</div>'}
+h+='</div></div>';
+document.getElementById('tbl-'+mod).innerHTML=h;
+}
+
+/* Init all tables on load */
+renderTbl('mileage',1);renderTbl('phev',1);renderTbl('ev',1);renderTbl('charging',1);renderTbl('maintenance',1);
 </script>
 </body>
 </html>
