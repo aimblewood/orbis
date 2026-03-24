@@ -286,10 +286,11 @@ td{padding:12px 14px;font-size:12px;color:var(--n700);white-space:nowrap}td:firs
 <div class="sb-nav">
 <div class="sb-group"><div class="sb-group-label">Intelligence</div>
 <a class="sb-item" data-view="mileage" onclick="switchView('mileage')"><span class="sb-icon">speed</span> Mileage Management</a>
-<a class="sb-item" data-view="phev" onclick="switchView('phev')"><span class="sb-icon">power</span> PHEV Audit</a>
-<a class="sb-item" data-view="ev" onclick="switchView('ev')"><span class="sb-icon">bolt</span> EV Performance</a>
+<a class="sb-item" data-view="phev" onclick="switchView('phev')"><span class="sb-icon">power</span> PHEV Analysis</a>
+<a class="sb-item" data-view="ev" onclick="switchView('ev')"><span class="sb-icon">bolt</span> EV Analytics</a>
 <a class="sb-item" data-view="charging" onclick="switchView('charging')"><span class="sb-icon">payments</span> Charging Costs</a>
 <a class="sb-item" data-view="maintenance" onclick="switchView('maintenance')"><span class="sb-icon">build</span> Maintenance <span class="sb-badge">2</span></a>
+<a class="sb-item" data-view="eved" onclick="switchView('eved')"><span class="sb-icon">receipt_long</span> eVED Tracker <span class="sb-badge" style="background:rgba(114,108,255,.2);color:var(--pastel-blue)">NEW</span></a>
 </div><div class="sb-divider"></div>
 <div class="sb-group"><div class="sb-group-label">Fleet</div>
 <a class="sb-item"><span class="sb-icon">directions_car</span> Fleet Management</a>
@@ -351,7 +352,7 @@ td{padding:12px 14px;font-size:12px;color:var(--n700);white-space:nowrap}td:firs
 
 <!-- 2. PHEV -->
 <div class="page-view" id="view-phev">
-<div class="page-header"><h1>PHEV Plug-in Audit</h1><p>Charging behaviour analysis &amp; fuel efficiency intelligence</p></div>
+<div class="page-header"><h1>PHEV Plug-in Analysis</h1><p>Charging behaviour analysis &amp; fuel efficiency intelligence</p></div>
 <div class="sl" style="color:var(--tl-orange)">The Hidden Cost of Unplugged PHEVs</div>
 <div class="hero-row h3">
 <div class="hc" style="border-top:3px solid var(--tl-orange)"><div class="hl">PHEVs Never Plugged In</div><div class="hv" style="color:var(--tl-orange)">7 <span style="font-size:16px;color:var(--n400);font-weight:400">of 11</span></div><div class="hs">64% on petrol only</div></div>
@@ -388,7 +389,7 @@ td{padding:12px 14px;font-size:12px;color:var(--n700);white-space:nowrap}td:firs
 <!-- 3. EV -->
 <div class="page-view" id="view-ev">
 <div class="page-header"><h1>EV Intelligence</h1><p>Real-world range, efficiency scoring &amp; driver benchmarking</p></div>
-<div class="sl" style="color:var(--light-indigo)">Fleet EV Performance</div>
+<div class="sl" style="color:var(--light-indigo)">Fleet EV Analytics</div>
 <div class="hero-row h4">
 <div class="hc" style="border-top:3px solid var(--pastel-blue)"><div class="hl">Avg Real-World Range</div><div class="hv" style="color:var(--light-indigo)">214 mi</div><div class="hs">WLTP 298 mi (72%)</div></div>
 <div class="hc" style="border-top:3px solid var(--covase)"><div class="hl">Avg Efficiency</div><div class="hv" style="color:var(--covase)">3.4 <span style="font-size:14px;font-weight:400;color:var(--n400)">mi/kWh</span></div><div class="hs">Benchmark: 3.0</div></div>
@@ -549,6 +550,105 @@ td{padding:12px 14px;font-size:12px;color:var(--n700);white-space:nowrap}td:firs
 <div id="tbl-maintenance"></div></div>
 </div>
 
+<!-- 6. eVED TRACKER -->
+<div class="page-view" id="view-eved">
+<div class="page-header"><h1>eVED Tracker</h1><p>Electric Vehicle Excise Duty — mileage estimation, variance monitoring &amp; DVLA reconciliation</p></div>
+<div class="sl" style="color:var(--pastel-blue)">Fleet eVED Summary (2028-29 Projection)</div>
+<div class="hero-row h4">
+<div class="hc" style="border-top:3px solid var(--pastel-blue)"><div class="hl">Annual eVED Liability</div><div class="hv" style="color:var(--light-indigo)">&pound;14,472</div><div class="hs">18 BEVs @ 3p/mi + 11 PHEVs @ 1.5p/mi</div></div>
+<div class="hc" style="border-top:3px solid var(--tl-red)"><div class="hl">Projected Reconciliation</div><div class="hv" style="color:var(--tl-red)">&pound;2,340</div><div class="hs">Fleet trending over estimate</div></div>
+<div class="hc" style="border-top:3px solid var(--covase)"><div class="hl">Verified by Orbis</div><div class="hv" style="color:var(--covase)">42</div><div class="hs">OEM odometer readings</div></div>
+<div class="hc" style="border-top:3px solid var(--tl-orange)"><div class="hl">Private Mileage eVED</div><div class="hv" style="color:var(--tl-orange)">&pound;1,860</div><div class="hs">Recoverable from 6 high-private drivers</div></div>
+</div>
+
+<div class="ab" style="background:linear-gradient(135deg,rgba(114,108,255,.08),rgba(114,108,255,.04));border:1px solid rgba(114,108,255,.2)">
+<div class="ab-icon" style="background:var(--pastel-blue)"><span class="mi" style="color:#fff">gavel</span></div>
+<div class="ab-text"><strong style="color:var(--light-indigo)">eVED takes effect April 2028.</strong> Orbis is tracking live mileage against DVLA estimates for all 42 vehicles. <strong style="color:var(--light-indigo)">7 vehicles</strong> projected to exceed estimates — early amendment recommended.</div>
+<div class="ab-amt" style="color:var(--light-indigo)">&pound;2,340</div>
+</div>
+
+<div class="g2">
+<div class="cd"><div class="cd-h"><div class="cd-t">Estimated vs Actual Mileage</div><span class="bdg" style="background:rgba(114,108,255,.1);color:var(--pastel-blue)">Live Tracking</span></div>
+<div class="cmp">
+<div class="cmp-r"><div class="cmp-l">BEV Fleet</div><div class="cmp-t"><div class="cmp-f" style="width:100%;background:var(--n300)">Est: 160,200 mi</div></div><div class="cmp-v" style="color:var(--n400)">160,200</div></div>
+<div class="cmp-r"><div class="cmp-l">&nbsp;</div><div class="cmp-t"><div class="cmp-f" style="width:82%;background:var(--pastel-blue)">Actual: 131,360 mi</div></div><div class="cmp-v" style="color:var(--light-indigo)">131,360</div></div>
+<div style="height:12px"></div>
+<div class="cmp-r"><div class="cmp-l">PHEV Fleet</div><div class="cmp-t"><div class="cmp-f" style="width:68%;background:var(--n300)">Est: 108,900 mi</div></div><div class="cmp-v" style="color:var(--n400)">108,900</div></div>
+<div class="cmp-r"><div class="cmp-l">&nbsp;</div><div class="cmp-t"><div class="cmp-f" style="width:58%;background:var(--tl-orange)">Actual: 92,640 mi</div></div><div class="cmp-v" style="color:var(--tl-orange)">92,640</div></div>
+</div>
+</div>
+<div class="cd"><div class="cd-h"><div class="cd-t">eVED Cost Breakdown</div></div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;justify-content:space-between;padding:10px 14px;border-radius:8px;background:var(--n50);border:1px solid var(--n200)"><div><div style="font-size:11px;color:var(--n500)">BEV (18 vehicles)</div><div style="font-family:'Outfit',sans-serif;font-size:10px;font-weight:600;color:var(--n400)">3p/mile</div></div><div style="text-align:right"><div style="font-family:'Outfit',sans-serif;font-size:18px;font-weight:800;color:var(--light-indigo)">&pound;10,908</div><div style="font-size:10px;color:var(--n400)">Est: &pound;9,612</div></div></div>
+<div style="display:flex;justify-content:space-between;padding:10px 14px;border-radius:8px;background:var(--n50);border:1px solid var(--n200)"><div><div style="font-size:11px;color:var(--n500)">PHEV (11 vehicles)</div><div style="font-family:'Outfit',sans-serif;font-size:10px;font-weight:600;color:var(--n400)">1.5p/mile</div></div><div style="text-align:right"><div style="font-family:'Outfit',sans-serif;font-size:18px;font-weight:800;color:var(--tl-orange)">&pound;3,564</div><div style="font-size:10px;color:var(--n400)">Est: &pound;3,268</div></div></div>
+<div style="display:flex;justify-content:space-between;padding:10px 14px;border-radius:8px;background:linear-gradient(135deg,var(--tl-red-l),var(--tl-orange-l));border:1px solid rgba(230,51,58,.15)"><div><div style="font-size:11px;font-weight:600;color:var(--tl-red)">Projected Reconciliation</div><div style="font-size:10px;color:var(--n500)">Additional payment at year-end</div></div><div style="font-family:'Outfit',sans-serif;font-size:18px;font-weight:800;color:var(--tl-red)">&pound;2,340</div></div>
+</div>
+</div></div>
+
+<div class="g2">
+<div class="cd"><div class="cd-h"><div class="cd-t">Driver Reassignment Tracking</div><span class="bdg" style="background:var(--covase-l);color:#0a8f86">Orbis Exclusive</span></div>
+<div style="font-size:12px;color:var(--n700);margin-bottom:12px">3 vehicles reassigned mid-year. Orbis tracks per-driver mileage with use-start/end dates for accurate eVED allocation.</div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<div style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;background:var(--n50);border:1px solid var(--n200)">
+<span class="mi" style="color:var(--covase);font-size:16px">swap_horiz</span>
+<div style="flex:1;font-size:11px"><strong style="color:var(--blue-black)">EV02 DEF</strong> — VW ID.4: Sarah Johnson (Jan–Jun) &rarr; Mark Thompson (Jul–present). eVED split: &pound;132 / &pound;108</div>
+</div>
+<div style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;background:var(--n50);border:1px solid var(--n200)">
+<span class="mi" style="color:var(--covase);font-size:16px">swap_horiz</span>
+<div style="flex:1;font-size:11px"><strong style="color:var(--blue-black)">EV05 MNP</strong> — Ioniq 5: Mark Thompson (Jan–Apr) &rarr; Claire Dawson (May–present). eVED split: &pound;89 / &pound;142</div>
+</div>
+<div style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;background:var(--n50);border:1px solid var(--n200)">
+<span class="mi" style="color:var(--covase);font-size:16px">swap_horiz</span>
+<div style="flex:1;font-size:11px"><strong style="color:var(--blue-black)">HY02 STU</strong> — BMW 330e: Rachel Green (Jan–Aug) &rarr; Phil Ward (Sep–present). eVED split: &pound;68 / &pound;24</div>
+</div>
+</div>
+</div>
+
+<div class="cd"><div class="cd-h"><div class="cd-t">Business vs Private Mileage</div><span class="bdg" style="background:var(--tl-orange-l);color:var(--tl-orange)">eVED Recovery</span></div>
+<div style="font-size:12px;color:var(--n700);margin-bottom:12px">Orbis journey tagging classifies business vs private mileage. Where private use is disproportionately high, employers can recover the private eVED portion from the driver via payroll.</div>
+<div style="display:flex;gap:12px;margin-bottom:14px">
+<div style="flex:1;padding:12px 14px;border-radius:8px;background:var(--n50);border:1px solid var(--n200);text-align:center"><div style="font-size:9px;font-weight:600;color:var(--n500);text-transform:uppercase;letter-spacing:.4px">Fleet Average</div><div style="display:flex;justify-content:center;gap:16px;margin-top:6px"><div><div style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:800;color:var(--covase)">68%</div><div style="font-size:9px;color:var(--n400)">Business</div></div><div><div style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:800;color:var(--tl-orange)">32%</div><div style="font-size:9px;color:var(--n400)">Private</div></div></div></div>
+<div style="flex:1;padding:12px 14px;border-radius:8px;background:linear-gradient(135deg,var(--tl-orange-l),var(--tl-red-l));border:1px solid rgba(255,118,80,.15);text-align:center"><div style="font-size:9px;font-weight:600;color:var(--tl-red);text-transform:uppercase;letter-spacing:.4px">Flagged Drivers</div><div style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:800;color:var(--tl-red);margin-top:6px">6</div><div style="font-size:9px;color:var(--n500)">Private &gt; 50%</div></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<div style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;background:var(--tl-red-l);border:1px solid rgba(230,51,58,.12)">
+<span class="mi" style="color:var(--tl-red);font-size:16px">warning</span>
+<div style="flex:1;font-size:11px"><strong style="color:var(--blue-black)">EV04 JKL</strong> — Lisa Taylor: <strong style="color:var(--tl-red)">78% private</strong> (7,644 mi). eVED recoverable: <strong style="color:var(--tl-red)">&pound;229</strong>/yr</div>
+</div>
+<div style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;background:var(--tl-red-l);border:1px solid rgba(230,51,58,.12)">
+<span class="mi" style="color:var(--tl-red);font-size:16px">warning</span>
+<div style="flex:1;font-size:11px"><strong style="color:var(--blue-black)">EV07 QRS</strong> — Mike Cooper: <strong style="color:var(--tl-red)">72% private</strong> (8,208 mi). eVED recoverable: <strong style="color:var(--tl-red)">&pound;246</strong>/yr</div>
+</div>
+<div style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;background:var(--tl-orange-l);border:1px solid rgba(255,118,80,.12)">
+<span class="mi" style="color:var(--tl-orange);font-size:16px">flag</span>
+<div style="flex:1;font-size:11px"><strong style="color:var(--blue-black)">UV21 NOP</strong> — Gary Price: <strong style="color:var(--tl-orange)">65% private</strong> (10,920 mi). eVED recoverable: <strong style="color:var(--tl-orange)">&pound;164</strong>/yr</div>
+</div>
+<div style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;background:var(--tl-orange-l);border:1px solid rgba(255,118,80,.12)">
+<span class="mi" style="color:var(--tl-orange);font-size:16px">flag</span>
+<div style="flex:1;font-size:11px"><strong style="color:var(--blue-black)">EV16 QRS</strong> — Craig Hunt: <strong style="color:var(--tl-orange)">61% private</strong> (8,174 mi). eVED recoverable: <strong style="color:var(--tl-orange)">&pound;245</strong>/yr</div>
+</div>
+<div style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;background:var(--tl-orange-l);border:1px solid rgba(255,118,80,.12)">
+<span class="mi" style="color:var(--tl-orange);font-size:16px">flag</span>
+<div style="flex:1;font-size:11px"><strong style="color:var(--blue-black)">YZ24 TUV</strong> — Tom Harris: <strong style="color:var(--tl-orange)">58% private</strong> (6,496 mi). eVED recoverable: <strong style="color:var(--tl-orange)">&pound;97</strong>/yr</div>
+</div>
+<div style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;background:var(--n50);border:1px solid var(--n200)">
+<span class="mi" style="color:var(--tl-yellow);font-size:16px">flag</span>
+<div style="flex:1;font-size:11px"><strong style="color:var(--blue-black)">EV30 JKL</strong> — Chloe Barnes: <strong style="color:var(--tl-yellow)">52% private</strong> (5,408 mi). eVED recoverable: <strong>&pound;162</strong>/yr</div>
+</div>
+</div>
+<div style="margin-top:12px;padding:10px 14px;border-radius:8px;background:linear-gradient(135deg,var(--tl-orange-l),rgba(255,215,46,.1));border:1px solid rgba(255,118,80,.15);display:flex;justify-content:space-between;align-items:center">
+<div style="font-size:11px;color:var(--n700)"><strong style="color:var(--blue-black)">Total recoverable from 6 drivers</strong> — payroll deduction or recharge invoice</div>
+<div style="font-family:'Outfit',sans-serif;font-size:18px;font-weight:800;color:var(--tl-orange)">&pound;1,143/yr</div>
+</div>
+<div style="font-size:10px;color:var(--n400);margin-top:10px;font-style:italic">Policy threshold: employer absorbs eVED where private use &le; 50%. Above 50%, private portion rechargeable to driver. Orbis auto-calculates split from journey tagging data.</div>
+</div></div>
+
+<div class="db deep"><div style="width:42px;height:42px;background:rgba(255,255,255,.1);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span class="mi" style="font-size:22px;color:#fff">verified</span></div><div class="db-ct"><h3>OEM Odometer Accreditation <span class="db-tag">Orbis Position</span></h3><p>Covase has submitted to the HM Treasury eVED consultation (18 Mar 2026) proposing OEM-sourced digital odometer data as an accredited alternative to physical MOT station checks. Orbis already captures timestamped, tamper-evident odometer readings via OEM APIs — ready for DVLA accreditation from day one.</p></div><div class="db-mt"><div class="db-m"><div class="v" style="color:var(--covase)">42</div><div class="l">Vehicles</div></div><div class="db-m"><div class="v" style="color:var(--pastel-blue)">24/7</div><div class="l">Live Data</div></div><div class="db-m"><div class="v" style="color:var(--tl-green)">100%</div><div class="l">Audit Trail</div></div></div></div>
+
+<div class="tw-h"><div class="tw-hd"><div class="tw-tt">eVED Vehicle Detail</div></div>
+<div id="tbl-eved"></div></div>
+</div>
+
 </div></div>
 <script>
 var evData=[
@@ -592,7 +692,7 @@ refined:{'--indigo':'#1B1B1B','--mid-indigo':'#2a2a2a','--light-indigo':'#595f39
 navy:{'--indigo':'#0F2143','--mid-indigo':'#0a1830','--light-indigo':'#354E56','--blue-black':'#080f20','--covase':'#C49A1A','--covase-l':'#faf3dd','--lilac-blue':'#d4cbb0','--pastel-blue':'#8B6212','--n50':'#f8f8f6','--n100':'#eeeee8','--n200':'#e0dfda','--n300':'#c0bfb5','--n400':'#949389','--n500':'#6e6d64','--n600':'#504f48','--n700':'#383730','--n800':'#242320','--bg':'#f4f4f1','--green-dk':'#0a1830','--green-lt':'#0F2143','--deep-dk':'#060e1a','--bar-text':'#ffffff','--tl-red':'#e6333a','--tl-red-l':'#fdeaeb','--tl-orange':'#ff7650','--tl-orange-l':'#fff0ec','--tl-yellow':'#ffd72e','--tl-yellow-l':'#fff9dd','--tl-green':'#A7EB52','--tl-green-l':'#edfcd4'}
 };
 function setTheme(id,el){var t=T[id],r=document.documentElement.style;Object.keys(t).forEach(function(k){r.setProperty(k,t[k])});document.querySelectorAll('.tp-item').forEach(function(p){p.classList.remove('on')});el.classList.add('on');document.getElementById('themePanel').classList.remove('open')}
-var VM={mileage:{t:'Mileage Management',c:'Amblewood Inc \u2014 42 Vehicles',b:'Connected Vehicle Data'},phev:{t:'PHEV Plug-in Audit',c:'Amblewood Inc \u2014 11 PHEVs',b:'Connected Vehicle Data'},ev:{t:'EV Performance',c:'Amblewood Inc \u2014 18 EVs',b:'Battery Telemetry Live'},charging:{t:'Charging Costs',c:'Amblewood Inc \u2014 18 EVs',b:'GPS + Charging Data'},maintenance:{t:'Maintenance',c:'Amblewood Inc \u2014 42 Vehicles',b:'Diagnostic Telemetry'}};
+var VM={mileage:{t:'Mileage Management',c:'Amblewood Inc \u2014 42 Vehicles',b:'Connected Vehicle Data'},phev:{t:'PHEV Plug-in Analysis',c:'Amblewood Inc \u2014 11 PHEVs',b:'Connected Vehicle Data'},ev:{t:'EV Analytics',c:'Amblewood Inc \u2014 18 EVs',b:'Battery Telemetry Live'},charging:{t:'Charging Costs',c:'Amblewood Inc \u2014 18 EVs',b:'GPS + Charging Data'},maintenance:{t:'Maintenance',c:'Amblewood Inc \u2014 42 Vehicles',b:'Diagnostic Telemetry'},eved:{t:'eVED Tracker',c:'Amblewood Inc \u2014 29 EVs/PHEVs',b:'OEM Odometer Data'}};
 function switchView(id){document.querySelectorAll('.page-view').forEach(function(v){v.classList.remove('active')});document.getElementById('view-'+id).classList.add('active');document.querySelectorAll('.sb-item').forEach(function(i){i.classList.remove('active')});var n=document.querySelector('.sb-item[data-view="'+id+'"]');if(n)n.classList.add('active');var m=VM[id];document.getElementById('tb-cl').textContent=m.c;document.getElementById('tb-bdg').textContent=m.b;window.scrollTo(0,0);if(id==='ev'){renderEV();renderTbl('ev',1)}}
 switchView('mileage');
 
@@ -643,7 +743,7 @@ t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2500);
 }
 
 /* Paginated Tables — 50 records per module, 10 per page */
-var PG={page:{mileage:1,phev:1,ev:1,charging:1,maintenance:1}};
+var PG={page:{mileage:1,phev:1,ev:1,charging:1,maintenance:1,eved:1}};
 var times=['2m','5m','12m','20m','35m','45m','1h','2h','3h','4h','6h','8h','12h','1d'];
 function rT(a){return a[Math.floor(Math.random()*a.length)]}
 
@@ -911,6 +1011,60 @@ var XD=[
 {r:'FE21 JKL',v:'Nissan Leaf',h:'healthy',al:'None',sv:'8 Jul',ty:'OK',sh:'93%',ut:70,co:80}
 ];
 
+/* eVED DATA */
+var VD=[
+{r:'EV01 ABC',v:'Tesla Model 3',d:'Tom Brown',ty:'BEV',rate:3,est:8900,act:9240,variance:340,eved:277,os:480,status:'over'},
+{r:'EV02 DEF',v:'VW ID.4',d:'Sarah Johnson',ty:'BEV',rate:3,est:9000,act:8640,variance:-360,eved:259,os:0,status:'under'},
+{r:'EV03 GHI',v:'BMW iX1',d:'Emma Davis',ty:'BEV',rate:3,est:8000,act:8420,variance:420,eved:253,os:0,status:'over'},
+{r:'EV04 JKL',v:'Mercedes EQC',d:'Lisa Taylor',ty:'BEV',rate:3,est:7500,act:9800,variance:2300,eved:294,os:0,status:'over'},
+{r:'EV05 MNP',v:'Ioniq 5',d:'Mark Thompson',ty:'BEV',rate:3,est:9500,act:8200,variance:-1300,eved:246,os:0,status:'under'},
+{r:'EV07 QRS',v:'Kia EV6',d:'Mike Cooper',ty:'BEV',rate:3,est:10000,act:11400,variance:1400,eved:342,os:0,status:'over'},
+{r:'EV08 TUV',v:'Nissan Leaf',d:'Jenny Walsh',ty:'BEV',rate:3,est:7000,act:6800,variance:-200,eved:204,os:0,status:'on-track'},
+{r:'EV09 RST',v:'Nissan Ariya',d:'Rob Marsh',ty:'BEV',rate:3,est:8500,act:9200,variance:700,eved:276,os:0,status:'over'},
+{r:'EV10 WXY',v:'Peugeot e-208',d:'Rebecca Fox',ty:'BEV',rate:3,est:6000,act:5800,variance:-200,eved:174,os:0,status:'on-track'},
+{r:'EV11 ABC',v:'Renault Megane E',d:'Ian Webb',ty:'BEV',rate:3,est:8000,act:7600,variance:-400,eved:228,os:0,status:'under'},
+{r:'EV12 DEF',v:'Cupra Born',d:'Alex Reed',ty:'BEV',rate:3,est:7500,act:7680,variance:180,eved:230,os:0,status:'on-track'},
+{r:'EV13 GHI',v:'MG4 EV',d:'Neil Watts',ty:'BEV',rate:3,est:8000,act:7400,variance:-600,eved:222,os:0,status:'under'},
+{r:'EV14 JKL',v:'Skoda Enyaq',d:'Debbie Nash',ty:'BEV',rate:3,est:9000,act:8920,variance:-80,eved:268,os:320,status:'on-track'},
+{r:'EV15 MNP',v:'Volvo C40',d:'Simon Carter',ty:'BEV',rate:3,est:7000,act:7200,variance:200,eved:216,os:0,status:'on-track'},
+{r:'EV16 QRS',v:'Mustang ME',d:'Craig Hunt',ty:'BEV',rate:3,est:12000,act:13400,variance:1400,eved:402,os:440,status:'over'},
+{r:'EV17 TUV',v:'Mini Electric',d:'Tony Black',ty:'BEV',rate:3,est:5000,act:4600,variance:-400,eved:138,os:0,status:'under'},
+{r:'EV18 WXY',v:'Honda e:Ny1',d:'Maria Lopez',ty:'BEV',rate:3,est:7500,act:7340,variance:-160,eved:220,os:0,status:'on-track'},
+{r:'GH22 MNP',v:'Volvo XC40 R',d:'David Clarke',ty:'PHEV',rate:1.5,est:15000,act:16240,variance:1240,eved:244,os:0,status:'over'},
+{r:'HY02 STU',v:'BMW 330e',d:'Rachel Green',ty:'PHEV',rate:1.5,est:12000,act:11400,variance:-600,eved:171,os:0,status:'under'},
+{r:'JP21 ABC',v:'BMW 530e',d:'Jon Plank',ty:'PHEV',rate:1.5,est:10000,act:10800,variance:800,eved:162,os:0,status:'over'},
+{r:'LN22 GHJ',v:'Merc C 300 e',d:'Paul Foster',ty:'PHEV',rate:1.5,est:12000,act:11200,variance:-800,eved:168,os:0,status:'under'},
+{r:'RT23 KLM',v:'VW Passat GTE',d:'Claire Brown',ty:'PHEV',rate:1.5,est:10000,act:10400,variance:400,eved:156,os:0,status:'on-track'},
+{r:'UV21 NOP',v:'BMW X5 45e',d:'Gary Price',ty:'PHEV',rate:1.5,est:15000,act:16800,variance:1800,eved:252,os:0,status:'over'},
+{r:'WX22 QRS',v:'Volvo XC60 R',d:'Helen Cross',ty:'PHEV',rate:1.5,est:12000,act:12600,variance:600,eved:189,os:0,status:'on-track'},
+{r:'YZ24 TUV',v:'Audi Q5 55e',d:'Tom Harris',ty:'PHEV',rate:1.5,est:10000,act:11200,variance:1200,eved:168,os:0,status:'over'},
+{r:'AB21 WXY',v:'Merc GLC 300e',d:'Lisa Young',ty:'PHEV',rate:1.5,est:12000,act:11000,variance:-1000,eved:165,os:0,status:'under'},
+{r:'CD23 ABC',v:'BMW 320e',d:'Mark Ellis',ty:'PHEV',rate:1.5,est:8000,act:7600,variance:-400,eved:114,os:0,status:'under'},
+{r:'EF22 DEF',v:'Cupra Formentor',d:'Amy Scott',ty:'PHEV',rate:1.5,est:10000,act:10200,variance:200,eved:153,os:0,status:'on-track'},
+{r:'EV19 ABC',v:'Fiat 500e',d:'Susan Day',ty:'BEV',rate:3,est:5500,act:5200,variance:-300,eved:156,os:0,status:'under'},
+{r:'EV20 DEF',v:'BYD Atto 3',d:'Tracey Dunn',ty:'BEV',rate:3,est:8000,act:7800,variance:-200,eved:234,os:0,status:'on-track'},
+{r:'EV21 GHI',v:'MG ZS EV',d:'Oliver Stone',ty:'BEV',rate:3,est:8500,act:8240,variance:-260,eved:247,os:0,status:'on-track'},
+{r:'EV22 JKL',v:'Mokka-e',d:'Jane Bishop',ty:'BEV',rate:3,est:6500,act:6800,variance:300,eved:204,os:0,status:'on-track'},
+{r:'EV23 MNP',v:'Merc EQA',d:'Laura King',ty:'BEV',rate:3,est:8000,act:7600,variance:-400,eved:228,os:0,status:'under'},
+{r:'EV24 QRS',v:'BMW iX3',d:'Kevin Smith',ty:'BEV',rate:3,est:9000,act:9400,variance:400,eved:282,os:0,status:'on-track'},
+{r:'EV25 TUV',v:'Audi Q4 e-tron',d:'Nigel Cross',ty:'BEV',rate:3,est:9500,act:10200,variance:700,eved:306,os:0,status:'over'},
+{r:'EV26 WXY',v:'Polestar 2',d:'Amy Collins',ty:'BEV',rate:3,est:10000,act:9600,variance:-400,eved:288,os:0,status:'under'},
+{r:'EV27 ABC',v:'Toyota bZ4X',d:'Wendy Hale',ty:'BEV',rate:3,est:8000,act:7800,variance:-200,eved:234,os:0,status:'on-track'},
+{r:'EV28 DEF',v:'Kia Niro EV',d:'Fiona Grant',ty:'BEV',rate:3,est:8500,act:8400,variance:-100,eved:252,os:0,status:'on-track'},
+{r:'EV29 GHI',v:'Hyundai Kona',d:'Dan Hughes',ty:'BEV',rate:3,est:9000,act:9200,variance:200,eved:276,os:0,status:'on-track'},
+{r:'EV30 JKL',v:'VW ID.5 GTX',d:'Chloe Barnes',ty:'BEV',rate:3,est:9500,act:10400,variance:900,eved:312,os:0,status:'over'},
+{r:'GH24 GHI',v:'Peugeot 3008 H',d:'Dan Mills',ty:'PHEV',rate:1.5,est:10000,act:9600,variance:-400,eved:144,os:0,status:'under'},
+{r:'JK21 JKL',v:'Volvo S60 R',d:'Sarah Lane',ty:'PHEV',rate:1.5,est:12000,act:12800,variance:800,eved:192,os:0,status:'over'},
+{r:'EV31 MNP',v:'Tesla Model Y',d:'Gary Mills',ty:'BEV',rate:3,est:10000,act:9800,variance:-200,eved:294,os:0,status:'on-track'},
+{r:'EV32 QRS',v:'Ford Explorer',d:'Diane Hart',ty:'BEV',rate:3,est:9000,act:8600,variance:-400,eved:258,os:0,status:'under'},
+{r:'LM23 MNP',v:'Land Rover P400e',d:'Rob Dixon',ty:'PHEV',rate:1.5,est:15000,act:17200,variance:2200,eved:258,os:0,status:'over'},
+{r:'NP22 QRS',v:'BMW X3 30e',d:'Emma Cook',ty:'PHEV',rate:1.5,est:10000,act:9800,variance:-200,eved:147,os:0,status:'on-track'},
+{r:'EV33 TUV',v:'VW ID.7',d:'Pete Allen',ty:'BEV',rate:3,est:10000,act:9400,variance:-600,eved:282,os:0,status:'under'},
+{r:'EV34 WXY',v:'BMW iX',d:'Chris Wood',ty:'BEV',rate:3,est:11000,act:11800,variance:800,eved:354,os:0,status:'over'},
+{r:'QR24 TUV',v:'Merc A 250 e',d:'Chris Webb',ty:'PHEV',rate:1.5,est:8000,act:7400,variance:-600,eved:111,os:0,status:'under'},
+{r:'ST21 WXY',v:'Ford Kuga PHEV',d:'Diane Hart',ty:'PHEV',rate:1.5,est:12000,act:12200,variance:200,eved:183,os:0,status:'on-track'}
+];
+
 /* RENDER FUNCTION */
 function renderTbl(mod,pg){
 PG.page[mod]=pg;
@@ -930,6 +1084,9 @@ return '<tr><td>'+r.r+'</td><td>'+r.v+'</td><td>'+r.d+'</td><td>'+r.s+'</td><td>
 else if(mod==='maintenance'){data=XD;hds=['Reg','Vehicle','Health','Alerts','Service','Tyres','SoH','Util','Cost'];
 rowFn=function(r){var hc=r.h==='critical'?'critical':r.h==='attention'?'attention':'healthy';var ac=r.al==='None'?'#4a8c1a':r.h==='critical'?'var(--tl-red)':'var(--tl-orange)';var sc=r.sv.indexOf('Overdue')>-1?'var(--tl-red)':r.sv.indexOf('Mar')>-1||r.sv.indexOf('Apr')>-1?'var(--pastel-blue)':'var(--n700)';var tc=r.ty==='OK'?'#4a8c1a':'#9a7b00';var shc=r.sh==='\u2014'?'var(--n400)':parseInt(r.sh)<90?'var(--tl-red)':'#4a8c1a';
 return '<tr><td>'+r.r+'</td><td>'+r.v+'</td><td><span class="pill '+hc+'">● '+(r.h==='attention'?'Attention':r.h.charAt(0).toUpperCase()+r.h.slice(1))+'</span></td><td style="color:'+ac+';font-weight:600">'+r.al+'</td><td style="color:'+sc+';font-weight:600">'+r.sv+'</td><td style="color:'+tc+'">'+r.ty+'</td><td style="color:'+shc+'">'+r.sh+'</td><td>'+r.ut+'%</td><td><span class="ex">\u00a3'+r.co+'</span></td></tr>'}}
+else if(mod==='eved'){data=VD;hds=['Reg','Vehicle','Driver','Type','Rate','Estimate','Actual','Variance','eVED','Status'];
+rowFn=function(r){var vc=r.variance>500?'var(--tl-red)':r.variance>0?'var(--tl-orange)':r.variance<-500?'#4a8c1a':'var(--n700)';var sc=r.status==='over'?'over':r.status==='under'?'under':'on-track';var tc=r.ty==='BEV'?'color:var(--pastel-blue)':'color:var(--tl-orange)';
+return '<tr><td>'+r.r+'</td><td>'+r.v+'</td><td>'+r.d+'</td><td style="'+tc+';font-weight:600">'+r.ty+'</td><td>'+r.rate+'p</td><td style="color:var(--n400)">'+r.est.toLocaleString()+'</td><td style="font-weight:600">'+r.act.toLocaleString()+'</td><td style="font-weight:600;color:'+vc+'">'+(r.variance>0?'+':'')+r.variance.toLocaleString()+'</td><td style="font-family:Outfit,sans-serif;font-weight:700;color:var(--light-indigo)">\u00a3'+r.eved+'</td><td><span class="pill '+sc+'">● '+(r.status==='on-track'?'On Track':r.status.charAt(0).toUpperCase()+r.status.slice(1))+'</span></td></tr>'}}
 
 var total=Math.min(data.length,50);var pages=Math.ceil(total/10);var start=(pg-1)*10;var end=Math.min(start+10,total);
 var h='<div class="tbl"><table><thead><tr>';hds.forEach(function(t){h+='<th>'+t+'</th>'});h+='</tr></thead><tbody>';
@@ -942,7 +1099,7 @@ document.getElementById('tbl-'+mod).innerHTML=h;
 }
 
 /* Init all tables on load */
-renderTbl('mileage',1);renderTbl('phev',1);renderTbl('ev',1);renderTbl('charging',1);renderTbl('maintenance',1);
+renderTbl('mileage',1);renderTbl('phev',1);renderTbl('ev',1);renderTbl('charging',1);renderTbl('maintenance',1);renderTbl('eved',1);
 </script>
 </body>
 </html>
